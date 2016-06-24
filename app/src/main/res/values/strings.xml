@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">niuGIS Viewer</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="android_studio_android_com">android.studio@android.com</string>
+    <string name="android_studio">niuGIS Viewer</string>
+    <string name="powered_by_novageo">Powered By NovaGeo</string>
+    <string name="String_about">About</string>
+    <string name="String_contactos">Contactos</string>
+    <string name="contato_c_mara_municipal_da_amadora">Contato C.M da Amadora</string>
+    <string name="v0_2_niugis_viewer">v0.2 niuGIS Viewer</string>
+    <string name="tel_214_369_000">Tel.:214 369 000</string>
+    <string name="email_geral_cm_amadora_pt">Email:geral@cm-amadora.pt</string>
+    <string name="email_info_novageo_com">Email:info@novageo.com</string>
+    <string name="tel_214_213_262">Tel.:214 213 262</string>
+    <string name="fax_214_213_929">Fax.:214 213 929</string>
+    <string name="contatos_novageo">Contatos Novageo</string>
+    <string name="mudar_mapa">Mudar Mapa</string>
+</resources>
