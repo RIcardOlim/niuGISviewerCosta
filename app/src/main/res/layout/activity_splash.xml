@@ -16,14 +16,17 @@
         android:layout_marginTop="105dp" />
 
     <TextView
-        android:layout_width="fill_parent"
+        android:id="@+id/powered"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:textSize="12dp"
-        android:textColor="#454545"
-        android:gravity="center_horizontal"
-        android:layout_alignParentBottom="true"
+        android:drawableRight="@drawable/novageo_trans"
         android:text="@string/powered_by_novageo"
-        android:id="@+id/textView8" />
+        android:textAlignment="gravity"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
 
 </RelativeLayout>

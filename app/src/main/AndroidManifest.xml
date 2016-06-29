@@ -30,6 +30,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
+        android:name="android.support.Parent_Activity"
+        android:value="usuario.app.testarmenu.MainActivity" />
+
+
+        <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         <meta-data
@@ -47,7 +52,7 @@
 
         <activity
             android:name=".Activity_cma"
-            android:label="Contacto da C.M"
+            android:label="Contacto da J.F."
             android:parentActivityName=".MainActivity" />
 
         <meta-data
@@ -63,9 +68,15 @@
             android:name="android.support.PARENT_ACTIVITY"
             android:value="usuario.app.testarmenu.MainActivity" />
 
+        <activity
+            android:name=".Activity_escola"
+            android:label="@string/escola_secund_ria_matias_aires"
+            android:parentActivityName=".MainActivity" />
+
         <meta-data
-            android:name="android.support.Parent_Activity"
+            android:name="android.support.PARENT_ACTIVITY"
             android:value="usuario.app.testarmenu.MainActivity" />
+
 
     </application>
 
