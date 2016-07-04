@@ -5,19 +5,33 @@
         <item
             android:id="@+id/nav_camera"
             android:title="@string/mudar_mapa" />
-    </group>
+        </group>
 
-    <group android:checkableBehavior="all">
-    <item android:title="@string/layers">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:title="@string/vias"/>
-            <item
-                android:id="@+id/nav_send"
-                android:title="@string/edif_cios" />
+    <group xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+        <item
+            android:id="@+id/action_about"
+            android:orderInCategory="1"
+            android:title="@string/String_about"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/action_contacto"
+            android:orderInCategory="2"
+            android:title="@string/contato_c_mara_municipal_da_amadora"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/action_contacto2"
+            android:orderInCategory="3"
+            android:title="@string/contatos_novageo"
+            app:showAsAction="never" />
 
-        </menu>
-    </item>
-            </group>
+        <item
+            android:id="@+id/action_contacto3"
+            android:orderInCategory="4"
+            android:title="@string/escola_secund_ria_matias_aires"
+            app:showAsAction="never" />
+
+        </group>
+
+
 </menu>

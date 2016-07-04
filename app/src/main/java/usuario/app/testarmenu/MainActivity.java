@@ -45,18 +45,18 @@ public class MainActivity extends AppCompatActivity
         mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('28ef66cda0ee9a2eb81df5a79e898517', 'edificios', 1);");
         mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('ab2cc899ed871afd2152e997c3934eac', 'vias', 1);");
         mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('6406445d84559cbfe7d072f76438ff1d', 'ferrovias', 1);");
-        mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('b55d05c572d87837cb2c498f931f9d27', 'bancos', 1);");
-        mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('6168ea2df006cf2d0e104e7be88dff1b', 'bombas_gasolina', 1);");
-        mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('2d88045660bbf8fe2ce8a09a4af033ed', 'bombeiros', 1);");
-        mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('482bff4aebbd878a0660dd36d0505cc4', 'cafes', 1);");
-        mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('3541759ddf6a06a78ba914b2f56f9b44', 'conservatoria_registo_predial', 1);");
-        mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('37b9bad64eb1858d5b698095b7bc129c', 'correio', 1);");
-        mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('adfdd03c65e9dd24a7cddcab99c35162', 'escola', 1);");
-        mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('929aed75a215d6aeddd5e73c2f8ce206', 'estaçao_comboio', 1);");
-        mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('7799240f8dbd39c1f6fe306bcfa0f145', 'farmacias', 1);");
-        mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('610f3e271d9a29235ab5abc45d6e6e38', 'policia', 1);");
-        mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('73b4b7160e10fe06f4f2aa2d0c832163', 'restaurante', 1);");
-        mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('aa0d5ea150c6698d7a9dd3eb20fc7703', 'supermercados', 1);");
+        mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('b55d05c572d87837cb2c498f931f9d27', 'bancos', 0);");
+        mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('6168ea2df006cf2d0e104e7be88dff1b', 'bombas_gasolina', 0);");
+        mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('2d88045660bbf8fe2ce8a09a4af033ed', 'bombeiros', 0);");
+        mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('482bff4aebbd878a0660dd36d0505cc4', 'cafes', 0);");
+        mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('3541759ddf6a06a78ba914b2f56f9b44', 'conservatoria_registo_predial', 0);");
+        mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('37b9bad64eb1858d5b698095b7bc129c', 'correio', 0);");
+        mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('adfdd03c65e9dd24a7cddcab99c35162', 'escola', 0);");
+        mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('929aed75a215d6aeddd5e73c2f8ce206', 'estaçao_comboio', 0);");
+        mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('7799240f8dbd39c1f6fe306bcfa0f145', 'farmacias', 0);");
+        mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('610f3e271d9a29235ab5abc45d6e6e38', 'policia', 0);");
+        mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('73b4b7160e10fe06f4f2aa2d0c832163', 'restaurante', 0);");
+        mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('aa0d5ea150c6698d7a9dd3eb20fc7703', 'supermercados', 0);");
 
         setUpMapIfNeeded();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -77,8 +77,9 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         mapFragment.getMapAsync(this);
-
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -96,39 +97,15 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
         getMenuInflater().inflate(R.menu.layers_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent about = new Intent(this, Activity_about.class);
-        Intent cma = new Intent(this, Activity_cma.class);
-        Intent ng = new Intent(this, Activity_ng.class);
-        Intent es = new Intent(this, Activity_escola.class);
 
         int id = item.getItemId();
 
-        if (id == R.id.action_about) {
-            startActivity(about);
-            return true;
-        }
-
-        if (id == R.id.action_contacto) {
-            startActivity(cma);
-            return true;
-        }
-
-        if (id == R.id.action_contacto2) {
-            startActivity(ng);
-            return true;
-        }
-
-        if (id == R.id.action_contacto3) {
-            startActivity(es);
-            return true;
-        }
         if (id == R.id.layersmenu) {
             return true;
         }
@@ -148,12 +125,13 @@ public class MainActivity extends AppCompatActivity
         }
 
         if(id == R.id.layer2){
-            Toast.makeText(MainActivity.this, "Edificios", Toast.LENGTH_LONG).show();
             if (item.isChecked()) {
                 item.setChecked(false);
+                Toast.makeText(MainActivity.this, "Edificios", Toast.LENGTH_LONG).show();
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='edificios';");
             } else {
                 item.setChecked(true);
+                Toast.makeText(MainActivity.this, "Desligar Edificios", Toast.LENGTH_LONG).show();
                 this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='edificios';");
             }
         }
@@ -322,17 +300,30 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-
+        Intent about = new Intent(this, Activity_about.class);
+        Intent cma = new Intent(this, Activity_cma.class);
+        Intent ng = new Intent(this, Activity_ng.class);
+        Intent es = new Intent(this, Activity_escola.class);
         int id = item.getItemId();
+
+
 
         if (id == R.id.nav_camera) {
             if(mMap.getMapType() == GoogleMap.MAP_TYPE_NORMAL) {
                 mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
             } else mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        } else if (id == R.id.nav_share) {
-            Toast.makeText(MainActivity.this, "Vias", Toast.LENGTH_LONG).show();
-        } else if (id == R.id.nav_send) {
-            Toast.makeText(MainActivity.this, "Edifícios", Toast.LENGTH_LONG).show();
+        } else if (id == R.id.action_about) {
+            startActivity(about);
+            return true;
+        } else if (id == R.id.action_contacto) {
+            startActivity(cma);
+            return true;
+        } else if (id == R.id.action_contacto2) {
+            startActivity(ng);
+            return true;
+        } else if (id == R.id.action_contacto3) {
+            startActivity(es);
+            return true;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

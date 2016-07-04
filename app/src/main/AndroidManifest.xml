@@ -52,7 +52,7 @@
 
         <activity
             android:name=".Activity_cma"
-            android:label="Contacto da J.F."
+            android:label="@string/contato_c_mara_municipal_da_amadora"
             android:parentActivityName=".MainActivity" />
 
         <meta-data
@@ -61,7 +61,7 @@
 
         <activity
             android:name=".Activity_ng"
-            android:label="Contacto Novageo"
+            android:label="@string/contatos_novageo"
             android:parentActivityName=".MainActivity" />
 
         <meta-data

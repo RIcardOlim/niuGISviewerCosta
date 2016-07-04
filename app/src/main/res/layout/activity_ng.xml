@@ -15,18 +15,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/tel_214_213_262"
         android:id="@+id/textView5"
-        android:layout_above="@+id/textView6"
+        android:layout_below="@+id/imageView5"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="70dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/fax_214_213_929"
-        android:id="@+id/textView6"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="43dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -34,8 +25,17 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/email_info_novageo_com"
         android:id="@+id/textView7"
-        android:layout_below="@+id/textView6"
+        android:layout_below="@+id/textView5"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageView5"
+        android:src="@drawable/novageo_trans"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="78dp" />
+        android:layout_marginTop="90dp"
+        android:adjustViewBounds = "true"/>
 
 </RelativeLayout>
