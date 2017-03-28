@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -98,11 +99,18 @@ public void onBackPressed() {
 public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.layers_menu, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
         }
 
 @Override
 public boolean onOptionsItemSelected(MenuItem item) {
+
+
+    Intent about = new Intent(this, Activity_about.class);
+    Intent cma = new Intent(this, Activity_cma.class);
+    Intent ng = new Intent(this, Activity_ng.class);
+    Intent es = new Intent(this, Activity_escola.class);
 
         int id = item.getItemId();
 
@@ -292,6 +300,23 @@ public boolean onOptionsItemSelected(MenuItem item) {
         }
 
 
+        if (id == R.id.action_about) {
+        startActivity(about);
+        return true;
+    } else if (id == R.id.action_contacto) {
+        startActivity(cma);
+        return true;
+    } else if (id == R.id.action_contacto2) {
+        startActivity(ng);
+        return true;
+    } else if (id == R.id.action_contacto3) {
+            startActivity(es);
+            return true;
+        }
+
+
+
+
         mMap.clear();
         setUpMap();
         return super.onOptionsItemSelected(item);
@@ -302,30 +327,14 @@ public boolean onOptionsItemSelected(MenuItem item) {
 @SuppressWarnings("StatementWithEmptyBody")
 @Override
 public boolean onNavigationItemSelected(MenuItem item) {
-        Intent about = new Intent(this, Activity_about.class);
-        Intent cma = new Intent(this, Activity_cma.class);
-        Intent ng = new Intent(this, Activity_ng.class);
-        Intent es = new Intent(this, Activity_escola.class);
-        int id = item.getItemId();
 
+    int id = item.getItemId();
 
 
         if (id == R.id.nav_camera) {
         if(mMap.getMapType() == GoogleMap.MAP_TYPE_NORMAL) {
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         } else mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        } else if (id == R.id.action_about) {
-        startActivity(about);
-        return true;
-        } else if (id == R.id.action_contacto) {
-        startActivity(cma);
-        return true;
-        } else if (id == R.id.action_contacto2) {
-        startActivity(ng);
-        return true;
-        } else if (id == R.id.action_contacto3) {
-        startActivity(es);
-        return true;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
