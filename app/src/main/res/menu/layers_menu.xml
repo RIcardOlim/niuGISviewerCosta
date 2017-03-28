@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/layersmenu"
+        android:icon="@mipmap/novageo_trans"
+        android:orderInCategory="0"
+        app:showAsAction="always"
+        android:title="Layers Menu" >
+        <menu>
+            <group android:checkableBehavior="all" android:id="@+id/grupomenulayers">
+                <item
+                    android:id="@+id/layer1"
+                    android:title="Freguesia"
+                    android:visible="true"
+                    android:checkable="true"
+                    android:checked="true" />
+                <item
+                    android:id="@+id/layer2"
+                    android:title="Edificios"
+                    android:visible="true"
+                    android:checkable="true"
+                    android:checked="true" />
+                <item
+                    android:id="@+id/layer3"
+                    android:title="Vias"
+                    android:visible="true"
+                    android:checkable="true"
+                    android:checked="true" />
+                <item
+                    android:id="@+id/layer4"
+                    android:title="Ferrovias"
+                    android:visible="true"
+                    android:checkable="true"
+                    android:checked="false" />
+                <item
+                    android:id="@+id/layer6"
+                    android:title="Bombas de Gasolina"
+                    android:visible="true"
+                    android:checkable="true"
+                    android:checked="false" />
+                <item
+                    android:id="@+id/layer5"
+                    android:title="Bancos"
+                    android:visible="true"
+                    android:checkable="true"
+                    android:checked="false" />
+                <item
+                    android:id="@+id/layer7"
+                    android:title="Bombeiros"
+                    android:visible="true"
+                    android:checkable="true"
+                    android:checked="false" />
+                <item
+                android:id="@+id/layer8"
+                android:title="Cafés"
+                android:visible="true"
+                android:checkable="true"
+                android:checked="false" />
+
+                <item
+                    android:id="@+id/layer9"
+                    android:title="Estação de Comboios"
+                    android:visible="true"
+                    android:checkable="true"
+                    android:checked="false" />
+                <item
+                    android:id="@+id/layer10"
+                    android:title="Conservatório do Registo Predial"
+                    android:visible="true"
+                    android:checkable="true"
+                    android:checked="false" />
+                <item
+                    android:id="@+id/layer11"
+                    android:title="Correios"
+                    android:visible="true"
+                    android:checkable="true"
+                    android:checked="false" />
+                <item
+                    android:id="@+id/layer12"
+                    android:title="Escolas"
+                    android:visible="true"
+                    android:checkable="true"
+                    android:checked="false" />
+                <item
+                    android:id="@+id/layer13"
+                    android:title="Farmácias"
+                    android:visible="true"
+                    android:checkable="true"
+                    android:checked="false" />
+                <item
+                    android:id="@+id/layer14"
+                    android:title="Polícia"
+                    android:visible="true"
+                    android:checkable="true"
+                    android:checked="false" />
+                <item
+                    android:id="@+id/layer16"
+                    android:title="Supermercados"
+                    android:visible="true"
+                    android:checkable="true"
+                    android:checked="false" />
+                <item
+                    android:id="@+id/layer15"
+                    android:title="Restaurantes"
+                    android:visible="true"
+                    android:checkable="true"
+                    android:checked="false" />
+
+            </group>
+        </menu>
+    </item>
+</menu>
