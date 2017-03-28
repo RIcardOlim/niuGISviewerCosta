@@ -337,6 +337,29 @@ public boolean onNavigationItemSelected(MenuItem item) {
         } else mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         }
 
+    if(id == R.id.layer3){
+        Toast.makeText(MainActivity.this, "Vias", Toast.LENGTH_LONG).show();
+        if (item.isChecked()) {
+            item.setChecked(false);
+            this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='vias';");
+        } else {
+            item.setChecked(true);
+            this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='vias';");
+        }
+    }
+
+    if(id == R.id.layer2){
+        if (item.isChecked()) {
+            item.setChecked(false);
+            Toast.makeText(MainActivity.this, "Edificios", Toast.LENGTH_LONG).show();
+            this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='edificios';");
+        } else {
+            item.setChecked(true);
+            Toast.makeText(MainActivity.this, "Desligar Edificios", Toast.LENGTH_LONG).show();
+            this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='edificios';");
+        }
+    }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer != null) {
         drawer.closeDrawer(GravityCompat.START);

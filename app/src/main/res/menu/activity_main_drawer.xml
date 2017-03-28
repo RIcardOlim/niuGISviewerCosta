@@ -12,23 +12,17 @@
         <item
             android:id="@+id/action_about"
             android:orderInCategory="1"
-            android:title="@string/String_about"
+            android:title="Layers"
             app:showAsAction="never" />
         <item
-            android:id="@+id/action_contacto"
+            android:id="@+id/layer3"
             android:orderInCategory="2"
-            android:title="@string/contato_c_mara_municipal_da_amadora"
+            android:title="Vias"
             app:showAsAction="never" />
         <item
-            android:id="@+id/action_contacto2"
+            android:id="@+id/layer2"
             android:orderInCategory="3"
-            android:title="@string/contatos_novageo"
-            app:showAsAction="never" />
-
-        <item
-            android:id="@+id/action_contacto3"
-            android:orderInCategory="4"
-            android:title="@string/escola_secund_ria_matias_aires"
+            android:title="Edificios"
             app:showAsAction="never" />
 
         </group>
