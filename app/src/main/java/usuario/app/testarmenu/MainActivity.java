@@ -367,6 +367,7 @@ public boolean onNavigationItemSelected(MenuItem item) {
         return true;
         }
 
+
 @Override
 public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
