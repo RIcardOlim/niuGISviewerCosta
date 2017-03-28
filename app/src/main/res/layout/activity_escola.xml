@@ -16,7 +16,7 @@
         android:layout_height="110dp"
         android:scaleType="fitXY"
         android:id="@+id/imageView3"
-        android:src="@mipmap/transferir" <!-- COSTInha-->
+        android:src="@mipmap/transferir"
         android:layout_marginTop="30dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
