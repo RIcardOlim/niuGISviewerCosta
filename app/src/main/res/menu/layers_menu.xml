@@ -33,7 +33,7 @@
                     android:title="Ferrovias"
                     android:visible="true"
                     android:checkable="true"
-                    android:checked="false" />
+                    android:checked="true" />
                 <item
                     android:id="@+id/layer6"
                     android:title="Bombas de Gasolina"

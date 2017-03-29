@@ -120,7 +120,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
 
 
         if(id == R.id.layer1){
-        Toast.makeText(MainActivity.this, "Freguesia", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "Freguesia", Toast.LENGTH_SHORT).show();
         if (item.isChecked()) {
         item.setChecked(false);
         this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='freguesias';");
@@ -135,17 +135,17 @@ public boolean onOptionsItemSelected(MenuItem item) {
         if(id == R.id.layer2){
         if (item.isChecked()) {
         item.setChecked(false);
-        Toast.makeText(MainActivity.this, "Edificios", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "Edificios", Toast.LENGTH_SHORT).show();
         this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='edificios';");
         } else {
         item.setChecked(true);
-        Toast.makeText(MainActivity.this, "Desligar Edificios", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "Desligar Edificios", Toast.LENGTH_SHORT).show();
         this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='edificios';");
         }
         }
 
         if(id == R.id.layer3){
-        Toast.makeText(MainActivity.this, "Vias", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "Vias", Toast.LENGTH_SHORT).show();
         if (item.isChecked()) {
         item.setChecked(false);
         this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='vias';");
@@ -156,7 +156,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
         }
 
         if(id == R.id.layer4){
-        Toast.makeText(MainActivity.this, "Ferrovias", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "Ferrovias", Toast.LENGTH_SHORT).show();
         if (item.isChecked()) {
         item.setChecked(false);
         this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='ferrovias';");
@@ -167,7 +167,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
         }
 
         if(id == R.id.layer5){
-        Toast.makeText(MainActivity.this, "Bancos", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "Bancos", Toast.LENGTH_SHORT).show();
         if (item.isChecked()) {
         item.setChecked(false);
         this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='bancos';");
@@ -178,7 +178,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
         }
 
         if(id == R.id.layer6){
-        Toast.makeText(MainActivity.this, "Bombas de Gasolina", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "Bombas de Gasolina", Toast.LENGTH_SHORT).show();
         if (item.isChecked()) {
         item.setChecked(false);
         this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='bombas_gasolina';");
@@ -189,7 +189,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
         }
 
         if(id == R.id.layer7){
-        Toast.makeText(MainActivity.this, "Bombeiros", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "Bombeiros", Toast.LENGTH_SHORT).show();
         if (item.isChecked()) {
         item.setChecked(false);
         this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='bombeiros';");
@@ -201,7 +201,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
 
 
         if(id == R.id.layer8){
-        Toast.makeText(MainActivity.this, "Cafés", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "Cafés", Toast.LENGTH_SHORT).show();
         if (item.isChecked()) {
         item.setChecked(false);
         this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='cafes';");
@@ -212,7 +212,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
         }
 
         if(id == R.id.layer10){
-        Toast.makeText(MainActivity.this, "Conservatório do Registo Predial", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "Conservatório do Registo Predial", Toast.LENGTH_SHORT).show();
         if (item.isChecked()) {
         item.setChecked(false);
         this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='conservatoria_registo_predial';");
@@ -223,7 +223,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
         }
 
         if(id == R.id.layer11){
-        Toast.makeText(MainActivity.this, "Correios", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "Correios", Toast.LENGTH_SHORT).show();
         if (item.isChecked()) {
         item.setChecked(false);
         this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='correio';");
@@ -234,7 +234,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
         }
 
         if(id == R.id.layer12){
-        Toast.makeText(MainActivity.this, "Escolas", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "Escolas", Toast.LENGTH_SHORT).show();
         if (item.isChecked()) {
         item.setChecked(false);
         this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='escola';");
@@ -245,7 +245,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
         }
 
         if(id == R.id.layer9){
-        Toast.makeText(MainActivity.this, "Estação de Comboios", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "Estação de Comboios", Toast.LENGTH_SHORT).show();
         if (item.isChecked()) {
         item.setChecked(false);
         this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='estaçao_comboio';");
@@ -256,7 +256,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
         }
 
         if(id == R.id.layer13){
-        Toast.makeText(MainActivity.this, "Farmácias", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "Farmácias", Toast.LENGTH_SHORT).show();
         if (item.isChecked()) {
         item.setChecked(false);
         this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='farmacias';");
@@ -267,7 +267,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
         }
 
         if(id == R.id.layer14){
-        Toast.makeText(MainActivity.this, "Polícia", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "Polícia", Toast.LENGTH_SHORT).show();
         if (item.isChecked()) {
         item.setChecked(false);
         this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='policia';");
@@ -278,7 +278,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
         }
 
         if(id == R.id.layer16){
-        Toast.makeText(MainActivity.this, "Supermercados", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "Supermercados", Toast.LENGTH_SHORT).show();
         if (item.isChecked()) {
         item.setChecked(false);
         this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='supermercados';");
@@ -289,7 +289,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
         }
 
         if(id == R.id.layer15){
-        Toast.makeText(MainActivity.this, "Restaurantes", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "Restaurantes", Toast.LENGTH_SHORT).show();
         if (item.isChecked()) {
         item.setChecked(false);
         this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='restaurante';");
@@ -315,8 +315,6 @@ public boolean onOptionsItemSelected(MenuItem item) {
         }
 
 
-
-
         mMap.clear();
         setUpMap();
         return super.onOptionsItemSelected(item);
@@ -337,7 +335,11 @@ public boolean onNavigationItemSelected(MenuItem item) {
         } else mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         }
 
+
     if(id == R.id.layer3){
+        Toast.makeText(MainActivity.this, "Boa", Toast.LENGTH_SHORT).show();
+    }
+        /*
         Toast.makeText(MainActivity.this, "Vias", Toast.LENGTH_LONG).show();
         if (item.isChecked()) {
             item.setChecked(false);
@@ -347,8 +349,11 @@ public boolean onNavigationItemSelected(MenuItem item) {
             this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='vias';");
         }
     }
-
+*/
     if(id == R.id.layer2){
+        Toast.makeText(MainActivity.this, "aoB", Toast.LENGTH_SHORT).show();
+    }
+        /*
         if (item.isChecked()) {
             item.setChecked(false);
             Toast.makeText(MainActivity.this, "Edificios", Toast.LENGTH_LONG).show();
@@ -359,6 +364,8 @@ public boolean onNavigationItemSelected(MenuItem item) {
             this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='edificios';");
         }
     }
+*/
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer != null) {
