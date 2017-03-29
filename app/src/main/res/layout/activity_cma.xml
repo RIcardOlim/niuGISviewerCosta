@@ -38,12 +38,12 @@
         android:layout_centerHorizontal="true" />
 
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="100dp"
+        android:layout_width="160dp"
+        android:layout_height="130dp"
         android:id="@+id/imageView2"
         android:src="@mipmap/icon"
         android:adjustViewBounds = "true"
-        android:layout_marginTop="38dp"
+        android:layout_marginTop="39dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

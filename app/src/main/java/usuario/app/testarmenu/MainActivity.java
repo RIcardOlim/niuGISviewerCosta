@@ -341,15 +341,14 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.layer3) {
             Toast.makeText(MainActivity.this, "Vias", Toast.LENGTH_SHORT).show();
-
-            /*
+/*
             if (item.isEnabled()) {
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='vias';");
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='ferrovias';");
             } else {
                 this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='vias';");
                 this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='ferrovias';");
-            } */
+            }*/
         }
 
         if (id == R.id.layer2) {

@@ -6,7 +6,7 @@
 
     <ImageView
         android:id="@+id/imgLogo"
-        android:layout_width="150dp"
+        android:layout_width="190dp"
         android:layout_height="100dp"
         android:src="@mipmap/logo"
         android:nestedScrollingEnabled="false"
@@ -28,14 +28,13 @@
         android:layout_alignParentEnd="true" />
 
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="100dp"
+        android:layout_width="200dp"
+        android:layout_height="120dp"
         android:id="@+id/imageView6"
         android:src="@mipmap/transferir"
-        android:layout_below="@+id/imgLogo"
-        android:layout_alignLeft="@+id/imgLogo"
-        android:layout_alignStart="@+id/imgLogo"
-        android:layout_marginTop="72dp" />
+        android:layout_above="@+id/powered"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="97dp" />
 
 
 </RelativeLayout>
