@@ -24,6 +24,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.gms.maps.model.TileProvider;
 
+import static usuario.app.testarmenu.R.id.layer3;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
@@ -136,12 +138,12 @@ public class MainActivity extends AppCompatActivity
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='edificios';");
             } else {
                 item.setChecked(true);
-                Toast.makeText(MainActivity.this, "Desligar Edificios", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Edificios", Toast.LENGTH_SHORT).show();
                 this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='edificios';");
             }
         }
 
-        if (id == R.id.layer3) {
+        if (id == layer3) {
             Toast.makeText(MainActivity.this, "Vias", Toast.LENGTH_SHORT).show();
             if (item.isChecked()) {
                 item.setChecked(false);
@@ -310,8 +312,7 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
-        mMap.clear();
-        setUpMap();
+        ResetMapa();
         return super.onOptionsItemSelected(item);
     }
 
@@ -319,6 +320,7 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
 
         int id = item.getItemId();
 
@@ -328,32 +330,46 @@ public class MainActivity extends AppCompatActivity
             } else mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         }
 
-        if (id == R.id.action_about) {
-            Toast.makeText(MainActivity.this, "Layer", Toast.LENGTH_SHORT).show();
-    //        this.mydatabase.execSQL("UPDATE layers SET active=0;");
+        if (id == R.id.Alllayers) {
+            if (item.isChecked()) {
+                item.setChecked(false);
+                Toast.makeText(MainActivity.this, "Layer off", Toast.LENGTH_SHORT).show();
+                this.mydatabase.execSQL("UPDATE layers SET active=0;");
+            } else {
+                item.setChecked(true);
+                Toast.makeText(MainActivity.this, "Layer on", Toast.LENGTH_SHORT).show();
+                this.mydatabase.execSQL("UPDATE layers SET active=1;");
+            }
+
         }
 
-        if (id == R.id.layer3) {
-            Toast.makeText(MainActivity.this, "Vias", Toast.LENGTH_SHORT).show();
-/*
-            if (item.isEnabled()) {
+        if (id == R.id.vias) {
+            if (item.isChecked()) {
+                item.setChecked(false);
+                Toast.makeText(MainActivity.this, "Vias off", Toast.LENGTH_SHORT).show();
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='vias';");
-                this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='ferrovias';");
             } else {
+                item.setChecked(true);
+                Toast.makeText(MainActivity.this, "vias on", Toast.LENGTH_SHORT).show();
                 this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='vias';");
-                this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='ferrovias';");
-            }*/
+            }
         }
 
-        if (id == R.id.layer2) {
-            Toast.makeText(MainActivity.this, "Edifícios", Toast.LENGTH_SHORT).show();
-/*
-            if (item.isEnabled) {
+        if (id == R.id.edificios) {
+
+            if (item.isChecked()) {
+                item.setChecked(false);
+                Toast.makeText(MainActivity.this, "Edifícios off", Toast.LENGTH_SHORT).show();
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='edificios';");
+
             } else {
+                item.setChecked(true);
+                Toast.makeText(MainActivity.this, "Edifícios on", Toast.LENGTH_SHORT).show();
                 this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='edificios';");
-            }*/
+            }
         }
+
+        ResetMapa();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer != null) {
@@ -362,13 +378,18 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    public void ResetMapa(){
+
+        mMap.clear();
+        setUpMap();
+
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-
-
 
               /*   Marcador para Agualva
 

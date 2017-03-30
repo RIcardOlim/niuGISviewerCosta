@@ -6,107 +6,110 @@
         android:id="@+id/layersmenu"
         android:icon="@mipmap/layers"
         android:orderInCategory="0"
-        app:showAsAction="always"
-        android:title="Layers Menu" >
+        android:title="@string/layers_menu"
+        app:showAsAction="always">
         <menu>
-            <group android:checkableBehavior="all" android:id="@+id/grupomenulayers">
+            <group
+                android:id="@+id/grupomenulayers"
+                android:checkableBehavior="all">
+
                 <item
                     android:id="@+id/layer1"
-                    android:title="Freguesia"
-                    android:visible="true"
                     android:checkable="true"
-                    android:checked="true" />
+                    android:checked="true"
+                    android:title="@string/freguesia"
+                    android:visible="true" />
                 <item
                     android:id="@+id/layer2"
-                    android:title="Edificios"
-                    android:visible="true"
                     android:checkable="true"
-                    android:checked="true" />
+                    android:checked="true"
+                    android:title="@string/edif_cios"
+                    android:visible="true" />
                 <item
                     android:id="@+id/layer3"
-                    android:title="Vias"
-                    android:visible="true"
                     android:checkable="true"
-                    android:checked="true" />
+                    android:checked="true"
+                    android:title="@string/vias"
+                    android:visible="true" />
                 <item
                     android:id="@+id/layer4"
-                    android:title="Ferrovias"
-                    android:visible="true"
                     android:checkable="true"
-                    android:checked="true" />
+                    android:checked="true"
+                    android:title="@string/ferrovias"
+                    android:visible="true" />
                 <item
                     android:id="@+id/layer6"
-                    android:title="Bombas de Gasolina"
-                    android:visible="true"
                     android:checkable="true"
-                    android:checked="false" />
+                    android:checked="false"
+                    android:title="@string/bombas_de_gasolina"
+                    android:visible="true" />
                 <item
                     android:id="@+id/layer5"
-                    android:title="Bancos"
-                    android:visible="true"
                     android:checkable="true"
-                    android:checked="false" />
+                    android:checked="false"
+                    android:title="@string/bancos"
+                    android:visible="true" />
                 <item
                     android:id="@+id/layer7"
-                    android:title="Bombeiros"
-                    android:visible="true"
                     android:checkable="true"
-                    android:checked="false" />
+                    android:checked="false"
+                    android:title="@string/bombeiros"
+                    android:visible="true" />
                 <item
-                android:id="@+id/layer8"
-                android:title="@string/caf_s"
-                android:visible="true"
-                android:checkable="true"
-                android:checked="false" />
+                    android:id="@+id/layer8"
+                    android:checkable="true"
+                    android:checked="false"
+                    android:title="@string/caf_s"
+                    android:visible="true" />
 
                 <item
                     android:id="@+id/layer9"
-                    android:title="@string/esta_o_de_comboios"
-                    android:visible="true"
                     android:checkable="true"
-                    android:checked="false" />
+                    android:checked="false"
+                    android:title="@string/esta_o_de_comboios"
+                    android:visible="true" />
                 <item
                     android:id="@+id/layer10"
-                    android:title="@string/conservat_ria_do_registo_predial"
-                    android:visible="true"
                     android:checkable="true"
-                    android:checked="false" />
+                    android:checked="false"
+                    android:title="@string/conservat_ria_do_registo_predial"
+                    android:visible="true" />
                 <item
                     android:id="@+id/layer11"
-                    android:title="@string/correios"
-                    android:visible="true"
                     android:checkable="true"
-                    android:checked="false" />
+                    android:checked="false"
+                    android:title="@string/correios"
+                    android:visible="true" />
                 <item
                     android:id="@+id/layer12"
-                    android:title="@string/escolas"
-                    android:visible="true"
                     android:checkable="true"
-                    android:checked="false" />
+                    android:checked="false"
+                    android:title="@string/escolas"
+                    android:visible="true" />
                 <item
                     android:id="@+id/layer13"
-                    android:title="@string/farmacias"
-                    android:visible="true"
                     android:checkable="true"
-                    android:checked="false" />
+                    android:checked="false"
+                    android:title="@string/farmacias"
+                    android:visible="true" />
                 <item
                     android:id="@+id/layer14"
-                    android:title="@string/pol_cia"
-                    android:visible="true"
                     android:checkable="true"
-                    android:checked="false" />
+                    android:checked="false"
+                    android:title="@string/pol_cia"
+                    android:visible="true" />
                 <item
                     android:id="@+id/layer16"
-                    android:title="@string/supermercados"
-                    android:visible="true"
                     android:checkable="true"
-                    android:checked="false" />
+                    android:checked="false"
+                    android:title="@string/supermercados"
+                    android:visible="true" />
                 <item
                     android:id="@+id/layer15"
-                    android:title="@string/restaurantes"
-                    android:visible="true"
                     android:checkable="true"
-                    android:checked="false" />
+                    android:checked="false"
+                    android:title="@string/restaurantes"
+                    android:visible="true" />
 
             </group>
         </menu>

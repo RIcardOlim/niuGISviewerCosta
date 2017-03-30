@@ -10,19 +10,25 @@
     <group xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
         <item
-            android:id="@+id/action_about"
+            android:id="@+id/Alllayers"
             android:orderInCategory="1"
             android:title="Layers"
+            android:checkable="true"
+            android:checked="true"
             app:showAsAction="never" />
         <item
-            android:id="@+id/layer3"
+            android:id="@+id/vias"
             android:orderInCategory="2"
             android:title="Vias"
+            android:checkable="true"
+            android:checked="true"
             app:showAsAction="never" />
         <item
-            android:id="@+id/layer2"
+            android:id="@+id/edificios"
             android:orderInCategory="3"
             android:title="Edificios"
+            android:checkable="true"
+            android:checked="true"
             app:showAsAction="never" />
 
     </group>
