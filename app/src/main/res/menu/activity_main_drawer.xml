@@ -5,31 +5,32 @@
         <item
             android:id="@+id/nav_camera"
             android:title="@string/mudar_mapa" />
-        </group>
+    </group>
+
 
     <group xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:checkableBehavior="all">
         <item
             android:id="@+id/Alllayers"
-            android:orderInCategory="1"
+            android:checkable="true"
+            android:checked="true"
             android:title="Layers"
-            android:checkable="true"
-            android:checked="true"
             app:showAsAction="never" />
-        <item
-            android:id="@+id/vias"
-            android:orderInCategory="2"
-            android:title="Vias"
-            android:checkable="true"
-            android:checked="true"
-            app:showAsAction="never" />
+
         <item
             android:id="@+id/edificios"
-            android:orderInCategory="3"
-            android:title="Edificios"
             android:checkable="true"
             android:checked="true"
+            android:title="Edificios"
             app:showAsAction="never" />
+<!--
+        <item
+            android:id="@+id/vias"
+            android:checkable="true"
+            android:checked="true"
+            android:title="Vias"
+            app:showAsAction="never" />-->
 
     </group>
 

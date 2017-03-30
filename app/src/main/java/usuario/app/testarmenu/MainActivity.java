@@ -312,7 +312,7 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
-        ResetMapa();
+        ResetLayer();
         return super.onOptionsItemSelected(item);
     }
 
@@ -335,6 +335,7 @@ public class MainActivity extends AppCompatActivity
                 item.setChecked(false);
                 Toast.makeText(MainActivity.this, "Layer off", Toast.LENGTH_SHORT).show();
                 this.mydatabase.execSQL("UPDATE layers SET active=0;");
+
             } else {
                 item.setChecked(true);
                 Toast.makeText(MainActivity.this, "Layer on", Toast.LENGTH_SHORT).show();
@@ -342,19 +343,20 @@ public class MainActivity extends AppCompatActivity
             }
 
         }
-
+/*
         if (id == R.id.vias) {
             if (item.isChecked()) {
                 item.setChecked(false);
                 Toast.makeText(MainActivity.this, "Vias off", Toast.LENGTH_SHORT).show();
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='vias';");
+
             } else {
                 item.setChecked(true);
                 Toast.makeText(MainActivity.this, "vias on", Toast.LENGTH_SHORT).show();
                 this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='vias';");
             }
         }
-
+*/
         if (id == R.id.edificios) {
 
             if (item.isChecked()) {
@@ -369,7 +371,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-        ResetMapa();
+        ResetLayer();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer != null) {
@@ -378,7 +380,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void ResetMapa(){
+    public void ResetLayer(){
 
         mMap.clear();
         setUpMap();
