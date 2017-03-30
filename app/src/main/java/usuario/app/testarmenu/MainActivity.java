@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(1).setChecked(true);
 
         mapFragment.getMapAsync(this);
     }
@@ -343,7 +344,7 @@ public class MainActivity extends AppCompatActivity
             }
 
         }
-/*
+
         if (id == R.id.vias) {
             if (item.isChecked()) {
                 item.setChecked(false);
@@ -356,7 +357,7 @@ public class MainActivity extends AppCompatActivity
                 this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='vias';");
             }
         }
-*/
+
         if (id == R.id.edificios) {
 
             if (item.isChecked()) {
