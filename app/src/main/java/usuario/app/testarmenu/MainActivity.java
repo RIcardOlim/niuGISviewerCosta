@@ -117,7 +117,6 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
-
         if (id == R.id.layer1) {
             Toast.makeText(MainActivity.this, "Freguesia", Toast.LENGTH_SHORT).show();
             if (item.isChecked()) {
@@ -127,7 +126,6 @@ public class MainActivity extends AppCompatActivity
                 item.setChecked(true);
                 this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='freguesias';");
             }
-
 
         }
 
@@ -197,7 +195,6 @@ public class MainActivity extends AppCompatActivity
                 this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='bombeiros';");
             }
         }
-
 
         if (id == R.id.layer8) {
             Toast.makeText(MainActivity.this, "Cafés", Toast.LENGTH_SHORT).show();
@@ -313,7 +310,6 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
-
         mMap.clear();
         setUpMap();
         return super.onOptionsItemSelected(item);
@@ -326,18 +322,16 @@ public class MainActivity extends AppCompatActivity
 
         int id = item.getItemId();
 
-
         if (id == R.id.nav_camera) {
             if (mMap.getMapType() == GoogleMap.MAP_TYPE_NORMAL) {
                 mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
             } else mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         }
 
-
         if (id == R.id.action_about) {
             Toast.makeText(MainActivity.this, "Layer", Toast.LENGTH_SHORT).show();
+    //        this.mydatabase.execSQL("UPDATE layers SET active=0;");
         }
-
 
         if (id == R.id.layer3) {
             Toast.makeText(MainActivity.this, "Vias", Toast.LENGTH_SHORT).show();
@@ -354,16 +348,12 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.layer2) {
             Toast.makeText(MainActivity.this, "Edifícios", Toast.LENGTH_SHORT).show();
 /*
-            if (item.isEnabled()) {
-                Toast.makeText(MainActivity.this, "Edificios", Toast.LENGTH_SHORT).show();
+            if (item.isEnabled) {
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='edificios';");
             } else {
-                Toast.makeText(MainActivity.this, "Desligar Edificios", Toast.LENGTH_SHORT).show();
                 this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='edificios';");
             }*/
         }
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer != null) {
@@ -371,7 +361,6 @@ public class MainActivity extends AppCompatActivity
         }
         return true;
     }
-
 
     @Override
     public void onMapReady(GoogleMap googleMap) {

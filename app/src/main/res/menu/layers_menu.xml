@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/layersmenu"
-        android:icon="@mipmap/novageo_trans"
+        android:icon="@mipmap/layers"
         android:orderInCategory="0"
         app:showAsAction="always"
         android:title="Layers Menu" >
@@ -54,56 +54,56 @@
                     android:checked="false" />
                 <item
                 android:id="@+id/layer8"
-                android:title="Cafés"
+                android:title="@string/caf_s"
                 android:visible="true"
                 android:checkable="true"
                 android:checked="false" />
 
                 <item
                     android:id="@+id/layer9"
-                    android:title="Estação de Comboios"
+                    android:title="@string/esta_o_de_comboios"
                     android:visible="true"
                     android:checkable="true"
                     android:checked="false" />
                 <item
                     android:id="@+id/layer10"
-                    android:title="Conservatório do Registo Predial"
+                    android:title="@string/conservat_ria_do_registo_predial"
                     android:visible="true"
                     android:checkable="true"
                     android:checked="false" />
                 <item
                     android:id="@+id/layer11"
-                    android:title="Correios"
+                    android:title="@string/correios"
                     android:visible="true"
                     android:checkable="true"
                     android:checked="false" />
                 <item
                     android:id="@+id/layer12"
-                    android:title="Escolas"
+                    android:title="@string/escolas"
                     android:visible="true"
                     android:checkable="true"
                     android:checked="false" />
                 <item
                     android:id="@+id/layer13"
-                    android:title="Farmácias"
+                    android:title="@string/farmacias"
                     android:visible="true"
                     android:checkable="true"
                     android:checked="false" />
                 <item
                     android:id="@+id/layer14"
-                    android:title="Polícia"
+                    android:title="@string/pol_cia"
                     android:visible="true"
                     android:checkable="true"
                     android:checked="false" />
                 <item
                     android:id="@+id/layer16"
-                    android:title="Supermercados"
+                    android:title="@string/supermercados"
                     android:visible="true"
                     android:checkable="true"
                     android:checked="false" />
                 <item
                     android:id="@+id/layer15"
-                    android:title="Restaurantes"
+                    android:title="@string/restaurantes"
                     android:visible="true"
                     android:checkable="true"
                     android:checked="false" />
