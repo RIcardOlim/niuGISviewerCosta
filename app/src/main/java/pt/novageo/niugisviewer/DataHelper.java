@@ -1,4 +1,4 @@
-package usuario.app.testarmenu;
+package pt.novageo.niugisviewer;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -12,16 +12,16 @@ import java.util.List;
 
 public class DataHelper {
 
-    private static final String DATABASE_NAME = "niugisviewer";
+    private static final String DATABASE_NAME = "@string/niugisviewer";
     private static final int DATABASE_VERSION = 1;
-    private static final String TABLE_NAME    = "layers";
+    private static final String TABLE_NAME    = "@string/layers";
 
     private SQLiteDatabase db;
 
     private SQLiteStatement insertStmt;
     //private SQLiteStatement updateStmt;
     private static final String INSERT = "insert into "
-            + TABLE_NAME + " (name, title, active) values (?,?, true)";
+            + TABLE_NAME + " (@string/name, title, active) values (?,?, true)";
     //private static final String UPDATE = "update " + TABLE_NAME + " set active = ?";
 
     public DataHelper(Context context) {
@@ -48,8 +48,8 @@ public class DataHelper {
 
     public List<String> selectAll() {
         List<String> list = new ArrayList<>();
-        Cursor cursor = this.db.query(TABLE_NAME, new String[] { "name" },
-                null, null, null, null, "name desc");
+        Cursor cursor = this.db.query(TABLE_NAME, new String[] { "@string/name" },
+                null, null, null, null, "@string/name desc");
         if (cursor.moveToFirst()) {
             do {
                 list.add(cursor.getString(0));
@@ -69,13 +69,13 @@ public class DataHelper {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE " + TABLE_NAME + " (id_INTEGER_PRIMARY_KEY, name TEXT, title TEXT, active BOOLEAN)");
+            db.execSQL("@string/CREATE TABLE " + TABLE_NAME + " (@string/id_INTEGER_PRIMARY_KEY, name TEXT, title TEXT, active BOOLEAN)");
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            Log.w("Example", "Upgrading database, this will drop tables and recreate.");
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+            Log.w("@string/Example", "Upgrading database, this will drop tables and recreate.");
+            db.execSQL("@string/DROP TABLE IF EXISTS " + TABLE_NAME);
             onCreate(db);
         }
     }

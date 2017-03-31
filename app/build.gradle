@@ -5,7 +5,7 @@ android {
     buildToolsVersion '25.0.0'
 
     defaultConfig {
-        applicationId "usuario.app.testarmenu"
+        applicationId "pt.app.niugisviewer"
         minSdkVersion 10
         targetSdkVersion 23
         versionCode 1

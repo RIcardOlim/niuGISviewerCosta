@@ -1,4 +1,4 @@
-package usuario.app.testarmenu;
+package pt.novageo.niugisviewer;
 
 /**
  * Created by marco on 6/28/16.
@@ -45,8 +45,8 @@ public class Layer {
     public String toString() {
         return "Layer{" +
                 "name='" + name + '\'' +
-                ", title='" + title + '\'' +
-                ", active=" + active +
+                "title='" + title + '\'' +
+                "active=" + active +
                 '}';
     }
 }

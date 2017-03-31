@@ -1,13 +1,13 @@
-package usuario.app.testarmenu;
+package pt.novageo.niugisviewer;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Activity_cma extends AppCompatActivity {
+public class Activity_about extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cma);
+        setContentView(R.layout.activity_about);
     }
 }

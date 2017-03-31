@@ -1,16 +1,9 @@
-package usuario.app.testarmenu;
+package pt.novageo.niugisviewer;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 import java.util.Locale;
 
-import usuario.app.testarmenu.WMSTileProvider;
-
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 public class TileProviderFactory {
@@ -46,7 +39,7 @@ public class TileProviderFactory {
             resultSet.close();
         }
 */
-        Log.e("STRING LAYERS", layerStr);
+        Log.e("TRING LAYERS", layerStr);
 
         final String WMS_FORMAT_STRING =
                 "http://amadora.niugis.com/cgi-bin/mapserv" +

@@ -1,4 +1,4 @@
-package usuario.app.testarmenu;
+package pt.novageo.niugisviewer;
 
 import org.junit.Test;
 

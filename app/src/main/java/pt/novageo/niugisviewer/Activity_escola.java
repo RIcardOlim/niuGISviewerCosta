@@ -1,4 +1,4 @@
-package usuario.app.testarmenu;
+package pt.novageo.niugisviewer;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

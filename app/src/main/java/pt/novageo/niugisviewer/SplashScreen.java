@@ -1,4 +1,4 @@
-package usuario.app.testarmenu;
+package pt.novageo.niugisviewer;
 
 import android.app.Activity;
 import android.content.Intent;

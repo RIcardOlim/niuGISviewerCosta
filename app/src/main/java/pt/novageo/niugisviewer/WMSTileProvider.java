@@ -1,4 +1,4 @@
-package usuario.app.testarmenu;
+package pt.novageo.niugisviewer;
 
 import java.net.URLEncoder;
 import com.google.android.gms.maps.model.UrlTileProvider;

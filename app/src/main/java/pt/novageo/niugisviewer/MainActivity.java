@@ -1,4 +1,4 @@
-package usuario.app.testarmenu;
+package pt.novageo.niugisviewer;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -24,7 +23,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.gms.maps.model.TileProvider;
 
-import static usuario.app.testarmenu.R.id.layer3;
+import static pt.novageo.niugisviewer.R.id.layer3;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
@@ -362,7 +361,7 @@ public class MainActivity extends AppCompatActivity
 
             if (item.isChecked()) {
                 item.setChecked(false);
-                Toast.makeText(MainActivity.this, "Edifícios off", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Edifícios off ", Toast.LENGTH_SHORT).show();
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='edificios';");
 
             } else {
