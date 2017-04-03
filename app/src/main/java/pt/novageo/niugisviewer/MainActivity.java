@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.layers_menu, menu);
         getMenuInflater().inflate(R.menu.main, menu);
+
         return true;
     }
 
@@ -297,6 +298,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
+        ResetLayer();
 
         if (id == R.id.action_about) {
             startActivity(about);
@@ -312,7 +314,6 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
-        ResetLayer();
         return super.onOptionsItemSelected(item);
     }
 
@@ -323,6 +324,7 @@ public class MainActivity extends AppCompatActivity
 
 
         int id = item.getItemId();
+        Intent sql = new Intent(this, Activity_Ponto.class);
 
         if (id == R.id.nav_camera) {
             if (mMap.getMapType() == GoogleMap.MAP_TYPE_NORMAL) {
@@ -369,6 +371,11 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(MainActivity.this, "Edifícios on", Toast.LENGTH_SHORT).show();
                 this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='edificios';");
             }
+        }
+
+        if (id == R.id.action_add) {
+            startActivity(sql);
+            return true;
         }
 
         ResetLayer();

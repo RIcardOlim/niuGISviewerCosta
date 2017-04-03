@@ -47,4 +47,8 @@
     <string name="esta_o_de_comboios">Estação CP</string>
     <string name="freguesia">Freguesia</string>
     <string name="tel_CMA">tel: 219 188 540</string>
+    <string name="adicionar_local">testeSQL</string>
+    <string name="apagar_ponto">Apagar ponto</string>
+    <string name="sql_menu_teste">SQL Menu teste</string>
+    <string name="sql_teste">SQL teste</string>
 </resources>

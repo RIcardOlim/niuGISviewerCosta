@@ -18,7 +18,7 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/action_contacto3"
-        android:orderInCategory="3"
+        android:orderInCategory="4"
         android:title="Escola Secundaria Matias Aires"
         app:showAsAction="never" />
 </menu>

@@ -75,6 +75,11 @@
             android:label="@string/escola_secund_ria_matias_aires"
             android:parentActivityName="pt.novageo.niugisviewer.MainActivity" />
 
+        <activity
+            android:name="pt.novageo.niugisviewer.Activity_Ponto"
+            android:label="@string/sql_teste"
+            android:parentActivityName="pt.novageo.niugisviewer.MainActivity" />
+
     </application>
 
 </manifest>
