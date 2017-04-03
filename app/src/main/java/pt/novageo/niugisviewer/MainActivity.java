@@ -35,9 +35,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.activity_main);
-
 
         mydatabase = openOrCreateDatabase("niugisviewer", MODE_PRIVATE, null);
 
@@ -64,7 +62,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -81,7 +78,6 @@ public class MainActivity extends AppCompatActivity
 
         mapFragment.getMapAsync(this);
     }
-
 
     @Override
     public void onBackPressed() {
@@ -107,7 +103,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
 
         Intent about = new Intent(this, Activity_about.class);
         Intent cma = new Intent(this, Activity_cma.class);
@@ -317,7 +312,6 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -331,7 +325,6 @@ public class MainActivity extends AppCompatActivity
                 mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
             } else mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         }
-
         if (id == R.id.Alllayers) {
             if (item.isChecked()) {
                 item.setChecked(false);
@@ -387,7 +380,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void ResetLayer(){
+    public void ResetLayer() {
 
         mMap.clear();
         setUpMap();
@@ -415,7 +408,6 @@ public class MainActivity extends AppCompatActivity
         mMap.setMyLocationEnabled(true);
     }
 
-
     private void setUpMapIfNeeded() {
         if (mMap == null) {
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
@@ -428,7 +420,6 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
-
 
     private void setUpMap() {
 
