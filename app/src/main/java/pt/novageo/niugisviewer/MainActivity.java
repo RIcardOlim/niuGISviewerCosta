@@ -264,7 +264,7 @@ public class MainActivity extends AppCompatActivity
                 this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='farmacias';");
             }
         }
-//:)
+
         if (id == R.id.layer14) {
             Toast.makeText(MainActivity.this, "Polícia", Toast.LENGTH_SHORT).show();
             if (item.isChecked()) {
