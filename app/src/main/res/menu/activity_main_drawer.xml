@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <group android:checkableBehavior="none">
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_camera"
             android:title="@string/mudar_mapa" />
@@ -14,6 +15,7 @@
 
     <group xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
+
         <item
             android:id="@+id/Alllayers"
             android:checkable="true"

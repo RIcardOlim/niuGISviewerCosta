@@ -23,8 +23,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.gms.maps.model.TileProvider;
 
-import static pt.novageo.niugisviewer.R.id.layer3;
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
@@ -315,7 +313,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
-
         int id = item.getItemId();
         Intent sql = new Intent(this, Activity_Ponto.class);
 
@@ -324,6 +321,7 @@ public class MainActivity extends AppCompatActivity
                 mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
             } else mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         }
+
         if (id == R.id.Alllayers) {
             if (item.isChecked()) {
                 item.setChecked(false);

@@ -8,21 +8,27 @@ package pt.novageo.niugisviewer;
 public class Locais {
 
     private int _id;
-    private String _nomelocal;
-
-    public Locais() {
-    }
+    private String nomelocal;
+    private String descricao;
 
     public Locais(String nomelocal) {
-        this._nomelocal = nomelocal;
+        this.nomelocal = nomelocal;
+    }
+
+    public void set_descricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public void set_id(int _id) {
         this._id = _id;
     }
 
-    public void set_nomelocal(String _nomelocal) {
-        this._nomelocal = _nomelocal;
+    public void set_nomelocal(String nomelocal) {
+        this.nomelocal = nomelocal;
+    }
+
+    public String get_descricao() {
+        return descricao;
     }
 
     public int get_id() {
@@ -30,6 +36,6 @@ public class Locais {
     }
 
     public String get_nomelocal() {
-        return _nomelocal;
+        return nomelocal;
     }
 }

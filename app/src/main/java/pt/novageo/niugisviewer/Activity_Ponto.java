@@ -14,6 +14,7 @@ import android.widget.TextView;
 public class Activity_Ponto extends AppCompatActivity {
 
     EditText inserirnome;
+    EditText inserirdesc;
     TextView textView12;
     DBTeste db;
 
@@ -22,8 +23,9 @@ public class Activity_Ponto extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ponto);
         inserirnome = (EditText) findViewById(R.id.inserirnome);
+        inserirdesc = (EditText) findViewById(R.id.inserirdesc);
         textView12 = (TextView) findViewById(R.id.textView12);
-        db = new DBTeste(this, null, null, 1);
+        db = new DBTeste(this, null, null, 2);
         printDatabase();
 
     }
@@ -31,8 +33,9 @@ public class Activity_Ponto extends AppCompatActivity {
     //adicionar registo da base de dados
     public void addButtonClicked(View view){
 
-        Locais locais = new Locais(inserirnome.getText().toString());
-        db.addLocal(locais);
+        Locais nome = new Locais(inserirnome.getText().toString());
+        Locais desc = new Locais(inserirdesc.getText().toString());
+        db.addPonto(nome, desc);
         printDatabase();
 
     }
@@ -51,6 +54,7 @@ public class Activity_Ponto extends AppCompatActivity {
         String dbString = db.databaseToString();
         textView12.setText(dbString);
         inserirnome.setText("");
+        inserirdesc.setText("");
 
     }
 
