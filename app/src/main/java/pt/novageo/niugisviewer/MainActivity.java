@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-        if (id == layer3) {
+        if (id == R.id.layer3) {
             Toast.makeText(MainActivity.this, "Vias", Toast.LENGTH_SHORT).show();
             if (item.isChecked()) {
                 item.setChecked(false);
@@ -205,6 +205,17 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
+        if (id == R.id.layer9) {
+            Toast.makeText(MainActivity.this, "Estação de Comboios", Toast.LENGTH_SHORT).show();
+            if (item.isChecked()) {
+                item.setChecked(false);
+                this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='estaçao_comboio';");
+            } else {
+                item.setChecked(true);
+                this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='estaçao_comboio';");
+            }
+        }
+
         if (id == R.id.layer10) {
             Toast.makeText(MainActivity.this, "Conservatório do Registo Predial", Toast.LENGTH_SHORT).show();
             if (item.isChecked()) {
@@ -238,17 +249,6 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-        if (id == R.id.layer9) {
-            Toast.makeText(MainActivity.this, "Estação de Comboios", Toast.LENGTH_SHORT).show();
-            if (item.isChecked()) {
-                item.setChecked(false);
-                this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='estaçao_comboio';");
-            } else {
-                item.setChecked(true);
-                this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='estaçao_comboio';");
-            }
-        }
-
         if (id == R.id.layer13) {
             Toast.makeText(MainActivity.this, "Farmácias", Toast.LENGTH_SHORT).show();
             if (item.isChecked()) {
@@ -270,17 +270,6 @@ public class MainActivity extends AppCompatActivity
                 this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='policia';");
             }
         }
-//ok
-        if (id == R.id.layer16) {
-            Toast.makeText(MainActivity.this, "Supermercados", Toast.LENGTH_SHORT).show();
-            if (item.isChecked()) {
-                item.setChecked(false);
-                this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='supermercados';");
-            } else {
-                item.setChecked(true);
-                this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='supermercados';");
-            }
-        }
 
         if (id == R.id.layer15) {
             Toast.makeText(MainActivity.this, "Restaurantes", Toast.LENGTH_SHORT).show();
@@ -290,6 +279,17 @@ public class MainActivity extends AppCompatActivity
             } else {
                 item.setChecked(true);
                 this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='restaurante';");
+            }
+        }
+
+        if (id == R.id.layer16) {
+            Toast.makeText(MainActivity.this, "Supermercados", Toast.LENGTH_SHORT).show();
+            if (item.isChecked()) {
+                item.setChecked(false);
+                this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='supermercados';");
+            } else {
+                item.setChecked(true);
+                this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='supermercados';");
             }
         }
 
@@ -308,7 +308,6 @@ public class MainActivity extends AppCompatActivity
             startActivity(es);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
