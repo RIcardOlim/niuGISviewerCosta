@@ -9,8 +9,8 @@
             android:title="@string/mudar_mapa" />
 
         <item
-            android:id="@+id/action_add"
-            android:title="@string/sql_teste" />
+            android:id="@+id/action_view"
+            android:title="@string/pontos" />
     </group>
 
     <group xmlns:android="http://schemas.android.com/apk/res/android"

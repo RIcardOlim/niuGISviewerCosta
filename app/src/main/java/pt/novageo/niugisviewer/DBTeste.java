@@ -13,13 +13,14 @@ import android.content.ContentValues;
 
 public class DBTeste extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 6;
     private static final String DATABASE_NOME = "Locais.db";
     public static final String TABLE_LOCAIS = "locais";
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_NOMELOCAIS = "nomelocal";
     public static final String COLUMN_DESCRICAO = "Descricao";
-
+    public static final String COLUMN_LAT = "lat";
+    public static final String COLUMN_LNG = "lng";
 
     public DBTeste(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NOME, factory, DATABASE_VERSION);
@@ -30,7 +31,9 @@ public class DBTeste extends SQLiteOpenHelper {
         String query = "CREATE TABLE " + TABLE_LOCAIS + "(" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_NOMELOCAIS + " TEXT, " +
-                COLUMN_DESCRICAO + " TEXT " +
+                COLUMN_DESCRICAO + " TEXT, " +
+                COLUMN_LAT + " VARCHAR(50), " +
+                COLUMN_LNG + " VARCHAR(50) " +
                 ");";
         db.execSQL(query);
     }
@@ -42,14 +45,15 @@ public class DBTeste extends SQLiteOpenHelper {
     }
 
     //adicionar um novo local
-    public boolean addPonto(Locais Locais1, Locais Locais2) {
-        ContentValues values1= new ContentValues();
-        ContentValues values2= new ContentValues();
+    public boolean addPonto(String nome, String descricao, double lat, double lng) {
+
+        ContentValues values1 = new ContentValues();
         SQLiteDatabase db = getWritableDatabase();
-        values1.put(COLUMN_NOMELOCAIS, Locais1.get_nomelocal());
-        values2.put(COLUMN_NOMELOCAIS, Locais2.get_descricao());
+        values1.put(COLUMN_NOMELOCAIS, nome);
+        values1.put(COLUMN_DESCRICAO, descricao);
+        values1.put(COLUMN_LAT, lat);
+        values1.put(COLUMN_LNG, lng);
         db.insert(TABLE_LOCAIS, null, values1);
-        db.insert(TABLE_LOCAIS, null, values2);
         db.close();
 
         return true;
@@ -76,17 +80,26 @@ public class DBTeste extends SQLiteOpenHelper {
         //move para primeira linha
         c.moveToFirst();
 
-        while(!c.isAfterLast()){
-            if(c.getString(c.getColumnIndex("nomelocal"))!= null){
-               dbString += c.getString(c.getColumnIndex("nomelocal"));
-                dbString += ", ";
+        while (!c.isAfterLast()) {
+            if (c.getString(c.getColumnIndex("_id")) != null) {
+                dbString += "ID:";
+                dbString += c.getString(c.getColumnIndex("_id"));
+                dbString += ", Nome:";
+                dbString += c.getString(c.getColumnIndex("nomelocal"));
+                dbString += ", Descricao:";
                 dbString += c.getString(c.getColumnIndex("Descricao"));
+                dbString += ", Coord.:";
+                dbString += c.getString(c.getColumnIndex("lat"));
+                dbString += ", ";
+                dbString += c.getString(c.getColumnIndex("lng"));
                 dbString += "\n";
+
             }
             c.moveToNext();
         }
         db.close();
         return dbString;
     }
+
 
 }

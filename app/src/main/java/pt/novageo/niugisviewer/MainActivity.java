@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -28,12 +27,15 @@ public class MainActivity extends AppCompatActivity
 
     private GoogleMap mMap;
     SQLiteDatabase mydatabase;
+    double lat, lng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        final Intent sql = new Intent(this, Activity_Ponto.class);
 
         mydatabase = openOrCreateDatabase("niugisviewer", MODE_PRIVATE, null);
 
@@ -75,6 +77,25 @@ public class MainActivity extends AppCompatActivity
         navigationView.getMenu().getItem(1).setChecked(true);
 
         mapFragment.getMapAsync(this);
+
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+
+            @Override
+            public void onMapClick(LatLng position) {
+
+                lat = position.latitude;
+                lng = position.longitude;
+                String coordLat = String.valueOf(lat);
+                String coordLng = String.valueOf(lng);
+                sql.putExtra("coordLat", coordLat);
+                sql.putExtra("coordLng", coordLng);
+                startActivity(sql);
+               /* mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(lat, lng))
+                        .title("Ajuda")
+                        .snippet("wii"));*/
+            }
+        });
     }
 
     @Override
@@ -122,7 +143,6 @@ public class MainActivity extends AppCompatActivity
                 item.setChecked(true);
                 this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='freguesias';");
             }
-
         }
 
         if (id == R.id.layer2) {
@@ -314,7 +334,6 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        Intent sql = new Intent(this, Activity_Ponto.class);
 
         if (id == R.id.nav_camera) {
             if (mMap.getMapType() == GoogleMap.MAP_TYPE_NORMAL) {
@@ -363,8 +382,8 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-        if (id == R.id.action_add) {
-            startActivity(sql);
+        if (id == R.id.action_view) {
+
             return true;
         }
 
@@ -395,10 +414,6 @@ public class MainActivity extends AppCompatActivity
         mMap.addMarker(new MarkerOptions().position(Amadora).title("Onde eu estou!"));*/
 
         LatLng Agualva = new LatLng(38.77410061, -9.2924664);
-      /*  GroundOverlayOptions AgualvaMap = new GroundOverlayOptions()
-                .image(BitmapDescriptorFactory.fromResource(R.mipmap.mapserv))
-                .position(Agualva, 12500f, 9200f);
-        mMap.addGroundOverlay(AgualvaMap);*/
 
         float zoomLevel = 13;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Agualva, zoomLevel));
@@ -445,4 +460,3 @@ public class MainActivity extends AppCompatActivity
         // mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
     }
 }
-
