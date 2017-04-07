@@ -76,9 +76,9 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="deleteButtonClcked"
-        android:text="@string/verificar"
         android:layout_alignBaseline="@+id/btnadd"
         android:layout_alignBottom="@+id/btnadd"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="ViewButtonClcked"
+        android:text="@string/verificar" />
 </RelativeLayout>

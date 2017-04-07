@@ -5,6 +5,7 @@ package pt.novageo.niugisviewer;
  *
  */
 
+import android.app.AlertDialog;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.Cursor;
@@ -16,11 +17,11 @@ public class DBTeste extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 6;
     private static final String DATABASE_NOME = "Locais.db";
     public static final String TABLE_LOCAIS = "locais";
-    public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_NOMELOCAIS = "nomelocal";
-    public static final String COLUMN_DESCRICAO = "Descricao";
-    public static final String COLUMN_LAT = "lat";
-    public static final String COLUMN_LNG = "lng";
+    public static final String COLUMN_ID = "_id";//coluna 0
+    public static final String COLUMN_NOMELOCAIS = "nomelocal";//coluna 1
+    public static final String COLUMN_DESCRICAO = "Descricao";//coluna 2
+    public static final String COLUMN_LAT = "lat";//coluna 3
+    public static final String COLUMN_LNG = "lng";//coluna
 
     public DBTeste(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NOME, factory, DATABASE_VERSION);
@@ -68,38 +69,14 @@ public class DBTeste extends SQLiteOpenHelper {
         return true;
     }
 
-    //imprimir a base de dados como string
-    public String databaseToString() {
+    //imprimir a base de dados
+    public Cursor getData(){
 
-        String dbString = "";
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_LOCAIS + " WHERE 1";
+        String query = "SELECT * FROM " + TABLE_LOCAIS;
+        Cursor data = db.rawQuery(query, null);
+        return data;
 
-        //cursor serve para apontar ao lugar do resultado
-        Cursor c = db.rawQuery(query, null);
-        //move para primeira linha
-        c.moveToFirst();
-
-        while (!c.isAfterLast()) {
-            if (c.getString(c.getColumnIndex("_id")) != null) {
-                dbString += "ID:";
-                dbString += c.getString(c.getColumnIndex("_id"));
-                dbString += ", Nome:";
-                dbString += c.getString(c.getColumnIndex("nomelocal"));
-                dbString += ", Descricao:";
-                dbString += c.getString(c.getColumnIndex("Descricao"));
-                dbString += ", Coord.:";
-                dbString += c.getString(c.getColumnIndex("lat"));
-                dbString += ", ";
-                dbString += c.getString(c.getColumnIndex("lng"));
-                dbString += "\n";
-
-            }
-            c.moveToNext();
-        }
-        db.close();
-        return dbString;
     }
-
 
 }

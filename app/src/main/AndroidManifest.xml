@@ -40,8 +40,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
-        android:name="android.support.Parent_Activity"
-        android:value="usuario.app.testarmenu.MainActivity" />
+            android:name="android.support.Parent_Activity"
+            android:value="usuario.app.testarmenu.MainActivity" />
 
 
         <meta-data
@@ -78,6 +78,11 @@
         <activity
             android:name="pt.novageo.niugisviewer.Activity_Ponto"
             android:label="@string/sql_teste"
+            android:parentActivityName="pt.novageo.niugisviewer.MainActivity" />
+
+        <activity
+            android:name="pt.novageo.niugisviewer.Activity_ListData"
+            android:label="@string/verificar"
             android:parentActivityName="pt.novageo.niugisviewer.MainActivity" />
 
     </application>

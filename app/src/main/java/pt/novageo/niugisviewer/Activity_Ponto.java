@@ -1,5 +1,6 @@
 package pt.novageo.niugisviewer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -32,7 +33,7 @@ public class Activity_Ponto extends AppCompatActivity {
         lat = Double.parseDouble(coordLat);
         lng = Double.parseDouble(coordLng);
         db = new DBTeste(this, null, null, 6);
-        printDatabase();
+        resetText();
     //    Toast.makeText(this, coordLat, Toast.LENGTH_SHORT).show();
     //    Toast.makeText(this, coordLng, Toast.LENGTH_SHORT).show();
 
@@ -43,7 +44,7 @@ public class Activity_Ponto extends AppCompatActivity {
 
         db.addPonto(inserirnome.getText().toString(), inserirdesc.getText().toString(), lat, lng);
         Toast.makeText(this, "Ponto Adicionado", Toast.LENGTH_SHORT).show();
-        printDatabase();
+        resetText();
 
     }
 
@@ -53,14 +54,19 @@ public class Activity_Ponto extends AppCompatActivity {
         String inputText = inserirnome.getText().toString();
         db.deleteLocal(inputText);
         Toast.makeText(this, "Ponto Removido", Toast.LENGTH_SHORT).show();
-        printDatabase();
+        resetText();
 
     }
 
-    public void printDatabase() {
+    public void ViewButtonClcked(View view){
 
-        String dbString = db.databaseToString();
-        textView12.setText(dbString);
+        Intent view2 = new Intent(this, Activity_ListData.class);
+        startActivity(view2);
+
+    }
+
+    public void resetText() {
+
         inserirnome.setText("");
         inserirdesc.setText("");
 

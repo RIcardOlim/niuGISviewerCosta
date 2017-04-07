@@ -334,6 +334,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
 
         int id = item.getItemId();
+        Intent view = new Intent(this, Activity_ListData.class);
 
         if (id == R.id.nav_camera) {
             if (mMap.getMapType() == GoogleMap.MAP_TYPE_NORMAL) {
@@ -383,7 +384,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (id == R.id.action_view) {
-
+            startActivity(view);
             return true;
         }
 

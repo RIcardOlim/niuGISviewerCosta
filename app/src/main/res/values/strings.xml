@@ -53,6 +53,5 @@
     <string name="sql_teste">SQL teste</string>
     <string name="Nome_do_ponto">Nome do Ponto</string>
     <string name="descri_o">Descrição</string>
-    <string name="pontos">Pontos</string>
     <string name="verificar">Verificar BD</string>
 </resources>
