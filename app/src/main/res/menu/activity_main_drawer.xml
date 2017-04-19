@@ -3,7 +3,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="none">
         <item
             android:id="@+id/nav_camera"
             android:title="@string/mudar_mapa" />
@@ -12,9 +12,10 @@
             android:id="@+id/action_view"
             android:title="@string/verificar" />
     </group>
-
+<!--
     <group xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:checkableBehavior="none">
 
         <item
             android:id="@+id/Alllayers"
@@ -35,5 +36,5 @@
             app:showAsAction="never" />
 
     </group>
-
+-->
 </menu>

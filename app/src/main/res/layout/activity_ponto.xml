@@ -7,22 +7,12 @@
         android:id="@+id/btnadd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="76dp"
         android:onClick="addButtonClicked"
         android:text="add"
         android:layout_below="@+id/inserirdesc"
-        android:layout_toLeftOf="@+id/button"
-        android:layout_toStartOf="@+id/button" />
-
-    <Button
-        android:id="@+id/btndel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="deleteButtonClcked"
-        android:text="del"
-        android:layout_above="@+id/textView12"
-        android:layout_toRightOf="@+id/button"
-        android:layout_toEndOf="@+id/button" />
+        android:layout_alignLeft="@+id/inserirdesc"
+        android:layout_alignStart="@+id/inserirdesc" />
 
     <EditText
         android:id="@+id/inserirnome"
@@ -76,9 +66,9 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnadd"
-        android:layout_alignBottom="@+id/btnadd"
-        android:layout_centerHorizontal="true"
         android:onClick="ViewButtonClcked"
-        android:text="@string/verificar" />
+        android:text="@string/verificar"
+        android:layout_above="@+id/textView12"
+        android:layout_alignRight="@+id/inserirdesc"
+        android:layout_alignEnd="@+id/inserirdesc" />
 </RelativeLayout>

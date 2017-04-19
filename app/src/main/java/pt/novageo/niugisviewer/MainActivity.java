@@ -1,9 +1,12 @@
 package pt.novageo.niugisviewer;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -19,6 +22,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.gms.maps.model.TileProvider;
 
@@ -27,7 +31,9 @@ public class MainActivity extends AppCompatActivity
 
     private GoogleMap mMap;
     SQLiteDatabase mydatabase;
+    DBTeste db;
     double lat, lng;
+    private static final int PERMS_REQUEST_CODE = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +63,11 @@ public class MainActivity extends AppCompatActivity
         mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('610f3e271d9a29235ab5abc45d6e6e38', 'policia', 0);");
         mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('73b4b7160e10fe06f4f2aa2d0c832163', 'restaurante', 0);");
         mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('aa0d5ea150c6698d7a9dd3eb20fc7703', 'supermercados', 0);");
-
+/*
+        if(!hasPermissions()){
+            requestPerms();
+        }
+        */
         setUpMapIfNeeded();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -78,10 +88,14 @@ public class MainActivity extends AppCompatActivity
 
         mapFragment.getMapAsync(this);
 
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+        db = new DBTeste(this, null, null, 6);
+
+        ResetLayer();
+
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
 
             @Override
-            public void onMapClick(LatLng position) {
+            public void onMapLongClick(LatLng position) {
 
                 lat = position.latitude;
                 lng = position.longitude;
@@ -90,12 +104,17 @@ public class MainActivity extends AppCompatActivity
                 sql.putExtra("coordLat", coordLat);
                 sql.putExtra("coordLng", coordLng);
                 startActivity(sql);
-               /* mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(lat, lng))
-                        .title("Ajuda")
-                        .snippet("wii"));*/
+
             }
         });
+
+    }
+
+
+    protected void onResume() {
+        super.onResume();
+        ResetLayer();
+
     }
 
     @Override
@@ -342,47 +361,6 @@ public class MainActivity extends AppCompatActivity
             } else mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         }
 
-        if (id == R.id.Alllayers) {
-            if (item.isChecked()) {
-                item.setChecked(false);
-                Toast.makeText(MainActivity.this, "Layer off", Toast.LENGTH_SHORT).show();
-                this.mydatabase.execSQL("UPDATE layers SET active=0;");
-
-            } else {
-                item.setChecked(true);
-                Toast.makeText(MainActivity.this, "Layer on", Toast.LENGTH_SHORT).show();
-                this.mydatabase.execSQL("UPDATE layers SET active=1;");
-            }
-
-        }
-
-        if (id == R.id.vias) {
-            if (item.isChecked()) {
-                item.setChecked(false);
-                Toast.makeText(MainActivity.this, "Vias off", Toast.LENGTH_SHORT).show();
-                this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='vias';");
-
-            } else {
-                item.setChecked(true);
-                Toast.makeText(MainActivity.this, "vias on", Toast.LENGTH_SHORT).show();
-                this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='vias';");
-            }
-        }
-
-        if (id == R.id.edificios) {
-
-            if (item.isChecked()) {
-                item.setChecked(false);
-                Toast.makeText(MainActivity.this, "Edifícios off ", Toast.LENGTH_SHORT).show();
-                this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='edificios';");
-
-            } else {
-                item.setChecked(true);
-                Toast.makeText(MainActivity.this, "Edifícios on", Toast.LENGTH_SHORT).show();
-                this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='edificios';");
-            }
-        }
-
         if (id == R.id.action_view) {
             startActivity(view);
             return true;
@@ -401,6 +379,7 @@ public class MainActivity extends AppCompatActivity
 
         mMap.clear();
         setUpMap();
+        checkDB();
 
     }
 
@@ -418,7 +397,8 @@ public class MainActivity extends AppCompatActivity
 
         float zoomLevel = 13;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Agualva, zoomLevel));
-        mMap.setMyLocationEnabled(true);
+        checkDB();
+        //    mMap.setMyLocationEnabled(true);
     }
 
     private void setUpMapIfNeeded() {
@@ -459,5 +439,84 @@ public class MainActivity extends AppCompatActivity
         // Because the demo WMS layer we are using is just a white background map, switch the base layer
         // to satellite so we can see the WMS overlay.
         // mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+    }
+
+    private void checkDB() {
+
+        Cursor check = db.getData();
+        if(check.moveToFirst()) {
+            AddMarkerInDB();
+        } else Toast.makeText(this, "Nenhum ponto encontrado", Toast.LENGTH_SHORT).show();
+
+    }
+
+    private void AddMarkerInDB() {
+
+        Cursor c = db.getData();
+        c.moveToFirst();
+        do {
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(c.getDouble(3), c.getDouble(4)))
+                    .snippet(c.getString(2))
+                    .title(c.getString(1)));
+            c.moveToNext();
+        } while (!c.isAfterLast());
+
+    }
+
+
+    private boolean hasPermissions() {
+
+        int res = 0;
+
+        String[] permissions = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION};
+
+
+        for (String perms : permissions) {
+            res = checkCallingOrSelfPermission(perms);
+            if (!(res == PackageManager.PERMISSION_GRANTED)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void requestPerms() {
+
+        String[] permissions = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION};
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(permissions, PERMS_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        boolean allowed = true;
+
+        switch (requestCode) {
+            case PERMS_REQUEST_CODE:
+
+                for (int res : grantResults) {
+                    // Se o utilizador autorizar
+                    allowed = allowed && (res == PackageManager.PERMISSION_GRANTED);
+                }
+                break;
+            default:
+                //se o utilizador nao autorizar
+                allowed = false;
+                break;
+        }
+
+        if (allowed) {
+            Toast.makeText(this, "Autorizado", Toast.LENGTH_SHORT).show();
+        } else {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (shouldShowRequestPermissionRationale(Manifest.permission.MAPS_RECEIVE)) {
+
+                    Toast.makeText(this, "Não autorizado", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 }

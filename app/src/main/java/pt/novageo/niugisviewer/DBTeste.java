@@ -21,7 +21,7 @@ public class DBTeste extends SQLiteOpenHelper {
     public static final String COLUMN_NOMELOCAIS = "nomelocal";//coluna 1
     public static final String COLUMN_DESCRICAO = "Descricao";//coluna 2
     public static final String COLUMN_LAT = "lat";//coluna 3
-    public static final String COLUMN_LNG = "lng";//coluna
+    public static final String COLUMN_LNG = "lng";//coluna 4
 
     public DBTeste(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NOME, factory, DATABASE_VERSION);
@@ -45,7 +45,7 @@ public class DBTeste extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    //adicionar um novo local
+    //adicionar um registo
     public boolean addPonto(String nome, String descricao, double lat, double lng) {
 
         ContentValues values1 = new ContentValues();
@@ -60,11 +60,11 @@ public class DBTeste extends SQLiteOpenHelper {
         return true;
     }
 
-    //eliminar um novo local
-    public boolean deleteLocal(String nomelocal) {
+    //eliminar um registo
+    public boolean deletePonto(int id) {
 
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_LOCAIS + " WHERE " + COLUMN_NOMELOCAIS + "=\"" + nomelocal + "\";");
+        db.execSQL("DELETE FROM " + TABLE_LOCAIS + " WHERE " + COLUMN_ID + "=\"" + id + "\";");
 
         return true;
     }
@@ -74,6 +74,33 @@ public class DBTeste extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_LOCAIS;
+        Cursor data = db.rawQuery(query, null);
+        return data;
+
+    }
+
+    public Cursor getIdbyNome(String nome){
+
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT " + COLUMN_ID + " FROM " + TABLE_LOCAIS + " WHERE " + COLUMN_NOMELOCAIS + " = '" + nome + "'";
+        Cursor data = db.rawQuery(query, null);
+        return data;
+
+    }
+
+    public Cursor getDataById(int id){
+
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_LOCAIS + " WHERE " + COLUMN_ID + " = '" + id + "'";
+        Cursor data = db.rawQuery(query, null);
+        return data;
+
+    }
+
+    public Cursor getId(){
+
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT " + COLUMN_ID + " FROM " + TABLE_LOCAIS;
         Cursor data = db.rawQuery(query, null);
         return data;
 

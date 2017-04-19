@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -16,7 +15,6 @@ import android.widget.Toast;
 public class Activity_Ponto extends AppCompatActivity {
 
     EditText inserirnome, inserirdesc;
-    TextView textView12;
     DBTeste db;
     String coordLat, coordLng;
     double lat, lng;
@@ -27,15 +25,13 @@ public class Activity_Ponto extends AppCompatActivity {
         setContentView(R.layout.activity_ponto);
         inserirnome = (EditText) findViewById(R.id.inserirnome);
         inserirdesc = (EditText) findViewById(R.id.inserirdesc);
-        textView12 = (TextView) findViewById(R.id.textView12);
         coordLat = getIntent().getStringExtra("coordLat");
         coordLng = getIntent().getStringExtra("coordLng");
         lat = Double.parseDouble(coordLat);
         lng = Double.parseDouble(coordLng);
         db = new DBTeste(this, null, null, 6);
         resetText();
-    //    Toast.makeText(this, coordLat, Toast.LENGTH_SHORT).show();
-    //    Toast.makeText(this, coordLng, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, coordLat + coordLng, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -48,20 +44,12 @@ public class Activity_Ponto extends AppCompatActivity {
 
     }
 
-    //apagar registo da base de dados
-    public void deleteButtonClcked(View view){
-
-        String inputText = inserirnome.getText().toString();
-        db.deleteLocal(inputText);
-        Toast.makeText(this, "Ponto Removido", Toast.LENGTH_SHORT).show();
-        resetText();
-
-    }
-
     public void ViewButtonClcked(View view){
 
         Intent view2 = new Intent(this, Activity_ListData.class);
+        db.close();
         startActivity(view2);
+
 
     }
 
