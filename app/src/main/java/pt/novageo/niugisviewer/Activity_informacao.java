@@ -5,16 +5,16 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 /**
- * Created by estagiario on 13/04/2017.
- *
+ * Created by estagiario on 13/04/2017. (ºbº)
  */
 
 public class Activity_informacao extends AppCompatActivity {
 
-    TextView textDesc, textLat, textLng, textNome;
+    TextView textLat, textLng ,textDesc, textNome;
     DBTeste db;
     String dbstring;
     int id;
@@ -59,6 +59,7 @@ public class Activity_informacao extends AppCompatActivity {
 
         Intent inf = new Intent(this, Activity_ListData.class);
         db.deletePonto(id);
+        finish();
         startActivity(inf);
 
     }

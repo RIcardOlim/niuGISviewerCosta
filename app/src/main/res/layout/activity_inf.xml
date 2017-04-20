@@ -24,6 +24,7 @@
         android:layout_toRightOf="@+id/textView9"
         android:layout_toEndOf="@+id/textView9" />
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,9 +41,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/textView14"
-        android:layout_toEndOf="@+id/textView14"
         android:layout_toRightOf="@+id/textView14"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        android:layout_above="@+id/textView16" />
 
     <TextView
         android:id="@+id/textView16"
@@ -87,26 +88,23 @@
         android:id="@+id/btnDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="122dp"
         android:onClick="DeleteOnClick"
         android:text="Delete"
-        android:layout_marginLeft="51dp"
-        android:layout_marginStart="51dp"
+        android:layout_marginTop="73dp"
         android:layout_below="@+id/textLng"
-        android:layout_toRightOf="@+id/btnMudar"
-        android:layout_toEndOf="@+id/btnMudar" />
+        android:layout_toRightOf="@+id/textDesc"
+        android:layout_toEndOf="@+id/textDesc" />
 
     <Button
         android:id="@+id/btnMudar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/btnDelete"
-        android:layout_marginLeft="17dp"
-        android:layout_marginStart="17dp"
-        android:layout_toEndOf="@+id/textNome"
-        android:layout_toRightOf="@+id/textNome"
         android:onClick="MudarOnClick"
-        android:text="Mudar" />
+        android:text="Mudar"
+        android:layout_alignBaseline="@+id/btnDelete"
+        android:layout_alignBottom="@+id/btnDelete"
+        android:layout_alignRight="@+id/textDesc"
+        android:layout_alignEnd="@+id/textDesc" />
 
 
 </RelativeLayout>

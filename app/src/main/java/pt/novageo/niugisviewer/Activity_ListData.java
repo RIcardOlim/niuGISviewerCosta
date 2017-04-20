@@ -59,6 +59,7 @@ public class Activity_ListData extends AppCompatActivity {
                     inf.putExtra("ID", itemID);
                     data.close();
                     db.close();
+                    finish();
                     startActivity(inf);
 
                 } else Toast.makeText(Activity_ListData.this, "Não existe esse ID", Toast.LENGTH_SHORT).show();

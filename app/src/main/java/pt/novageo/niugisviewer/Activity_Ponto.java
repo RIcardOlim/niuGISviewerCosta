@@ -48,6 +48,7 @@ public class Activity_Ponto extends AppCompatActivity {
 
         Intent view2 = new Intent(this, Activity_ListData.class);
         db.close();
+        finish();
         startActivity(view2);
 
 
