@@ -106,4 +106,11 @@ public class DBTeste extends SQLiteOpenHelper {
 
     }
 
+    public boolean UpdatePonto(int id, String nome, String desc) {
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE " + TABLE_LOCAIS + " SET " + COLUMN_NOMELOCAIS + " = '" + nome + "' , " + COLUMN_DESCRICAO + " = '" + desc + "' WHERE " + COLUMN_ID + " = '" + id + "';");
+        return true;
+    }
+
 }

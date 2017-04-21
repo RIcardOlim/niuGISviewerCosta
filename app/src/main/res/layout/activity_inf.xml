@@ -12,14 +12,14 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:text="Nome: "
-        android:textSize="18sp"/>
+        android:textSize="15sp"/>
 
     <TextView
         android:id="@+id/textNome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:layout_above="@+id/textView14"
         android:layout_toRightOf="@+id/textView9"
         android:layout_toEndOf="@+id/textView9" />
@@ -28,10 +28,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="61dp"
+        android:layout_marginTop="25dp"
         android:text="Descrição: "
         android:id="@+id/textView14"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:layout_below="@+id/textView9"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -42,16 +42,16 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/textView14"
         android:layout_toRightOf="@+id/textView14"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:layout_above="@+id/textView16" />
 
     <TextView
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="62dp"
+        android:layout_marginTop="25dp"
         android:text="Coordenadas: "
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:layout_below="@+id/textView14"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -63,7 +63,7 @@
         android:layout_alignTop="@+id/textView16"
         android:layout_toEndOf="@+id/textView16"
         android:layout_toRightOf="@+id/textView16"
-        android:textSize="18sp"/>
+        android:textSize="15sp"/>
 
     <TextView
         android:id="@+id/textView18"
@@ -73,7 +73,7 @@
         android:text=", "
         android:layout_toRightOf="@+id/textLat"
         android:layout_toEndOf="@+id/textLat"
-        android:textSize="18sp"/>
+        android:textSize="15sp"/>
 
     <TextView
         android:id="@+id/textLng"
@@ -82,18 +82,7 @@
         android:layout_below="@+id/textView16"
         android:layout_toEndOf="@+id/textView16"
         android:layout_toRightOf="@+id/textView16"
-        android:textSize="18sp"/>
-
-    <Button
-        android:id="@+id/btnDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="DeleteOnClick"
-        android:text="Delete"
-        android:layout_marginTop="73dp"
-        android:layout_below="@+id/textLng"
-        android:layout_toRightOf="@+id/textDesc"
-        android:layout_toEndOf="@+id/textDesc" />
+        android:textSize="15sp"/>
 
     <Button
         android:id="@+id/btnMudar"
@@ -101,10 +90,21 @@
         android:layout_height="wrap_content"
         android:onClick="MudarOnClick"
         android:text="Mudar"
+        android:layout_marginLeft="39dp"
+        android:layout_marginStart="39dp"
         android:layout_alignBaseline="@+id/btnDelete"
         android:layout_alignBottom="@+id/btnDelete"
-        android:layout_alignRight="@+id/textDesc"
-        android:layout_alignEnd="@+id/textDesc" />
+        android:layout_toRightOf="@+id/btnDelete"
+        android:layout_toEndOf="@+id/btnDelete" />
 
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="DeleteOnClick"
+        android:text="Delete"
+        android:layout_marginTop="150dp"
+
+        android:layout_marginStart="50dp" />
 
 </RelativeLayout>

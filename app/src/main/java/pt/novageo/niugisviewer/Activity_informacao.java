@@ -1,11 +1,11 @@
 package pt.novageo.niugisviewer;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 /**
@@ -66,8 +66,10 @@ public class Activity_informacao extends AppCompatActivity {
 
     public void MudarOnClick (View view) {
 
-    //    Intent mudar = new Intent(this, Activity_List.class);
-    //    startActivity(mudar);
+        Intent mudar = new Intent(this, Activity_mudar.class);
+        mudar.putExtra("ID", id);
+        finish();
+        startActivity(mudar);
 
     }
 

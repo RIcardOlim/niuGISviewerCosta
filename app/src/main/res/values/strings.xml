@@ -50,7 +50,7 @@
     <string name="adicionar_local">testeSQL</string>
     <string name="apagar_ponto">Apagar ponto</string>
     <string name="sql_menu_teste">SQL Menu teste</string>
-    <string name="sql_teste">SQL teste</string>
+    <string name="sql_teste">Criar Novo Ponto</string>
     <string name="Nome_do_ponto">Nome do Ponto</string>
     <string name="descri_o">Descrição</string>
     <string name="verificar">Verificar</string>

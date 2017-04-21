@@ -101,6 +101,11 @@
             android:label="@string/verificar"
             android:parentActivityName="pt.novageo.niugisviewer.MainActivity" />
 
+        <activity
+            android:name="pt.novageo.niugisviewer.Activity_mudar"
+            android:label="@string/verificar"
+            android:parentActivityName="pt.novageo.niugisviewer.MainActivity" />
+
     </application>
 
 </manifest>
