@@ -491,7 +491,6 @@ public class MainActivity extends AppCompatActivity
     public void onInfoWindowClick(Marker marker) {
 
         String s = marker.getTitle();
-        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
         Cursor c = db.getIdbyNome(s);
         c.moveToFirst();
         int id = c.getInt(0);
