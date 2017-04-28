@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -28,12 +30,19 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.gms.maps.model.TileProvider;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap mMap;
     SQLiteDatabase mydatabase;
     DBTeste db;
+    Geocoder geocoder;
+    List<Address> address;
+    String morada = "";
     double lat, lng;
     private static final int PERMS_REQUEST_CODE = 123;
 
@@ -90,21 +99,31 @@ public class MainActivity extends AppCompatActivity
 
         mapFragment.getMapAsync(this);
 
-        db = new DBTeste(this, null, null, 9);
+        db = new DBTeste(this, null, null, 10);
 
         ResetLayer();
+        geocoder = new Geocoder(this, Locale.getDefault());
 
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
 
             @Override
             public void onMapLongClick(LatLng position) {
 
+                try {
+                    address = geocoder.getFromLocation(position.latitude, position.longitude, 1);
+                    morada = address.get(0).getAddressLine(0);
+                } catch (IOException e) {
+
+                    morada = "Morada não encontrada";
+
+                }
                 lat = position.latitude;
                 lng = position.longitude;
                 String coordLat = String.valueOf(lat);
                 String coordLng = String.valueOf(lng);
                 sql.putExtra("coordLat", coordLat);
                 sql.putExtra("coordLng", coordLng);
+                sql.putExtra("morada", morada);
                 startActivity(sql);
 
             }

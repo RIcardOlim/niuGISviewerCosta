@@ -15,7 +15,7 @@ public class DBTeste extends SQLiteOpenHelper {
 
     Date date;
 
-    private static final int DATABASE_VERSION = 9;
+    private static final int DATABASE_VERSION = 10;
     private static final String DATABASE_NOME = "Locais.db";
     public static final String TABLE_LOCAIS = "locais";
     public static final String COLUMN_ID = "_id";//coluna 0
@@ -24,6 +24,7 @@ public class DBTeste extends SQLiteOpenHelper {
     public static final String COLUMN_LAT = "lat";//coluna 3
     public static final String COLUMN_LNG = "lng";//coluna 4
     public static final String COLUMN_DATA = "data";//coluna 5
+    public static final String COLUMN_MORADA = "morada";//coluna 6
 
     public DBTeste(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NOME, factory, DATABASE_VERSION);
@@ -37,7 +38,8 @@ public class DBTeste extends SQLiteOpenHelper {
                 COLUMN_DESCRICAO + " TEXT, " +
                 COLUMN_LAT + " VARCHAR(50), " +
                 COLUMN_LNG + " VARCHAR(50), " +
-                COLUMN_DATA + " DATE " +
+                COLUMN_DATA + " DATE, " +
+                COLUMN_MORADA + " TEXT " +
         ");";
         db.execSQL(query);
 
@@ -50,7 +52,7 @@ public class DBTeste extends SQLiteOpenHelper {
     }
 
     //adicionar um registo
-    public boolean addPonto(String nome, String descricao, double lat, double lng) {
+    public boolean addPonto(String nome, String descricao, double lat, double lng, String morada) {
 
         ContentValues values = new ContentValues();
         SQLiteDatabase db = getWritableDatabase();
@@ -59,6 +61,7 @@ public class DBTeste extends SQLiteOpenHelper {
         values.put(COLUMN_LAT, lat);
         values.put(COLUMN_LNG, lng);
         values.put(COLUMN_DATA, getDateTime());
+        values.put(COLUMN_MORADA, morada);
         db.insert(TABLE_LOCAIS, null, values);
         db.close();
 

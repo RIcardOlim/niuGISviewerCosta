@@ -16,7 +16,7 @@ public class Activity_Ponto extends AppCompatActivity {
 
     EditText inserirnome, inserirdesc;
     DBTeste db;
-    String coordLat, coordLng;
+    String coordLat, coordLng, morada;
     double lat, lng;
 
     @Override
@@ -26,10 +26,11 @@ public class Activity_Ponto extends AppCompatActivity {
         inserirnome = (EditText) findViewById(R.id.inserirnome);
         inserirdesc = (EditText) findViewById(R.id.inserirdesc);
         coordLat = getIntent().getStringExtra("coordLat");
+        morada = getIntent().getStringExtra("morada");
         coordLng = getIntent().getStringExtra("coordLng");
         lat = Double.parseDouble(coordLat);
         lng = Double.parseDouble(coordLng);
-        db = new DBTeste(this, null, null, 9);
+        db = new DBTeste(this, null, null, 10);
         resetText();
        // Toast.makeText(this, coordLat + coordLng, Toast.LENGTH_SHORT).show();
 
@@ -38,7 +39,7 @@ public class Activity_Ponto extends AppCompatActivity {
     //adicionar registo da base de dados
     public void addButtonClicked(View view){
 
-        db.addPonto(inserirnome.getText().toString(), inserirdesc.getText().toString(), lat, lng);
+        db.addPonto(inserirnome.getText().toString(), inserirdesc.getText().toString(), lat, lng, morada);
         Toast.makeText(this, "Ponto Adicionado", Toast.LENGTH_SHORT).show();
         resetText();
 

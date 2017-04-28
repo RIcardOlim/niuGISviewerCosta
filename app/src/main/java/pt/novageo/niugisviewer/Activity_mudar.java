@@ -22,7 +22,7 @@ public class Activity_mudar extends AppCompatActivity {
         setContentView(R.layout.activity_mudar);
         novonome = (EditText) findViewById(R.id.inserirnome);
         novodesc = (EditText) findViewById(R.id.inserirdesc);
-        db = new DBTeste(this, null, null, 9);
+        db = new DBTeste(this, null, null, 10);
         id = getIntent().getIntExtra("ID", 0);
 
     }

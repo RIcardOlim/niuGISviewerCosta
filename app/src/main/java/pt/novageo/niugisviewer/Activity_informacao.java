@@ -1,6 +1,5 @@
 package pt.novageo.niugisviewer;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -14,7 +13,7 @@ import android.widget.TextView;
 
 public class Activity_informacao extends AppCompatActivity {
 
-    TextView textLat, textLng ,textDesc, textNome, textData;
+    TextView textLat, textLng ,textDesc, textNome, textData, textMorada;
     DBTeste db;
     String dbstring;
     int id;
@@ -28,8 +27,9 @@ public class Activity_informacao extends AppCompatActivity {
         textLat = (TextView) findViewById(R.id.textLat);
         textLng = (TextView) findViewById(R.id.textLng);
         textData = (TextView) findViewById(R.id.textData);
+        textMorada = (TextView) findViewById(R.id.textMorada);
         id = getIntent().getIntExtra("ID", 0);
-        db = new DBTeste(this, null, null, 9);
+        db = new DBTeste(this, null, null, 10);
         publicar();
 
     }
@@ -57,6 +57,10 @@ public class Activity_informacao extends AppCompatActivity {
         c.moveToFirst();
         dbstring = c.getString(5);
         textData.setText(dbstring);
+
+        c.moveToFirst();
+        dbstring = c.getString(6);
+        textMorada.setText(dbstring);
 
     }
 
