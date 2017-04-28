@@ -93,7 +93,6 @@
         <activity
             android:name="pt.novageo.niugisviewer.Activity_ListData"
             android:label="@string/verificar"
-
             android:parentActivityName="pt.novageo.niugisviewer.MainActivity" />
 
         <activity

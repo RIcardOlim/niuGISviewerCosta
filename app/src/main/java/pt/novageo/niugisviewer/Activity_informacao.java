@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 public class Activity_informacao extends AppCompatActivity {
 
-    TextView textLat, textLng ,textDesc, textNome;
+    TextView textLat, textLng ,textDesc, textNome, textData;
     DBTeste db;
     String dbstring;
     int id;
@@ -27,8 +27,9 @@ public class Activity_informacao extends AppCompatActivity {
         textDesc = (TextView) findViewById(R.id.textDesc);
         textLat = (TextView) findViewById(R.id.textLat);
         textLng = (TextView) findViewById(R.id.textLng);
+        textData = (TextView) findViewById(R.id.textData);
         id = getIntent().getIntExtra("ID", 0);
-        db = new DBTeste(this, null, null, 6);
+        db = new DBTeste(this, null, null, 9);
         publicar();
 
     }
@@ -52,6 +53,10 @@ public class Activity_informacao extends AppCompatActivity {
         c.moveToFirst();
         dbstring = c.getString(4);
         textLng.setText(dbstring);
+
+        c.moveToFirst();
+        dbstring = c.getString(5);
+        textData.setText(dbstring);
 
     }
 

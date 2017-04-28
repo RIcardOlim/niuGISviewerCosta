@@ -29,7 +29,7 @@ public class Activity_Ponto extends AppCompatActivity {
         coordLng = getIntent().getStringExtra("coordLng");
         lat = Double.parseDouble(coordLat);
         lng = Double.parseDouble(coordLng);
-        db = new DBTeste(this, null, null, 6);
+        db = new DBTeste(this, null, null, 9);
         resetText();
        // Toast.makeText(this, coordLat + coordLng, Toast.LENGTH_SHORT).show();
 

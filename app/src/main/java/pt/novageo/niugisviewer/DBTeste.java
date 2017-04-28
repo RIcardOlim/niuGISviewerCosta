@@ -1,20 +1,21 @@
 package pt.novageo.niugisviewer;
 
-/**
- * Created by estagiario on 31/03/2017.
- *
- */
-
-import android.app.AlertDialog;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.Cursor;
 import android.content.Context;
 import android.content.ContentValues;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Objects;
+
 public class DBTeste extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 6;
+    Date date;
+
+    private static final int DATABASE_VERSION = 9;
     private static final String DATABASE_NOME = "Locais.db";
     public static final String TABLE_LOCAIS = "locais";
     public static final String COLUMN_ID = "_id";//coluna 0
@@ -22,6 +23,7 @@ public class DBTeste extends SQLiteOpenHelper {
     public static final String COLUMN_DESCRICAO = "Descricao";//coluna 2
     public static final String COLUMN_LAT = "lat";//coluna 3
     public static final String COLUMN_LNG = "lng";//coluna 4
+    public static final String COLUMN_DATA = "data";//coluna 5
 
     public DBTeste(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NOME, factory, DATABASE_VERSION);
@@ -34,9 +36,11 @@ public class DBTeste extends SQLiteOpenHelper {
                 COLUMN_NOMELOCAIS + " TEXT, " +
                 COLUMN_DESCRICAO + " TEXT, " +
                 COLUMN_LAT + " VARCHAR(50), " +
-                COLUMN_LNG + " VARCHAR(50) " +
-                ");";
+                COLUMN_LNG + " VARCHAR(50), " +
+                COLUMN_DATA + " DATE " +
+        ");";
         db.execSQL(query);
+
     }
 
     @Override
@@ -48,13 +52,14 @@ public class DBTeste extends SQLiteOpenHelper {
     //adicionar um registo
     public boolean addPonto(String nome, String descricao, double lat, double lng) {
 
-        ContentValues values1 = new ContentValues();
+        ContentValues values = new ContentValues();
         SQLiteDatabase db = getWritableDatabase();
-        values1.put(COLUMN_NOMELOCAIS, nome);
-        values1.put(COLUMN_DESCRICAO, descricao);
-        values1.put(COLUMN_LAT, lat);
-        values1.put(COLUMN_LNG, lng);
-        db.insert(TABLE_LOCAIS, null, values1);
+        values.put(COLUMN_NOMELOCAIS, nome);
+        values.put(COLUMN_DESCRICAO, descricao);
+        values.put(COLUMN_LAT, lat);
+        values.put(COLUMN_LNG, lng);
+        values.put(COLUMN_DATA, getDateTime());
+        db.insert(TABLE_LOCAIS, null, values);
         db.close();
 
         return true;
@@ -79,6 +84,16 @@ public class DBTeste extends SQLiteOpenHelper {
 
     }
 
+    public Cursor getId(){
+
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT " + COLUMN_ID + " FROM " + TABLE_LOCAIS;
+        Cursor data = db.rawQuery(query, null);
+        return data;
+
+    }
+
+
     public Cursor getIdbyNome(String nome){
 
         SQLiteDatabase db = getWritableDatabase();
@@ -97,20 +112,41 @@ public class DBTeste extends SQLiteOpenHelper {
 
     }
 
-    public Cursor getId(){
+    public boolean UpdateNome(int id, String nome) {
 
-        SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT " + COLUMN_ID + " FROM " + TABLE_LOCAIS;
-        Cursor data = db.rawQuery(query, null);
-        return data;
+
+        if(Objects.equals(nome, "")) {
+            return false;
+        } else {
+            SQLiteDatabase db = getWritableDatabase();
+            db.execSQL("UPDATE " + TABLE_LOCAIS + " SET " + COLUMN_NOMELOCAIS + " = '" + nome + "' WHERE " + COLUMN_ID + " = '" + id + "';");
+            db.close();
+            return true;
+        }
 
     }
 
-    public boolean UpdatePonto(int id, String nome, String desc) {
+    public boolean UpdateDesc(int id, String desc) {
 
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("UPDATE " + TABLE_LOCAIS + " SET " + COLUMN_NOMELOCAIS + " = '" + nome + "' , " + COLUMN_DESCRICAO + " = '" + desc + "' WHERE " + COLUMN_ID + " = '" + id + "';");
-        return true;
+
+        if(Objects.equals(desc, "")) {
+            return false;
+        } else {
+            SQLiteDatabase db = getWritableDatabase();
+            db.execSQL("UPDATE " + TABLE_LOCAIS + " SET " + COLUMN_DESCRICAO + " = '" + desc + "' WHERE " + COLUMN_ID + " = '" + id + "';");
+            db.close();
+            return true;
+        }
+
+    }
+
+    private String getDateTime(){
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
+
     }
 
 }

@@ -21,13 +21,15 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.gms.maps.model.TileProvider;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
+        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap mMap;
     SQLiteDatabase mydatabase;
@@ -88,7 +90,7 @@ public class MainActivity extends AppCompatActivity
 
         mapFragment.getMapAsync(this);
 
-        db = new DBTeste(this, null, null, 6);
+        db = new DBTeste(this, null, null, 9);
 
         ResetLayer();
 
@@ -398,6 +400,7 @@ public class MainActivity extends AppCompatActivity
         float zoomLevel = 13;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Agualva, zoomLevel));
         checkDB();
+        mMap.setOnInfoWindowClickListener(this);
         //    mMap.setMyLocationEnabled(true);
     }
 
@@ -457,13 +460,27 @@ public class MainActivity extends AppCompatActivity
         do {
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(c.getDouble(3), c.getDouble(4)))
-                    .snippet(c.getString(2))
+                    .snippet("Descrição: " + c.getString(2))
                     .title(c.getString(1)));
             c.moveToNext();
         } while (!c.isAfterLast());
 
+
     }
 
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+
+        String s = marker.getTitle();
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+        Cursor c = db.getIdbyNome(s);
+        c.moveToFirst();
+        int id = c.getInt(0);
+        Intent inf = new Intent(this, Activity_informacao.class);
+        inf.putExtra("ID", id);
+        startActivity(inf);
+
+    }
 
     private boolean hasPermissions() {
 

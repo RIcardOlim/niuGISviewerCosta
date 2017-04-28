@@ -22,7 +22,7 @@ public class Activity_mudar extends AppCompatActivity {
         setContentView(R.layout.activity_mudar);
         novonome = (EditText) findViewById(R.id.inserirnome);
         novodesc = (EditText) findViewById(R.id.inserirdesc);
-        db = new DBTeste(this, null, null, 6);
+        db = new DBTeste(this, null, null, 9);
         id = getIntent().getIntExtra("ID", 0);
 
     }
@@ -30,7 +30,8 @@ public class Activity_mudar extends AppCompatActivity {
     public void UpdateOnClick(View view) {
 
         Intent inf = new Intent(this, Activity_informacao.class);
-        db.UpdatePonto(id, novonome.getText().toString(), novodesc.getText().toString());
+        db.UpdateNome(id, novonome.getText().toString());
+        db.UpdateDesc(id, novodesc.getText().toString());
         inf.putExtra("ID", id);
         finish();
         startActivity(inf);
