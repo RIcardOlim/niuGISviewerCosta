@@ -2,9 +2,12 @@ package pt.novageo.niugisviewer;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -13,8 +16,9 @@ import android.widget.TextView;
 
 public class Activity_informacao extends AppCompatActivity {
 
-    TextView textLat, textLng ,textDesc, textNome, textData, textMorada;
+    TextView textLat, textLng ,textDesc, textNome, textData, textMorada, textEstado;
     DBTeste db;
+    ImageView FotoView;
     String dbstring;
     int id;
 
@@ -28,8 +32,9 @@ public class Activity_informacao extends AppCompatActivity {
         textLng = (TextView) findViewById(R.id.textLng);
         textData = (TextView) findViewById(R.id.textData);
         textMorada = (TextView) findViewById(R.id.textMorada);
+        FotoView = (ImageView) findViewById(R.id.imageView7);
         id = getIntent().getIntExtra("ID", 0);
-        db = new DBTeste(this, null, null, 10);
+        db = new DBTeste(this, null, null, 14);
         publicar();
 
     }
@@ -62,6 +67,8 @@ public class Activity_informacao extends AppCompatActivity {
         dbstring = c.getString(6);
         textMorada.setText(dbstring);
 
+        FotoView.setImageBitmap(ByteToImageView());
+
     }
 
     public void DeleteOnClick (View view) {
@@ -80,6 +87,17 @@ public class Activity_informacao extends AppCompatActivity {
         finish();
         startActivity(mudar);
 
+    }
+
+    public Bitmap ByteToImageView(){
+
+        Cursor c = db.getDataById(id);
+
+        c.moveToFirst();
+        byte[] fotoimage = c.getBlob(7);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(fotoimage, 0, fotoimage.length);
+
+        return bitmap;
     }
 
 }

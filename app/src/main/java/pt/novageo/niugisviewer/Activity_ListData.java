@@ -29,7 +29,7 @@ public class Activity_ListData extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listdata);
         listView = (ListView) findViewById(R.id.listView);
-        db = new DBTeste(this, null, null, 6);
+        db = new DBTeste(this, null, null, 13);
         ocuparListView();
 
     }
@@ -59,7 +59,6 @@ public class Activity_ListData extends AppCompatActivity {
                     inf.putExtra("ID", itemID);
                     data.close();
                     db.close();
-                    finish();
                     startActivity(inf);
 
                 } else Toast.makeText(Activity_ListData.this, "Não existe esse ID", Toast.LENGTH_SHORT).show();

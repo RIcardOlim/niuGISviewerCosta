@@ -23,13 +23,11 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.gms.maps.model.TileProvider;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -99,9 +97,8 @@ public class MainActivity extends AppCompatActivity
 
         mapFragment.getMapAsync(this);
 
-        db = new DBTeste(this, null, null, 10);
+        db = new DBTeste(this, null, null, 14);
 
-        ResetLayer();
         geocoder = new Geocoder(this, Locale.getDefault());
 
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
@@ -147,6 +144,7 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+            finish();
         }
 
     }
@@ -410,17 +408,14 @@ public class MainActivity extends AppCompatActivity
 
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-              /*   Marcador para Agualva
-
-        mMap.addMarker(new MarkerOptions().position(Amadora).title("Onde eu estou!"));*/
-
         LatLng Agualva = new LatLng(38.77410061, -9.2924664);
 
         float zoomLevel = 13;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Agualva, zoomLevel));
         checkDB();
         mMap.setOnInfoWindowClickListener(this);
-        //    mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMapToolbarEnabled(false);
+        //   mMap.setMyLocationEnabled(true);
     }
 
     private void setUpMapIfNeeded() {
@@ -477,11 +472,11 @@ public class MainActivity extends AppCompatActivity
         Cursor c = db.getData();
         c.moveToFirst();
         do {
-            mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(c.getDouble(3), c.getDouble(4)))
-                    .snippet("Descrição: " + c.getString(2))
-                    .title(c.getString(1)));
-            c.moveToNext();
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(c.getDouble(3), c.getDouble(4)))
+                        .snippet("Descrição: " + c.getString(2))
+                        .title(c.getString(1)));
+                c.moveToNext();
         } while (!c.isAfterLast());
 
 
@@ -554,4 +549,6 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
+
+
 }

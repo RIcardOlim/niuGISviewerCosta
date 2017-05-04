@@ -1,6 +1,7 @@
 package pt.novageo.niugisviewer;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -22,7 +23,7 @@ public class Activity_mudar extends AppCompatActivity {
         setContentView(R.layout.activity_mudar);
         novonome = (EditText) findViewById(R.id.inserirnome);
         novodesc = (EditText) findViewById(R.id.inserirdesc);
-        db = new DBTeste(this, null, null, 10);
+        db = new DBTeste(this, null, null, 14);
         id = getIntent().getIntExtra("ID", 0);
 
     }

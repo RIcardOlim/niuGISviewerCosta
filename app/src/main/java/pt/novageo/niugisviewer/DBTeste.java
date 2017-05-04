@@ -13,18 +13,19 @@ import java.util.Objects;
 
 public class DBTeste extends SQLiteOpenHelper {
 
-    Date date;
 
-    private static final int DATABASE_VERSION = 10;
+
+    private static final int DATABASE_VERSION = 14;
     private static final String DATABASE_NOME = "Locais.db";
-    public static final String TABLE_LOCAIS = "locais";
-    public static final String COLUMN_ID = "_id";//coluna 0
-    public static final String COLUMN_NOMELOCAIS = "nomelocal";//coluna 1
-    public static final String COLUMN_DESCRICAO = "Descricao";//coluna 2
-    public static final String COLUMN_LAT = "lat";//coluna 3
-    public static final String COLUMN_LNG = "lng";//coluna 4
-    public static final String COLUMN_DATA = "data";//coluna 5
-    public static final String COLUMN_MORADA = "morada";//coluna 6
+    private static final String TABLE_LOCAIS = "locais";
+    private static final String COLUMN_ID = "_id";//coluna 0
+    private static final String COLUMN_NOMELOCAIS = "nomelocal";//coluna 1
+    private static final String COLUMN_DESCRICAO = "Descricao";//coluna 2
+    private static final String COLUMN_LAT = "lat";//coluna 3
+    private static final String COLUMN_LNG = "lng";//coluna 4
+    private static final String COLUMN_DATA = "data";//coluna 5
+    private static final String COLUMN_MORADA = "morada";//coluna 6
+    private static final String COLUMN_IMAGEM = "imagem";//coluna 7
 
     public DBTeste(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NOME, factory, DATABASE_VERSION);
@@ -38,8 +39,10 @@ public class DBTeste extends SQLiteOpenHelper {
                 COLUMN_DESCRICAO + " TEXT, " +
                 COLUMN_LAT + " VARCHAR(50), " +
                 COLUMN_LNG + " VARCHAR(50), " +
-                COLUMN_DATA + " DATE, " +
-                COLUMN_MORADA + " TEXT " +
+                COLUMN_DATA + " DATETIME, " +
+                COLUMN_MORADA + " TEXT, " +
+                COLUMN_IMAGEM + " BLOB " +
+
         ");";
         db.execSQL(query);
 
@@ -52,7 +55,7 @@ public class DBTeste extends SQLiteOpenHelper {
     }
 
     //adicionar um registo
-    public boolean addPonto(String nome, String descricao, double lat, double lng, String morada) {
+    public boolean addPonto(String nome, String descricao, double lat, double lng, String morada, byte[] imagem) {
 
         ContentValues values = new ContentValues();
         SQLiteDatabase db = getWritableDatabase();
@@ -62,6 +65,7 @@ public class DBTeste extends SQLiteOpenHelper {
         values.put(COLUMN_LNG, lng);
         values.put(COLUMN_DATA, getDateTime());
         values.put(COLUMN_MORADA, morada);
+        values.put(COLUMN_IMAGEM, imagem);
         db.insert(TABLE_LOCAIS, null, values);
         db.close();
 
@@ -96,13 +100,21 @@ public class DBTeste extends SQLiteOpenHelper {
 
     }
 
-
     public Cursor getIdbyNome(String nome){
 
         SQLiteDatabase db = getWritableDatabase();
         String query = "SELECT " + COLUMN_ID + " FROM " + TABLE_LOCAIS + " WHERE " + COLUMN_NOMELOCAIS + " = '" + nome + "'";
         Cursor data = db.rawQuery(query, null);
         return data;
+
+    }
+
+    private String getDateTime(){
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
 
     }
 
@@ -117,7 +129,6 @@ public class DBTeste extends SQLiteOpenHelper {
 
     public boolean UpdateNome(int id, String nome) {
 
-
         if(Objects.equals(nome, "")) {
             return false;
         } else {
@@ -131,7 +142,6 @@ public class DBTeste extends SQLiteOpenHelper {
 
     public boolean UpdateDesc(int id, String desc) {
 
-
         if(Objects.equals(desc, "")) {
             return false;
         } else {
@@ -142,14 +152,4 @@ public class DBTeste extends SQLiteOpenHelper {
         }
 
     }
-
-    private String getDateTime(){
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "yyyy-MM-dd", Locale.getDefault());
-        Date date = new Date();
-        return dateFormat.format(date);
-
-    }
-
 }

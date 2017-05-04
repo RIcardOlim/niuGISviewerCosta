@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -7,12 +8,12 @@
         android:id="@+id/btnadd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
         android:onClick="addButtonClicked"
         android:text="add"
         android:layout_below="@+id/inserirdesc"
         android:layout_alignLeft="@+id/inserirdesc"
-        android:layout_alignStart="@+id/inserirdesc" />
+        android:layout_alignStart="@+id/inserirdesc"
+        android:layout_marginTop="119dp" />
 
     <EditText
         android:id="@+id/inserirnome"
@@ -33,14 +34,6 @@
         android:layout_below="@+id/inserirnome"
         android:layout_alignLeft="@+id/inserirnome"
         android:layout_alignStart="@+id/inserirnome" />
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnadd"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="52dp" />
 
     <TextView
         android:id="@+id/textView6"
@@ -68,7 +61,34 @@
         android:layout_height="wrap_content"
         android:onClick="ViewButtonClcked"
         android:text="@string/verificar"
-        android:layout_above="@+id/textView12"
+        android:layout_alignBaseline="@+id/btnadd"
+        android:layout_alignBottom="@+id/btnadd"
         android:layout_alignRight="@+id/inserirdesc"
         android:layout_alignEnd="@+id/inserirdesc" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:srcCompat="@drawable/ponto"
+        android:layout_marginBottom="23dp"
+        android:layout_above="@+id/button"
+        android:layout_alignLeft="@+id/btnadd"
+        android:layout_alignStart="@+id/btnadd"
+        android:layout_alignRight="@+id/btnadd"
+        android:layout_alignEnd="@+id/btnadd" />
+
+    <Button
+        android:id="@+id/MudarImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView8"
+        android:layout_alignEnd="@+id/button"
+        android:layout_alignLeft="@+id/button"
+        android:layout_alignRight="@+id/button"
+        android:layout_alignStart="@+id/button"
+        android:layout_alignTop="@+id/imageView8"
+        android:onClick="MudarImagem"
+        android:text="Mudar Imagem" />
+
 </RelativeLayout>
