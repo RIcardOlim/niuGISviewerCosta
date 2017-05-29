@@ -58,7 +58,7 @@
     <string name="mudar">Mudar</string>
     <string name="delete">Delete</string>
     <string name="morada">Morada:</string>
-    <string name="data_de_cria_o">Data de criação:</string>
+    <string name="data_de_cria_o">Data de criação: </string>
     <string name="virgula">,</string>
     <string name="coordenadas">Coordenadas:</string>
     <string name="escolhe">Escolhe: </string>
