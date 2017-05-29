@@ -1,13 +1,16 @@
 package pt.novageo.niugisviewer;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
@@ -22,6 +25,7 @@ import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
 
@@ -42,6 +46,7 @@ public class Activity_Ponto extends AppCompatActivity {
     double lat, lng;
     Boolean galeria, camera;
     final int REQUEST_CODE_GALLERY = 969;
+    private Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +95,8 @@ public class Activity_Ponto extends AppCompatActivity {
         desc = inserirdesc.getText().toString();
 
         try{
-        if(Objects.equals(nome, "")) {
-            Toast.makeText(this, "Nome do ponto obrigatório", Toast.LENGTH_SHORT).show();
+            if(Objects.equals(nome, "")) {
+                Toast.makeText(this, "Nome do ponto obrigatório", Toast.LENGTH_SHORT).show();
 
             } else if (Objects.equals(tipo, "Escola")) {
 
@@ -105,11 +110,11 @@ public class Activity_Ponto extends AppCompatActivity {
                 resetText();
             } else if (Objects.equals(tipo, "Supermercado")) {
 
-            db.addPontoSM(nome, desc, lat, lng, morada, imageViewToByte(FotoView));
-            Toast.makeText(this, "Ponto Adicionado", Toast.LENGTH_SHORT).show();
-            resetText();
-                }
-            } catch (Exception e){
+                db.addPontoSM(nome, desc, lat, lng, morada, imageViewToByte(FotoView));
+                Toast.makeText(this, "Ponto Adicionado", Toast.LENGTH_SHORT).show();
+                resetText();
+            }
+        } catch (Exception e){
 
             e.printStackTrace();
         }
@@ -140,16 +145,20 @@ public class Activity_Ponto extends AppCompatActivity {
 
                     Toast.makeText(Activity_Ponto.this, "câmera", Toast.LENGTH_SHORT).show();
                     camera = true;
+                    abrirCamera();
                 }
 
             }
         });
 
         AlertDialog alertDialog = escolhe.create();
-
         alertDialog.show();
+    }
+    public void  abrirCamera(){
 
-   }
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent,0);
+    }
 
     private void resetText() {
 
@@ -173,7 +182,19 @@ public class Activity_Ponto extends AppCompatActivity {
                 }
             }
 
-            galeria = false;
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        if(camera) {
+
+            if (requestCode == REQUEST_CODE_GALLERY) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent img = new Intent(Intent.ACTION_PICK);
+                    img.setType("image/*");
+                    startActivityForResult(img, REQUEST_CODE_GALLERY);
+                }
+            }
+
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
@@ -197,7 +218,71 @@ public class Activity_Ponto extends AppCompatActivity {
 
                 Toast.makeText(this, "Foto não encontrado", Toast.LENGTH_SHORT).show();
             }
+
+            galeria = false;
         }
+
+        if(camera) {
+            super.onActivityResult(requestCode, resultCode, data);
+
+            Uri uri = data.getData();
+
+            try {
+                InputStream stream = getContentResolver().openInputStream(uri);
+                Bitmap bitmap = BitmapFactory.decodeStream(stream);
+                FotoView.setImageBitmap(bitmap);
+
+            } catch (FileNotFoundException e ) {
+
+                Toast.makeText(this, "Foto não encontrada", Toast.LENGTH_SHORT).show();
+            }
+
+            InputStream stream = null;
+            if (requestCode == 0 && resultCode == RESULT_OK) {
+                try {
+
+                    if (bitmap != null) {
+                        bitmap.recycle();
+                    }
+                    stream = getContentResolver().openInputStream(data.getData());
+                    bitmap = BitmapFactory.decodeStream(stream);
+                    FotoView.setImageBitmap(resizeImage(this, bitmap, 700, 600));
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } finally {
+                    if (stream != null) {
+                        try {
+                            stream.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+
+            camera = false;
+        }
+    }
+
+    private static Bitmap resizeImage(Context context, Bitmap bmpOriginal, float newWidth, float newHeight) {
+
+        Bitmap novobmp = null;
+        int w = bmpOriginal.getWidth();
+        int h =bmpOriginal.getHeight();
+        float densityFactor= context.getResources().getDisplayMetrics().density;
+        float novow = newWidth * densityFactor;
+        float novoH= newWidth * densityFactor;
+
+        //Calcula escala
+
+        float scalaw= novow/ w ;
+        float scalaH= novow/ h;
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scalaw,scalaH);
+        novobmp = Bitmap.createBitmap(bmpOriginal, 0 ,0 , w, h , matrix, true );
+        return novobmp;
     }
 
     private byte[] imageViewToByte(ImageView image){
