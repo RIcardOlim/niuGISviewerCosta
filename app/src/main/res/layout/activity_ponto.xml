@@ -71,10 +71,10 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         app:srcCompat="@drawable/ponto"
+        android:layout_marginTop="39dp"
         android:layout_below="@+id/IDspinner"
         android:layout_alignLeft="@+id/btnadd"
-        android:layout_alignStart="@+id/btnadd"
-        android:layout_marginTop="39dp" />
+        android:layout_alignStart="@+id/btnadd" />
 
     <Button
         android:id="@+id/MudarImg"
@@ -102,10 +102,10 @@
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tipo de Ponto"
-        android:layout_marginTop="15dp"
+        android:layout_alignLeft="@+id/IDspinner"
+        android:layout_alignStart="@+id/IDspinner"
         android:layout_below="@+id/inserirdesc"
-        android:layout_alignRight="@+id/btnadd"
-        android:layout_alignEnd="@+id/btnadd" />
+        android:layout_marginTop="15dp"
+        android:text="Tipo de Ponto" />
 
 </RelativeLayout>

@@ -112,9 +112,7 @@ public class Activity_mudar extends AppCompatActivity {
         } catch (FileNotFoundException e ) {
 
             Toast.makeText(this, "Foto não encontrado", Toast.LENGTH_SHORT).show();
-
         }
-
     }
 
     public Bitmap ByteToImageView(){
@@ -126,7 +124,6 @@ public class Activity_mudar extends AppCompatActivity {
         Bitmap bitmap = BitmapFactory.decodeByteArray(fotoimage, 0, fotoimage.length);
 
         return bitmap;
-
     }
 
     private byte[] imageViewToByte(ImageView image){
@@ -138,5 +135,4 @@ public class Activity_mudar extends AppCompatActivity {
 
         return byteArray;
     }
-
 }

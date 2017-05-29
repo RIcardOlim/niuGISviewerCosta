@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
-        navigationView.getMenu().getItem(1).setChecked(true);
+        navigationView.getMenu().getItem(1).setChecked(false);
 
         mapFragment.getMapAsync(this);
 

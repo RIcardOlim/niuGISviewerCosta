@@ -41,6 +41,7 @@ public class Activity_Ponto extends AppCompatActivity {
     Spinner spinner;
     ArrayAdapter<CharSequence> adapter;
     double lat, lng;
+    Boolean galeria, camera;
     final int REQUEST_CODE_GALLERY = 969;
 
     @Override
@@ -55,6 +56,8 @@ public class Activity_Ponto extends AppCompatActivity {
         morada = getIntent().getStringExtra("morada");
         lat = Double.parseDouble(coordLat);
         lng = Double.parseDouble(coordLng);
+        galeria = false;
+        camera = false;
         db = new DBTeste(this, null, null, 20);
 
         spinner = (Spinner) findViewById(R.id.IDspinner);
@@ -123,8 +126,31 @@ public class Activity_Ponto extends AppCompatActivity {
 
     public void MudarImagem(View view) {
 
-        ActivityCompat.requestPermissions(Activity_Ponto.this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY);
-    }
+        AlertDialog.Builder escolhe = new AlertDialog.Builder(Activity_Ponto.this);
+        escolhe.setTitle(R.string.escolhe);
+        escolhe.setItems(R.array.Como_escolher_imagem, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                if(which == 0){
+
+                    Toast.makeText(Activity_Ponto.this, "galeria", Toast.LENGTH_SHORT).show();
+                    ActivityCompat.requestPermissions(Activity_Ponto.this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY);
+                    galeria = true;
+                } else {
+
+                    Toast.makeText(Activity_Ponto.this, "câmera", Toast.LENGTH_SHORT).show();
+                    camera = true;
+                }
+
+            }
+        });
+
+        AlertDialog alertDialog = escolhe.create();
+
+        alertDialog.show();
+
+   }
 
     private void resetText() {
 
@@ -136,34 +162,42 @@ public class Activity_Ponto extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        if(requestCode == REQUEST_CODE_GALLERY){
-            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if(galeria) {
 
-                Intent img = new Intent(Intent.ACTION_PICK);
-                img.setType("image/*");
-                startActivityForResult(img, REQUEST_CODE_GALLERY);
+            if (requestCode == REQUEST_CODE_GALLERY) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
+                    Intent img = new Intent(Intent.ACTION_PICK);
+                    img.setType("image/*");
+                    startActivityForResult(img, REQUEST_CODE_GALLERY);
+
+                }
             }
+
+            galeria = false;
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Uri uri = data.getData();
+        if(galeria) {
 
-        try {
+            Uri uri = data.getData();
 
-            InputStream stream = getContentResolver().openInputStream(uri);
+            try {
 
-            Bitmap bitmap = BitmapFactory.decodeStream(stream);
-            FotoView.setImageBitmap(bitmap);
+                InputStream stream = getContentResolver().openInputStream(uri);
 
-        } catch (FileNotFoundException e ) {
+                Bitmap bitmap = BitmapFactory.decodeStream(stream);
+                FotoView.setImageBitmap(bitmap);
 
-            Toast.makeText(this, "Foto não encontrado", Toast.LENGTH_SHORT).show();
+            } catch (FileNotFoundException e) {
+
+                Toast.makeText(this, "Foto não encontrado", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
