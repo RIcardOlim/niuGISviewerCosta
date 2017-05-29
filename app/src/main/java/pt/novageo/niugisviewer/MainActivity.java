@@ -534,7 +534,6 @@ public class MainActivity extends AppCompatActivity
                 AddMarkerDB();
             } else Toast.makeText(this, "Nenhum ponto encontrado", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     @Override
@@ -551,7 +550,6 @@ public class MainActivity extends AppCompatActivity
         inf.putExtra("ID", id);
         inf.putExtra("TIPO", tipo);
         startActivity(inf);
-
     }
 
     private boolean hasPermissions() {

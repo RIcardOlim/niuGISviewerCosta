@@ -14,8 +14,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Objects;
 
-
-
 public class Activity_ListData extends AppCompatActivity {
 
     DBTeste db;
@@ -29,7 +27,6 @@ public class Activity_ListData extends AppCompatActivity {
         listView1 = (ListView) findViewById(R.id.listView);
         db = new DBTeste(this, null, null, 20);
         tabelaListView();
-
     }
 
     private void tabelaListView() {
