@@ -8,9 +8,9 @@
         android:id="@+id/btnadd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
         android:onClick="addButtonClicked"
-        android:text="add"
-        android:layout_marginTop="36dp"
+        android:text="Adicionar"
         android:layout_below="@+id/imageView8"
         android:layout_alignLeft="@+id/inserirdesc"
         android:layout_alignStart="@+id/inserirdesc" />
@@ -57,14 +57,14 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
+        android:layout_width="105dp"
         android:layout_height="wrap_content"
-        android:onClick="ViewButtonClcked"
-        android:text="@string/verificar"
         android:layout_alignBaseline="@+id/btnadd"
         android:layout_alignBottom="@+id/btnadd"
-        android:layout_alignRight="@+id/inserirdesc"
-        android:layout_alignEnd="@+id/inserirdesc" />
+        android:layout_alignEnd="@+id/MudarImg"
+        android:layout_alignRight="@+id/MudarImg"
+        android:onClick="ViewButtonClcked"
+        android:text="@string/verificar" />
 
     <ImageView
         android:id="@+id/imageView8"
@@ -80,14 +80,13 @@
         android:id="@+id/MudarImg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView8"
-        android:layout_alignEnd="@+id/button"
-        android:layout_alignLeft="@+id/button"
-        android:layout_alignRight="@+id/button"
-        android:layout_alignStart="@+id/button"
-        android:layout_alignTop="@+id/imageView8"
         android:onClick="MudarImagem"
-        android:text="Mudar Imagem" />
+        android:text="Mudar Imagem"
+        android:layout_alignTop="@+id/imageView8"
+        android:layout_toRightOf="@+id/imageView8"
+        android:layout_alignRight="@+id/IDspinner"
+        android:layout_alignEnd="@+id/IDspinner"
+        android:layout_alignBottom="@+id/imageView8" />
 
     <Spinner
         android:id="@+id/IDspinner"

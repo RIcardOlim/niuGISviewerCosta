@@ -53,7 +53,7 @@
     <string name="sql_teste">Criar Novo Ponto</string>
     <string name="Nome_do_ponto">Nome do Ponto</string>
     <string name="descri_o">Descrição</string>
-    <string name="verificar">Verificar Pontos</string>
+    <string name="verificar">Verificar</string>
     <string name="tipo">Tipo:</string>
     <string name="mudar">Mudar</string>
     <string name="delete">Delete</string>
@@ -61,10 +61,16 @@
     <string name="data_de_cria_o">Data de criação:</string>
     <string name="virgula">,</string>
     <string name="coordenadas">Coordenadas:</string>
+    <string name="escolhe">Escolhe: </string>
     <string-array name="Tipo_de_Ponto">
 
         <item>Escola</item>
         <item>Café</item>
         <item>Supermercado</item>
+    </string-array>
+    <string-array name="Como_escolher_imagem">
+
+        <item>Galeria</item>
+        <item>Câmera</item>
     </string-array>
 </resources>

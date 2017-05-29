@@ -466,7 +466,6 @@ public class MainActivity extends AppCompatActivity
     private void AddMarkerDB() {
 
         if(dbEscola) {
-
             Cursor c = db.getDataEscola();
             c.moveToFirst();
             do {
