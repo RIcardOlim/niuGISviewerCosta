@@ -13,19 +13,85 @@ import java.util.Objects;
 
 public class DBTeste extends SQLiteOpenHelper {
 
-
-
-    private static final int DATABASE_VERSION = 14;
+    private static final int DATABASE_VERSION = 20;
     private static final String DATABASE_NOME = "Locais.db";
-    private static final String TABLE_LOCAIS = "locais";
-    private static final String COLUMN_ID = "_id";//coluna 0
-    private static final String COLUMN_NOMELOCAIS = "nomelocal";//coluna 1
-    private static final String COLUMN_DESCRICAO = "Descricao";//coluna 2
-    private static final String COLUMN_LAT = "lat";//coluna 3
-    private static final String COLUMN_LNG = "lng";//coluna 4
-    private static final String COLUMN_DATA = "data";//coluna 5
-    private static final String COLUMN_MORADA = "morada";//coluna 6
-    private static final String COLUMN_IMAGEM = "imagem";//coluna 7
+
+    //TABELA 1 - ESCOLA
+    private static final String TABLE_ESCOLA = "escola";
+    private static final String COLUMN_ID_ESCOLA = "_id";//coluna 0
+    private static final String COLUMN_NOME_ESCOLA = "nomelocal";//coluna 1
+    private static final String COLUMN_DESCRICAO_ESCOlA = "Descricao";//coluna 2
+    private static final String COLUMN_TIPO_ESCOLA = "tipo";//coluna 3
+    private static final String COLUMN_LAT_ESCOLA = "lat";//coluna 4
+    private static final String COLUMN_LNG_ESCOLA = "lng";//coluna 5
+    private static final String COLUMN_DATA_ESCOLA = "data";//coluna 6
+    private static final String COLUMN_MORADA_ESCOLA = "morada";//coluna 7
+    private static final String COLUMN_IMAGEM_ESCOLA = "imagem";//coluna 8
+
+
+    //TABELA 2 - CAFÉS
+    private static final String TABLE_CAFE = "cafe";
+    private static final String COLUMN_ID_CAFE = "_id";//coluna 0
+    private static final String COLUMN_NOME_CAFE = "nomelocal";//coluna 1
+    private static final String COLUMN_DESCRICAO_CAFE = "Descricao";//coluna 2
+    private static final String COLUMN_TIPO_CAFE = "tipo";//coluna 3
+    private static final String COLUMN_LAT_CAFE = "lat";//coluna 4
+    private static final String COLUMN_LNG_CAFE = "lng";//coluna 5
+    private static final String COLUMN_DATA_CAFE = "data";//coluna 6
+    private static final String COLUMN_MORADA_CAFE = "morada";//coluna 7
+    private static final String COLUMN_IMAGEM_CAFE = "imagem";//coluna 8
+
+    //TABELA 3 - SUPERMERCADOS
+    private static final String TABLE_SM = "Supermercado";
+    private static final String COLUMN_ID_SM = "_id";//coluna 0
+    private static final String COLUMN_NOME_SM = "nomelocal";//coluna 1
+    private static final String COLUMN_DESCRICAO_SM = "Descricao";//coluna 2
+    private static final String COLUMN_TIPO_SM = "tipo";//coluna 3
+    private static final String COLUMN_LAT_SM = "lat";//coluna 4
+    private static final String COLUMN_LNG_SM = "lng";//coluna 5
+    private static final String COLUMN_DATA_SM = "data";//coluna 6
+    private static final String COLUMN_MORADA_SM = "morada";//coluna 7
+    private static final String COLUMN_IMAGEM_SM = "imagem";//coluna 8
+
+
+    //TABELA 1 - ESCOLA
+    private static final String CRIAR_TABLE_ESCOLA = "CREATE TABLE " + TABLE_ESCOLA + "(" +
+            COLUMN_ID_ESCOLA + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COLUMN_NOME_ESCOLA + " TEXT, " +
+            COLUMN_DESCRICAO_ESCOlA + " TEXT, " +
+            COLUMN_TIPO_ESCOLA + " TEXT, " +
+            COLUMN_LAT_ESCOLA + " VARCHAR(50), " +
+            COLUMN_LNG_ESCOLA + " VARCHAR(50), " +
+            COLUMN_DATA_ESCOLA + " DATETIME, " +
+            COLUMN_MORADA_ESCOLA + " TEXT, " +
+            COLUMN_IMAGEM_ESCOLA + " MEDIUMBLOB " +
+            ");";
+
+    //TABELA 2 - CAFÉS
+    private static final String CRIAR_TABLE_CAFE = "CREATE TABLE " + TABLE_CAFE + "(" +
+            COLUMN_ID_CAFE + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COLUMN_NOME_CAFE + " TEXT, " +
+            COLUMN_DESCRICAO_CAFE + " TEXT, " +
+            COLUMN_TIPO_CAFE + " TEXT, " +
+            COLUMN_LAT_CAFE + " VARCHAR(50), " +
+            COLUMN_LNG_CAFE + " VARCHAR(50), " +
+            COLUMN_DATA_CAFE + " DATETIME, " +
+            COLUMN_MORADA_CAFE + " TEXT, " +
+            COLUMN_IMAGEM_CAFE + " MEDIUMBLOB " +
+            ");";
+
+    //TABELA 3 - SUPERMERCADOS
+    private static final String CRIAR_TABLE_SM = "CREATE TABLE " + TABLE_SM + "(" +
+            COLUMN_ID_SM + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COLUMN_NOME_SM + " TEXT, " +
+            COLUMN_DESCRICAO_SM + " TEXT, " +
+            COLUMN_TIPO_SM + " TEXT, " +
+            COLUMN_LAT_SM + " VARCHAR(50), " +
+            COLUMN_LNG_SM + " VARCHAR(50), " +
+            COLUMN_DATA_SM + " DATETIME, " +
+            COLUMN_MORADA_SM + " TEXT, " +
+            COLUMN_IMAGEM_SM + " MEDIUMBLOB " +
+            ");";
 
     public DBTeste(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NOME, factory, DATABASE_VERSION);
@@ -33,50 +99,104 @@ public class DBTeste extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String query = "CREATE TABLE " + TABLE_LOCAIS + "(" +
-                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_NOMELOCAIS + " TEXT, " +
-                COLUMN_DESCRICAO + " TEXT, " +
-                COLUMN_LAT + " VARCHAR(50), " +
-                COLUMN_LNG + " VARCHAR(50), " +
-                COLUMN_DATA + " DATETIME, " +
-                COLUMN_MORADA + " TEXT, " +
-                COLUMN_IMAGEM + " BLOB " +
 
-        ");";
-        db.execSQL(query);
+        db.execSQL(CRIAR_TABLE_ESCOLA);
+        db.execSQL(CRIAR_TABLE_CAFE);
+        db.execSQL(CRIAR_TABLE_SM);
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOCAIS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ESCOLA);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CAFE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SM);
         onCreate(db);
     }
 
-    //adicionar um registo
-    public boolean addPonto(String nome, String descricao, double lat, double lng, String morada, byte[] imagem) {
+    //adicionar um registo na tabela escola
+    public boolean addPontoEscola(String nome, String descricao, double lat, double lng, String morada, byte[] imagem) {
 
         ContentValues values = new ContentValues();
         SQLiteDatabase db = getWritableDatabase();
-        values.put(COLUMN_NOMELOCAIS, nome);
-        values.put(COLUMN_DESCRICAO, descricao);
-        values.put(COLUMN_LAT, lat);
-        values.put(COLUMN_LNG, lng);
-        values.put(COLUMN_DATA, getDateTime());
-        values.put(COLUMN_MORADA, morada);
-        values.put(COLUMN_IMAGEM, imagem);
-        db.insert(TABLE_LOCAIS, null, values);
+        values.put(COLUMN_NOME_ESCOLA, nome);
+        values.put(COLUMN_DESCRICAO_ESCOlA, descricao);
+        values.put(COLUMN_LAT_ESCOLA, lat);
+        values.put(COLUMN_LNG_ESCOLA, lng);
+        values.put(COLUMN_DATA_ESCOLA, getDateTime());
+        values.put(COLUMN_MORADA_ESCOLA, morada);
+        values.put(COLUMN_IMAGEM_ESCOLA, imagem);
+        values.put(COLUMN_TIPO_ESCOLA, "Escola");
+        db.insert(TABLE_ESCOLA, null, values);
+
         db.close();
 
         return true;
     }
 
-    //eliminar um registo
-    public boolean deletePonto(int id) {
+    //adicionar um registo na tabela cafe
+    public boolean addPontoCafe(String nome, String descricao, double lat, double lng, String morada, byte[] imagem) {
+
+        ContentValues values = new ContentValues();
+        SQLiteDatabase db = getWritableDatabase();
+        values.put(COLUMN_NOME_CAFE, nome);
+        values.put(COLUMN_DESCRICAO_CAFE, descricao);
+        values.put(COLUMN_LAT_CAFE, lat);
+        values.put(COLUMN_LNG_CAFE, lng);
+        values.put(COLUMN_DATA_CAFE, getDateTime());
+        values.put(COLUMN_MORADA_CAFE, morada);
+        values.put(COLUMN_IMAGEM_CAFE, imagem);
+        values.put(COLUMN_TIPO_CAFE, "Café");
+        db.insert(TABLE_CAFE, null, values);
+
+        db.close();
+
+        return true;
+    }
+
+    //adicionar um registo na tabela supermercado
+    public boolean addPontoSM(String nome, String descricao, double lat, double lng, String morada, byte[] imagem) {
+
+        ContentValues values = new ContentValues();
+        SQLiteDatabase db = getWritableDatabase();
+        values.put(COLUMN_NOME_SM, nome);
+        values.put(COLUMN_DESCRICAO_SM, descricao);
+        values.put(COLUMN_LAT_SM, lat);
+        values.put(COLUMN_LNG_SM, lng);
+        values.put(COLUMN_DATA_SM, getDateTime());
+        values.put(COLUMN_MORADA_SM, morada);
+        values.put(COLUMN_IMAGEM_SM, imagem);
+        values.put(COLUMN_TIPO_SM, "Supermercado");
+        db.insert(TABLE_SM, null, values);
+
+        db.close();
+
+        return true;
+    }
+
+    //eliminar um registo da tabela cafe
+    public boolean deletePontoCafe(int id) {
 
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_LOCAIS + " WHERE " + COLUMN_ID + "=\"" + id + "\";");
+        db.execSQL("DELETE FROM " + TABLE_CAFE + " WHERE " + COLUMN_ID_CAFE + "=\"" + id + "\";");
+
+        return true;
+    }
+
+    //eliminar um registo da tabela escola
+    public boolean deletePontoEscola(int id) {
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_ESCOLA + " WHERE " + COLUMN_ID_ESCOLA + "=\"" + id + "\";");
+
+        return true;
+    }
+
+    //eliminar um registo da tabela Supermercado
+    public boolean deletePontoSM(int id) {
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_SM + " WHERE " + COLUMN_ID_SM + "=\"" + id + "\";");
 
         return true;
     }
@@ -85,28 +205,32 @@ public class DBTeste extends SQLiteOpenHelper {
     public Cursor getData(){
 
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_LOCAIS;
+        String query = "SELECT * FROM " + TABLE_ESCOLA +
+                " UNION SELECT * FROM " + TABLE_CAFE +
+                " UNION SELECT * FROM " + TABLE_SM;
         Cursor data = db.rawQuery(query, null);
         return data;
 
     }
 
-    public Cursor getId(){
+    public Cursor getTipobyNomeId (int id, String nome){
 
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT " + COLUMN_ID + " FROM " + TABLE_LOCAIS;
+        String query = "SELECT " + COLUMN_TIPO_CAFE + " FROM " + TABLE_CAFE + " WHERE " + COLUMN_NOME_CAFE + " = '" + nome + "' AND " + COLUMN_ID_CAFE + " = '" + id +
+                "' UNION SELECT " + COLUMN_TIPO_ESCOLA + " FROM " + TABLE_ESCOLA + " WHERE " + COLUMN_NOME_ESCOLA + " = '" + nome + "' AND " + COLUMN_ID_ESCOLA + " = '" + id +
+                "' UNION SELECT " + COLUMN_TIPO_SM + " FROM " + TABLE_SM + " WHERE " + COLUMN_NOME_SM + " = '" + nome + "' AND " + COLUMN_ID_SM + " = '" + id + "'";
         Cursor data = db.rawQuery(query, null);
         return data;
-
     }
 
     public Cursor getIdbyNome(String nome){
 
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT " + COLUMN_ID + " FROM " + TABLE_LOCAIS + " WHERE " + COLUMN_NOMELOCAIS + " = '" + nome + "'";
+        String query = "SELECT " + COLUMN_ID_CAFE + " FROM " + TABLE_CAFE + " WHERE " + COLUMN_NOME_CAFE + " = '" + nome +
+                "' UNION SELECT " + COLUMN_ID_ESCOLA + " FROM " + TABLE_ESCOLA + " WHERE " + COLUMN_NOME_ESCOLA + " = '" + nome +
+                "' UNION SELECT " + COLUMN_ID_SM + " FROM " + TABLE_SM + " WHERE " + COLUMN_NOME_SM + " = '" + nome + "'";
         Cursor data = db.rawQuery(query, null);
         return data;
-
     }
 
     private String getDateTime(){
@@ -121,35 +245,210 @@ public class DBTeste extends SQLiteOpenHelper {
     public Cursor getDataById(int id){
 
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_LOCAIS + " WHERE " + COLUMN_ID + " = '" + id + "'";
+        String query = "SELECT * FROM " + TABLE_CAFE + " WHERE " + COLUMN_ID_CAFE + " = '" + id + "'";
         Cursor data = db.rawQuery(query, null);
-        return data;
+        if(data.moveToFirst()) {
+            return data;
+        } else if(data.moveToFirst()) {
 
+            query = "SELECT * FROM " + TABLE_ESCOLA + " WHERE " + COLUMN_ID_ESCOLA + " = '" + id + "'";
+            data = db.rawQuery(query, null);
+            return data;
+        } else if(data.moveToFirst()) {
+
+            query = "SELECT * FROM " + TABLE_SM+ " WHERE " + COLUMN_ID_SM + " = '" + id + "'";
+            data = db.rawQuery(query, null);
+            return data;
+        }
+
+        return data;
     }
 
-    public boolean UpdateNome(int id, String nome) {
+    public Cursor getDataByIdCafe(int id){
+
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_CAFE + " WHERE " + COLUMN_ID_CAFE + " = '" + id + "'";
+        Cursor data = db.rawQuery(query, null);
+
+        return data;
+    }
+
+    public Cursor getDataByIdEscola(int id){
+
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_ESCOLA + " WHERE " + COLUMN_ID_ESCOLA + " = '" + id + "'";
+        Cursor data = db.rawQuery(query, null);
+
+        return data;
+    }
+
+    public Cursor getDataByIdSM(int id){
+
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_SM + " WHERE " + COLUMN_ID_SM + " = '" + id + "'";
+        Cursor data = db.rawQuery(query, null);
+
+        return data;
+    }
+
+    public boolean UpdateNomeEscola(int id, String nome) {
 
         if(Objects.equals(nome, "")) {
             return false;
         } else {
             SQLiteDatabase db = getWritableDatabase();
-            db.execSQL("UPDATE " + TABLE_LOCAIS + " SET " + COLUMN_NOMELOCAIS + " = '" + nome + "' WHERE " + COLUMN_ID + " = '" + id + "';");
+            db.execSQL("UPDATE " + TABLE_ESCOLA + " SET " + COLUMN_NOME_ESCOLA + " = '" + nome + "' WHERE " + COLUMN_ID_ESCOLA + " = '" + id + "';");
             db.close();
             return true;
         }
 
     }
 
-    public boolean UpdateDesc(int id, String desc) {
+    public boolean UpdateDescEscola(int id, String desc) {
 
         if(Objects.equals(desc, "")) {
             return false;
         } else {
             SQLiteDatabase db = getWritableDatabase();
-            db.execSQL("UPDATE " + TABLE_LOCAIS + " SET " + COLUMN_DESCRICAO + " = '" + desc + "' WHERE " + COLUMN_ID + " = '" + id + "';");
+            db.execSQL("UPDATE " + TABLE_ESCOLA + " SET " + COLUMN_DESCRICAO_ESCOlA + " = '" + desc + "' WHERE " + COLUMN_ID_ESCOLA + " = '" + id + "';");
             db.close();
             return true;
         }
 
     }
-}
+
+    public boolean UpdateFotoEscola(int id, byte[] imagem) {
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE " + TABLE_ESCOLA + " SET " + COLUMN_IMAGEM_ESCOLA + " = '" + imagem + "' WHERE " + COLUMN_ID_ESCOLA + " = '" + id + "';");
+        db.close();
+        return true;
+        }
+
+    public boolean UpdateNomeCafe(int id, String nome) {
+
+        if(Objects.equals(nome, "")) {
+            return false;
+        } else {
+            SQLiteDatabase db = getWritableDatabase();
+            db.execSQL("UPDATE " + TABLE_CAFE + " SET " + COLUMN_NOME_CAFE + " = '" + nome + "' WHERE " + COLUMN_ID_CAFE + " = '" + id + "';");
+            db.close();
+            return true;
+        }
+
+    }
+
+    public boolean UpdateDescCafe(int id, String desc) {
+
+        if(Objects.equals(desc, "")) {
+            return false;
+        } else {
+            SQLiteDatabase db = getWritableDatabase();
+            db.execSQL("UPDATE " + TABLE_CAFE + " SET " + COLUMN_DESCRICAO_CAFE + " = '" + desc + "' WHERE " + COLUMN_ID_CAFE + " = '" + id + "';");
+            db.close();
+            return true;
+        }
+
+    }
+
+    public boolean UpdateFotoCafe(int id, byte[] imagem) {
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE " + TABLE_CAFE + " SET " + COLUMN_IMAGEM_CAFE + " = '" + imagem + "' WHERE " + COLUMN_ID_CAFE + " = '" + id + "';");
+        db.close();
+        return true;
+    }
+
+    public boolean UpdateNomeSM(int id, String nome) {
+
+        if(Objects.equals(nome, "")) {
+            return false;
+        } else {
+            SQLiteDatabase db = getWritableDatabase();
+            db.execSQL("UPDATE " + TABLE_SM + " SET " + COLUMN_NOME_SM + " = '" + nome + "' WHERE " + COLUMN_ID_SM + " = '" + id + "';");
+            db.close();
+            return true;
+        }
+
+    }
+
+    public boolean UpdateDescSM(int id, String desc) {
+
+        if(Objects.equals(desc, "")) {
+            return false;
+        } else {
+            SQLiteDatabase db = getWritableDatabase();
+            db.execSQL("UPDATE " + TABLE_SM + " SET " + COLUMN_DESCRICAO_SM + " = '" + desc + "' WHERE " + COLUMN_ID_SM + " = '" + id + "';");
+            db.close();
+            return true;
+        }
+
+    }
+
+    public boolean UpdateFotoSM(int id, byte[] imagem) {
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE " + TABLE_SM + " SET " + COLUMN_IMAGEM_SM + " = '" + imagem + "' WHERE " + COLUMN_ID_SM + " = '" + id + "';");
+        db.close();
+        return true;
+    }
+
+    public Cursor getDataEscola() {
+
+        SQLiteDatabase db = getWritableDatabase();
+
+        String query = "SELECT * FROM " + TABLE_ESCOLA;
+        Cursor data = db.rawQuery(query, null);
+        return data;
+
+        }
+
+    public Cursor getDataCafe() {
+
+        SQLiteDatabase db = getWritableDatabase();
+
+        String query = "SELECT * FROM " + TABLE_CAFE;
+        Cursor data = db.rawQuery(query, null);
+        return data;
+
+        }
+
+    public Cursor getDataSM() {
+
+        SQLiteDatabase db = getWritableDatabase();
+
+        String query = "SELECT * FROM " + TABLE_SM;
+        Cursor data = db.rawQuery(query, null);
+        return data;
+
+        }
+
+    public Cursor getIdbyNomeEscola(String nome){
+
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT " + COLUMN_ID_ESCOLA + " FROM " + TABLE_ESCOLA + " WHERE " + COLUMN_NOME_ESCOLA + " = '" + nome + "'";
+        Cursor data = db.rawQuery(query, null);
+        return data;
+
+        }
+
+    public Cursor getIdbyNomeCafe(String nome){
+
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT " + COLUMN_ID_CAFE + " FROM " + TABLE_CAFE + " WHERE " + COLUMN_NOME_CAFE + " = '" + nome + "'";
+        Cursor data = db.rawQuery(query, null);
+        return data;
+
+        }
+
+    public Cursor getIdbyNomeSM(String nome){
+
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT " + COLUMN_ID_SM + " FROM " + TABLE_SM + " WHERE " + COLUMN_NOME_SM + " = '" + nome + "'";
+        Cursor data = db.rawQuery(query, null);
+        return data;
+
+        }
+
+    }
+

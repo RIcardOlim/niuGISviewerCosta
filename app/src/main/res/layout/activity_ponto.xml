@@ -10,10 +10,10 @@
         android:layout_height="wrap_content"
         android:onClick="addButtonClicked"
         android:text="add"
-        android:layout_below="@+id/inserirdesc"
+        android:layout_marginTop="36dp"
+        android:layout_below="@+id/imageView8"
         android:layout_alignLeft="@+id/inserirdesc"
-        android:layout_alignStart="@+id/inserirdesc"
-        android:layout_marginTop="119dp" />
+        android:layout_alignStart="@+id/inserirdesc" />
 
     <EditText
         android:id="@+id/inserirnome"
@@ -39,7 +39,7 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="11dp"
         android:text="@string/Nome_do_ponto"
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/inserirnome"
@@ -68,15 +68,13 @@
 
     <ImageView
         android:id="@+id/imageView8"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         app:srcCompat="@drawable/ponto"
-        android:layout_marginBottom="23dp"
-        android:layout_above="@+id/button"
+        android:layout_below="@+id/IDspinner"
         android:layout_alignLeft="@+id/btnadd"
         android:layout_alignStart="@+id/btnadd"
-        android:layout_alignRight="@+id/btnadd"
-        android:layout_alignEnd="@+id/btnadd" />
+        android:layout_marginTop="39dp" />
 
     <Button
         android:id="@+id/MudarImg"
@@ -90,5 +88,25 @@
         android:layout_alignTop="@+id/imageView8"
         android:onClick="MudarImagem"
         android:text="Mudar Imagem" />
+
+    <Spinner
+        android:id="@+id/IDspinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView13"
+        android:layout_alignRight="@+id/inserirdesc"
+        android:layout_alignEnd="@+id/inserirdesc"
+        android:layout_alignLeft="@+id/imageView8"
+        android:layout_alignStart="@+id/imageView8" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tipo de Ponto"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/inserirdesc"
+        android:layout_alignRight="@+id/btnadd"
+        android:layout_alignEnd="@+id/btnadd" />
 
 </RelativeLayout>

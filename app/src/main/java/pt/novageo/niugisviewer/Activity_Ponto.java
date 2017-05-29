@@ -11,12 +11,14 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Objects;
@@ -32,7 +34,9 @@ public class Activity_Ponto extends AppCompatActivity {
     EditText inserirnome, inserirdesc;
     ImageView FotoView;
     DBTeste db;
-    String coordLat, coordLng, morada, nome, desc;
+    String coordLat, coordLng, morada, nome, desc, tipo;
+    Spinner spinner;
+    ArrayAdapter<CharSequence> adapter;
     double lat, lng;
     final int REQUEST_CODE_GALLERY = 969;
 
@@ -48,29 +52,61 @@ public class Activity_Ponto extends AppCompatActivity {
         morada = getIntent().getStringExtra("morada");
         lat = Double.parseDouble(coordLat);
         lng = Double.parseDouble(coordLng);
-        db = new DBTeste(this, null, null, 14);
+        db = new DBTeste(this, null, null, 20);
+
+        spinner = (Spinner) findViewById(R.id.IDspinner);
+        adapter = ArrayAdapter.createFromResource(this, R.array.Tipo_de_Ponto, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText(getBaseContext(),parent.getItemAtPosition(position) + " foi selecionado", Toast.LENGTH_SHORT).show();
+                tipo = spinner.getSelectedItem().toString();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         resetText();
-       // Toast.makeText(this, coordLat + coordLng, Toast.LENGTH_SHORT).show();
 
     }
 
     //adicionar registo da base de dados
     public void addButtonClicked(View view){
 
+        tipo = spinner.getSelectedItem().toString();
         nome = inserirnome.getText().toString();
         desc = inserirdesc.getText().toString();
 
+        try{
         if(Objects.equals(nome, "")) {
             Toast.makeText(this, "Nome do ponto obrigatório", Toast.LENGTH_SHORT).show();
-        } else {
-            if(Objects.equals(desc, "")) {
-                Toast.makeText(this, "Descrição do ponto obrigatório", Toast.LENGTH_SHORT).show();
-            } else {
-                db.addPonto(nome, desc, lat, lng, morada, imageViewToByte(FotoView));
+
+            } else if (Objects.equals(tipo, "Escola")) {
+
+                db.addPontoEscola(nome, desc, lat, lng, morada, imageViewToByte(FotoView));
                 Toast.makeText(this, "Ponto Adicionado", Toast.LENGTH_SHORT).show();
                 resetText();
-            }
+            } else if (Objects.equals(tipo, "Café")) {
+
+                db.addPontoCafe(nome, desc, lat, lng, morada, imageViewToByte(FotoView));
+                Toast.makeText(this, "Ponto Adicionado", Toast.LENGTH_SHORT).show();
+                resetText();
+            } else if (Objects.equals(tipo, "Supermercado")) {
+
+            db.addPontoSM(nome, desc, lat, lng, morada, imageViewToByte(FotoView));
+            Toast.makeText(this, "Ponto Adicionado", Toast.LENGTH_SHORT).show();
+            resetText();
+                }
+            } catch (Exception e){
+
+            e.printStackTrace();
         }
     }
 
@@ -80,13 +116,11 @@ public class Activity_Ponto extends AppCompatActivity {
         db.close();
         finish();
         startActivity(view2);
-
     }
 
     public void MudarImagem(View view) {
 
         ActivityCompat.requestPermissions(Activity_Ponto.this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY);
-
     }
 
     private void resetText() {
@@ -94,7 +128,6 @@ public class Activity_Ponto extends AppCompatActivity {
         inserirnome.setText("");
         inserirdesc.setText("");
         FotoView.setImageResource(R.mipmap.ponto);
-
     }
 
     @Override
@@ -128,9 +161,7 @@ public class Activity_Ponto extends AppCompatActivity {
         } catch (FileNotFoundException e ) {
 
             Toast.makeText(this, "Foto não encontrado", Toast.LENGTH_SHORT).show();
-
         }
-
     }
 
     private byte[] imageViewToByte(ImageView image){
@@ -142,5 +173,4 @@ public class Activity_Ponto extends AppCompatActivity {
 
         return byteArray;
     }
-
 }

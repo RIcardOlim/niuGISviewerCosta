@@ -23,6 +23,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity
     List<Address> address;
     String morada = "";
     double lat, lng;
+    boolean dbEscola = false, dbCafe = false, dbSM = false, GPS = false;
     private static final int PERMS_REQUEST_CODE = 123;
 
     @Override
@@ -97,7 +99,7 @@ public class MainActivity extends AppCompatActivity
 
         mapFragment.getMapAsync(this);
 
-        db = new DBTeste(this, null, null, 14);
+        db = new DBTeste(this, null, null, 20);
 
         geocoder = new Geocoder(this, Locale.getDefault());
 
@@ -112,8 +114,8 @@ public class MainActivity extends AppCompatActivity
                 } catch (IOException e) {
 
                     morada = "Morada não encontrada";
-
                 }
+
                 lat = position.latitude;
                 lng = position.longitude;
                 String coordLat = String.valueOf(lat);
@@ -127,7 +129,6 @@ public class MainActivity extends AppCompatActivity
         });
 
     }
-
 
     protected void onResume() {
         super.onResume();
@@ -255,9 +256,11 @@ public class MainActivity extends AppCompatActivity
             if (item.isChecked()) {
                 item.setChecked(false);
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='cafes';");
+                dbCafe = false;
             } else {
                 item.setChecked(true);
                 this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='cafes';");
+                dbCafe = true;
             }
         }
 
@@ -299,9 +302,11 @@ public class MainActivity extends AppCompatActivity
             if (item.isChecked()) {
                 item.setChecked(false);
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='escola';");
+                dbEscola = false;
             } else {
                 item.setChecked(true);
                 this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='escola';");
+                dbEscola = true;
             }
         }
 
@@ -342,10 +347,12 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(MainActivity.this, "Supermercados", Toast.LENGTH_SHORT).show();
             if (item.isChecked()) {
                 item.setChecked(false);
+                dbSM = false;
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='supermercados';");
             } else {
                 item.setChecked(true);
                 this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='supermercados';");
+                dbSM = true;
             }
         }
 
@@ -399,7 +406,6 @@ public class MainActivity extends AppCompatActivity
         mMap.clear();
         setUpMap();
         checkDB();
-
     }
 
     @Override
@@ -412,9 +418,9 @@ public class MainActivity extends AppCompatActivity
 
         float zoomLevel = 13;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Agualva, zoomLevel));
-        checkDB();
         mMap.setOnInfoWindowClickListener(this);
         mMap.getUiSettings().setMapToolbarEnabled(false);
+        checkDB();
         //   mMap.setMyLocationEnabled(true);
     }
 
@@ -452,45 +458,98 @@ public class MainActivity extends AppCompatActivity
 
         TileProvider wmsTileProvider = TileProviderFactory.getOsgeoWmsTileProvider(sb.toString());
         mMap.addTileOverlay(new TileOverlayOptions().tileProvider(wmsTileProvider));
-
         // Because the demo WMS layer we are using is just a white background map, switch the base layer
         // to satellite so we can see the WMS overlay.
         // mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
     }
 
-    private void checkDB() {
+    private void AddMarkerDB() {
 
-        Cursor check = db.getData();
-        if(check.moveToFirst()) {
-            AddMarkerInDB();
-        } else Toast.makeText(this, "Nenhum ponto encontrado", Toast.LENGTH_SHORT).show();
+        if(dbEscola) {
+
+            Cursor c = db.getDataEscola();
+            c.moveToFirst();
+            do {
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(c.getDouble(4), c.getDouble(5)))
+                        .snippet(c.getString(3))
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))
+                        .title(c.getString(1)));
+                c.moveToNext();
+            } while (!c.isAfterLast());
+        }
+
+        if(dbCafe) {
+
+            Cursor c = db.getDataCafe();
+            c.moveToFirst();
+            do {
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(c.getDouble(4), c.getDouble(5)))
+                        .snippet(c.getString(3))
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))
+                        .title(c.getString(1)));
+                c.moveToNext();
+            } while (!c.isAfterLast());
+        }
+
+        if(dbSM) {
+
+            Cursor c = db.getDataSM();
+            c.moveToFirst();
+            do {
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(c.getDouble(4), c.getDouble(5)))
+                        .snippet(c.getString(3))
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
+                        .title(c.getString(1)));
+                c.moveToNext();
+            } while (!c.isAfterLast());
+        }
 
     }
 
-    private void AddMarkerInDB() {
+    private void checkDB() {
 
-        Cursor c = db.getData();
-        c.moveToFirst();
-        do {
-                mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(c.getDouble(3), c.getDouble(4)))
-                        .snippet("Descrição: " + c.getString(2))
-                        .title(c.getString(1)));
-                c.moveToNext();
-        } while (!c.isAfterLast());
+        if(dbEscola) {
 
+            Cursor check = db.getDataEscola();
+            if(check.moveToFirst()) {
+                AddMarkerDB();
+            } else Toast.makeText(this, "Nenhum ponto encontrado", Toast.LENGTH_SHORT).show();
+        }
+
+        if(dbCafe) {
+
+            Cursor check = db.getDataCafe();
+            if(check.moveToFirst()) {
+                AddMarkerDB();
+            } else Toast.makeText(this, "Nenhum ponto encontrado", Toast.LENGTH_SHORT).show();
+        }
+
+        if(dbSM) {
+
+            Cursor check = db.getDataSM();
+            if(check.moveToFirst()) {
+                AddMarkerDB();
+            } else Toast.makeText(this, "Nenhum ponto encontrado", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
     @Override
     public void onInfoWindowClick(Marker marker) {
 
-        String s = marker.getTitle();
-        Cursor c = db.getIdbyNome(s);
+        String nome = marker.getTitle();
+        Cursor c = db.getIdbyNome(nome);
         c.moveToFirst();
         int id = c.getInt(0);
+        c = db.getTipobyNomeId(id, nome);
+        c.moveToFirst();
+        String tipo = c.getString(0);
         Intent inf = new Intent(this, Activity_informacao.class);
         inf.putExtra("ID", id);
+        inf.putExtra("TIPO", tipo);
         startActivity(inf);
 
     }
@@ -549,6 +608,5 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
-
 
 }

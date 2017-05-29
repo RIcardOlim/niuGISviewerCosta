@@ -12,43 +12,69 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
-/**
- * Created by estagiario on 07/04/2017.
- *
- */
 
 public class Activity_ListData extends AppCompatActivity {
 
     DBTeste db;
-    private ListView listView;
+    private ListView listView1;
+    String tipo;
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listdata);
-        listView = (ListView) findViewById(R.id.listView);
-        db = new DBTeste(this, null, null, 13);
-        ocuparListView();
+        listView1 = (ListView) findViewById(R.id.listView);
+        db = new DBTeste(this, null, null, 20);
+        tabelaListView();
 
     }
 
-    private void ocuparListView() {
+    private void tabelaListView() {
 
-        Cursor data = db.getData();
+        ArrayList<String> listData = new ArrayList<>();
+        listData.add("Escola");
+        listData.add("Café");
+        listData.add("Supermercado");
+        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);
+        listView1.setAdapter(adapter);
+
+        listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                tipo = listView1.getItemAtPosition(position).toString();
+                if (Objects.equals(tipo, "Escola")) {
+
+                    ocuparListViewEscola();
+                } else if (Objects.equals(tipo, "Café")) {
+
+                    ocuparListViewCafe();
+                } else if (Objects.equals(tipo, "Supermercado")) {
+
+                    ocuparListViewSM();
+                }
+
+            }
+        });
+    }
+
+    private void ocuparListViewEscola() {
+
+        Cursor data = db.getDataEscola();
         ArrayList<String> listData = new ArrayList<>();
         while(data.moveToNext()){
             listData.add(data.getString(1));
         }
         ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);
-        listView.setAdapter(adapter);
+        listView1.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String nome = listView.getItemAtPosition(position).toString();
-                Cursor data = db.getIdbyNome(nome);
+                String nome = listView1.getItemAtPosition(position).toString();
+                Cursor data = db.getIdbyNomeEscola(nome);
                 int itemID = -1;
                 while(data.moveToNext()){
                     itemID = data.getInt(0);
@@ -57,8 +83,10 @@ public class Activity_ListData extends AppCompatActivity {
                 if(itemID > -1){
                     final Intent inf = new Intent(Activity_ListData.this, Activity_informacao.class);
                     inf.putExtra("ID", itemID);
+                    inf.putExtra("TIPO", tipo);
                     data.close();
                     db.close();
+                    finish();
                     startActivity(inf);
 
                 } else Toast.makeText(Activity_ListData.this, "Não existe esse ID", Toast.LENGTH_SHORT).show();
@@ -66,4 +94,71 @@ public class Activity_ListData extends AppCompatActivity {
         });
     }
 
+    private void ocuparListViewCafe() {
+
+        Cursor data = db.getDataCafe();
+        ArrayList<String> listData = new ArrayList<>();
+        while(data.moveToNext()){
+            listData.add(data.getString(1));
+        }
+        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);
+        listView1.setAdapter(adapter);
+
+        listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String nome = listView1.getItemAtPosition(position).toString();
+                Cursor data = db.getIdbyNomeCafe(nome);
+                int itemID = -1;
+                while(data.moveToNext()){
+                    itemID = data.getInt(0);
+
+                }
+                if(itemID > -1){
+                    final Intent inf = new Intent(Activity_ListData.this, Activity_informacao.class);
+                    inf.putExtra("ID", itemID);
+                    inf.putExtra("TIPO", tipo);
+                    data.close();
+                    db.close();
+                    finish();
+                    startActivity(inf);
+
+                } else Toast.makeText(Activity_ListData.this, "Não existe esse ID", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void ocuparListViewSM() {
+
+        Cursor data = db.getDataSM();
+        ArrayList<String> listData = new ArrayList<>();
+        while(data.moveToNext()){
+            listData.add(data.getString(1));
+        }
+        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);
+        listView1.setAdapter(adapter);
+
+        listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String nome = listView1.getItemAtPosition(position).toString();
+                Cursor data = db.getIdbyNomeSM(nome);
+                int itemID = -1;
+                while(data.moveToNext()){
+                    itemID = data.getInt(0);
+
+                }
+                if(itemID > -1){
+                    final Intent inf = new Intent(Activity_ListData.this, Activity_informacao.class);
+                    inf.putExtra("ID", itemID);
+                    inf.putExtra("TIPO", tipo);
+                    data.close();
+                    db.close();
+                    finish();
+                    startActivity(inf);
+
+                } else Toast.makeText(Activity_ListData.this, "Não existe esse ID", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
