@@ -147,9 +147,7 @@ public class Activity_Ponto extends AppCompatActivity {
         });
 
         AlertDialog alertDialog = escolhe.create();
-
         alertDialog.show();
-
    }
 
     private void resetText() {
@@ -173,10 +171,8 @@ public class Activity_Ponto extends AppCompatActivity {
 
                 }
             }
-
-            galeria = false;
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
@@ -198,6 +194,8 @@ public class Activity_Ponto extends AppCompatActivity {
 
                 Toast.makeText(this, "Foto não encontrado", Toast.LENGTH_SHORT).show();
             }
+
+            galeria = false;
         }
     }
 
