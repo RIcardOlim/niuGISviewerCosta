@@ -156,8 +156,8 @@ public class Activity_Ponto extends AppCompatActivity {
     }
     public void  abrirCamera(){
 
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent,0);
+        Intent it = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(it, REQUEST_CODE_GALLERY);
     }
 
     private void resetText() {
@@ -223,9 +223,8 @@ public class Activity_Ponto extends AppCompatActivity {
         }
 
         if(camera) {
-            super.onActivityResult(requestCode, resultCode, data);
 
-            Uri uri = data.getData();
+            /*Uri uri = data.getData();
 
             try {
                 InputStream stream = getContentResolver().openInputStream(uri);
@@ -259,6 +258,16 @@ public class Activity_Ponto extends AppCompatActivity {
                         }
                     }
                 }
+            }
+*/
+
+            if (RESULT_OK == resultCode) {
+
+                Bundle extras = data.getExtras();
+                Bitmap bmp = (Bitmap) extras.get("data");
+
+                FotoView = (ImageView) findViewById(R.id.imageView8);
+                FotoView.setImageBitmap(bmp);
             }
 
             camera = false;
