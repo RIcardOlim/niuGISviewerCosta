@@ -1,5 +1,6 @@
 package pt.novageo.niugisviewer;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -46,7 +47,6 @@ public class Activity_Ponto extends AppCompatActivity {
     double lat, lng;
     Boolean galeria, camera;
     final int REQUEST_CODE_GALLERY = 969;
-    private Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +154,7 @@ public class Activity_Ponto extends AppCompatActivity {
         AlertDialog alertDialog = escolhe.create();
         alertDialog.show();
     }
+
     public void  abrirCamera(){
 
         Intent it = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
@@ -205,61 +206,30 @@ public class Activity_Ponto extends AppCompatActivity {
 
         if(galeria) {
 
-            Uri uri = data.getData();
+            if(data != null) {
 
-            try {
+                Uri uri = data.getData();
 
-                InputStream stream = getContentResolver().openInputStream(uri);
+                if (resultCode == Activity.RESULT_CANCELED) {
+                    Toast.makeText(this, "wow", Toast.LENGTH_SHORT).show();
+                }
 
-                Bitmap bitmap = BitmapFactory.decodeStream(stream);
-                FotoView.setImageBitmap(bitmap);
+                try {
 
-            } catch (FileNotFoundException e) {
+                    InputStream stream = getContentResolver().openInputStream(uri);
+                    Bitmap bitmap = BitmapFactory.decodeStream(stream);
+                    FotoView.setImageBitmap(bitmap);
 
-                Toast.makeText(this, "Foto não encontrado", Toast.LENGTH_SHORT).show();
+                } catch (FileNotFoundException e) {
+
+                    Toast.makeText(this, "Foto não encontrado", Toast.LENGTH_SHORT).show();
+                }
+
             }
-
             galeria = false;
         }
 
         if(camera) {
-
-            /*Uri uri = data.getData();
-
-            try {
-                InputStream stream = getContentResolver().openInputStream(uri);
-                Bitmap bitmap = BitmapFactory.decodeStream(stream);
-                FotoView.setImageBitmap(bitmap);
-
-            } catch (FileNotFoundException e ) {
-
-                Toast.makeText(this, "Foto não encontrada", Toast.LENGTH_SHORT).show();
-            }
-
-            InputStream stream = null;
-            if (requestCode == 0 && resultCode == RESULT_OK) {
-                try {
-
-                    if (bitmap != null) {
-                        bitmap.recycle();
-                    }
-                    stream = getContentResolver().openInputStream(data.getData());
-                    bitmap = BitmapFactory.decodeStream(stream);
-                    FotoView.setImageBitmap(resizeImage(this, bitmap, 700, 600));
-
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } finally {
-                    if (stream != null) {
-                        try {
-                            stream.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-*/
 
             if (RESULT_OK == resultCode) {
 
