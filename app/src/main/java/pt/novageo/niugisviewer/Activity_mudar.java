@@ -150,20 +150,23 @@ public class Activity_mudar extends AppCompatActivity {
 
         if(galeria) {
 
-            Uri uri = data.getData();
+            if(data != null) {
 
-            try {
+                Uri uri = data.getData();
 
-                InputStream stream = getContentResolver().openInputStream(uri);
+                try {
 
-                Bitmap bitmap = BitmapFactory.decodeStream(stream);
-                mudarFoto.setImageBitmap(bitmap);
+                    InputStream stream = getContentResolver().openInputStream(uri);
 
-            } catch (FileNotFoundException e) {
+                    Bitmap bitmap = BitmapFactory.decodeStream(stream);
+                    mudarFoto.setImageBitmap(bitmap);
 
-                Toast.makeText(this, "Foto não encontrado", Toast.LENGTH_SHORT).show();
+                } catch (FileNotFoundException e) {
+
+                    Toast.makeText(this, "Foto não encontrado", Toast.LENGTH_SHORT).show();
+                }
+
             }
-
             galeria = false;
         }
 
