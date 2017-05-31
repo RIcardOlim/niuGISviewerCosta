@@ -200,7 +200,7 @@ public class DBTeste extends SQLiteOpenHelper {
         return true;
     }
 
-    //imprimir a base de dados
+    //recolhe toda a informação da base de dados
     public Cursor getData(){
 
         SQLiteDatabase db = getWritableDatabase();
@@ -212,6 +212,7 @@ public class DBTeste extends SQLiteOpenHelper {
 
     }
 
+    //recolhe o tipo do ponto com o nome e o id
     public Cursor getTipobyNomeId (int id, String nome){
 
         SQLiteDatabase db = getWritableDatabase();
@@ -222,6 +223,7 @@ public class DBTeste extends SQLiteOpenHelper {
         return data;
     }
 
+    //recolhe o id do ponto com o nome
     public Cursor getIdbyNome(String nome){
 
         SQLiteDatabase db = getWritableDatabase();
@@ -232,15 +234,16 @@ public class DBTeste extends SQLiteOpenHelper {
         return data;
     }
 
+    //diz a hora e o dia
     private String getDateTime(){
 
         SimpleDateFormat dateFormat = new SimpleDateFormat(
                 "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         Date date = new Date();
         return dateFormat.format(date);
-
     }
 
+    //recolhe a informação da tabela café com o id
     public Cursor getDataByIdCafe(int id){
 
         SQLiteDatabase db = getWritableDatabase();
@@ -250,6 +253,7 @@ public class DBTeste extends SQLiteOpenHelper {
         return data;
     }
 
+    //recolhe a informação da tabela escola com o id
     public Cursor getDataByIdEscola(int id){
 
         SQLiteDatabase db = getWritableDatabase();
@@ -259,6 +263,7 @@ public class DBTeste extends SQLiteOpenHelper {
         return data;
     }
 
+    //recolhe a informação da tabela supermercado com o id
     public Cursor getDataByIdSM(int id){
 
         SQLiteDatabase db = getWritableDatabase();
@@ -268,6 +273,7 @@ public class DBTeste extends SQLiteOpenHelper {
         return data;
     }
 
+    //atualiza a informação do ponto da tabela escola com o id, o novo nome, a nova descrição e a nova imagem
     public boolean UpdatePontoEscola(int id, String nome1, String desc, byte[] imagem){
 
         SQLiteDatabase db = getWritableDatabase();
@@ -314,6 +320,7 @@ public class DBTeste extends SQLiteOpenHelper {
         return true;
     }
 
+    //atualiza a informação do ponto da tabela cafe com o id, o novo nome, a nova descrição e a nova imagem
     public boolean UpdatePontoCafe(int id, String nome1, String desc, byte[] imagem){
 
         SQLiteDatabase db = getWritableDatabase();
@@ -360,6 +367,7 @@ public class DBTeste extends SQLiteOpenHelper {
         return true;
     }
 
+    //atualiza a informação do ponto da tabela supermercado com o id, o novo nome, a nova descrição e a nova imagem
     public boolean UpdatePontoSM(int id, String nome1, String desc, byte[] imagem){
 
         SQLiteDatabase db = getWritableDatabase();
@@ -406,6 +414,7 @@ public class DBTeste extends SQLiteOpenHelper {
         return true;
     }
 
+    //recolhe a informação da tabela escola
     public Cursor getDataEscola() {
 
         SQLiteDatabase db = getWritableDatabase();
@@ -416,6 +425,7 @@ public class DBTeste extends SQLiteOpenHelper {
 
         }
 
+    //recolhe a informação da tabela café
     public Cursor getDataCafe() {
 
         SQLiteDatabase db = getWritableDatabase();
@@ -426,6 +436,7 @@ public class DBTeste extends SQLiteOpenHelper {
 
         }
 
+    //recolhe a informação da tabela supermercado
     public Cursor getDataSM() {
 
         SQLiteDatabase db = getWritableDatabase();
@@ -436,6 +447,7 @@ public class DBTeste extends SQLiteOpenHelper {
 
         }
 
+    //recolhe o id do ponto que pertence a tabela escola com o nome
     public Cursor getIdbyNomeEscola(String nome){
 
         SQLiteDatabase db = getWritableDatabase();
@@ -445,6 +457,7 @@ public class DBTeste extends SQLiteOpenHelper {
 
         }
 
+    //recolhe o id do ponto que pertence a tabela café com o nome
     public Cursor getIdbyNomeCafe(String nome){
 
         SQLiteDatabase db = getWritableDatabase();
@@ -454,6 +467,7 @@ public class DBTeste extends SQLiteOpenHelper {
 
         }
 
+    //recolhe o id do ponto que pertence a tabela supermercado com o nome
     public Cursor getIdbyNomeSM(String nome){
 
         SQLiteDatabase db = getWritableDatabase();
@@ -462,4 +476,3 @@ public class DBTeste extends SQLiteOpenHelper {
         return data;
         }
     }
-

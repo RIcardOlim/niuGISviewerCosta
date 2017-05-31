@@ -76,21 +76,12 @@ public class Activity_mudar extends AppCompatActivity {
 
         if (Objects.equals(tipo, "Café")) {
 
-            /*db.UpdateNomeCafe(id, novonome.getText().toString());
-            db.UpdateDescCafe(id, novodesc.getText().toString());
-            db.UpdateFotoCafe(id, imageViewToByte(mudarFoto));*/
             db.UpdatePontoCafe(id, novonome.getText().toString(), novodesc.getText().toString(), imageViewToByte(mudarFoto));
         } else if (Objects.equals(tipo, "Escola")) {
 
-           /*db.UpdateNomeEscola(id, novonome.getText().toString());
-            db.UpdateDescEscola(id, novodesc.getText().toString());
-            db.UpdateFotoEscola(id, imageViewToByte(mudarFoto));*/
             db.UpdatePontoEscola(id, novonome.getText().toString(), novodesc.getText().toString(), imageViewToByte(mudarFoto));
         } else if (Objects.equals(tipo, "Supermercado")) {
 
-            /*db.UpdateNomeSM(id, novonome.getText().toString());
-            db.UpdateDescSM(id, novodesc.getText().toString());
-            db.UpdateFotoSM(id, imageViewToByte(mudarFoto));*/
             db.UpdatePontoSM(id, novonome.getText().toString(), novodesc.getText().toString(), imageViewToByte(mudarFoto));
         }
 

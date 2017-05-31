@@ -124,7 +124,6 @@ public class MainActivity extends AppCompatActivity
                 sql.putExtra("coordLng", coordLng);
                 sql.putExtra("morada", morada);
                 startActivity(sql);
-
             }
         });
 
@@ -458,9 +457,6 @@ public class MainActivity extends AppCompatActivity
 
         TileProvider wmsTileProvider = TileProviderFactory.getOsgeoWmsTileProvider(sb.toString());
         mMap.addTileOverlay(new TileOverlayOptions().tileProvider(wmsTileProvider));
-        // Because the demo WMS layer we are using is just a white background map, switch the base layer
-        // to satellite so we can see the WMS overlay.
-        // mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
     }
 
     private void AddMarkerDB() {
