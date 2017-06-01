@@ -32,6 +32,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.gms.maps.model.TileProvider;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -586,7 +589,14 @@ public class MainActivity extends AppCompatActivity
                     buffer.append(linha);
                 }
 
-                return buffer.toString();
+                String finalJson = buffer.toString();
+
+                JSONObject parentObject = new JSONObject(finalJson);
+                JSONObject respostaObject = parentObject.getJSONObject("resposta");
+
+                String numero = respostaObject.getString("teste");
+
+                return numero;
 
             } catch (MalformedURLException e) {
 
@@ -596,15 +606,23 @@ public class MainActivity extends AppCompatActivity
 
                 e.printStackTrace();
                 Toast.makeText(MainActivity.this, "[002]Conexão Falhada", Toast.LENGTH_SHORT).show();
+            } catch (JSONException e) {
+
+                e.printStackTrace();
+                Toast.makeText(MainActivity.this, "[003]JSON Falhado", Toast.LENGTH_SHORT).show();
             } finally {
+
                 if(conexao != null) {
 
                     conexao.disconnect();
                 }
+
                 try {
+
                     if(reader != null) {
                         reader.close();
                     }
+
                 } catch (IOException e) {
                     e.printStackTrace();
                     Toast.makeText(MainActivity.this, "[001]Erro a fechar o reader", Toast.LENGTH_SHORT).show();

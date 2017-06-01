@@ -1,11 +1,10 @@
 package pt.novageo.niugisviewer;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.Cursor;
-import android.content.Context;
-import android.content.ContentValues;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,7 +17,7 @@ public class DBTeste extends SQLiteOpenHelper {
     private static final String DATABASE_NOME = "Locais.db";
 
     //TABELA 1 - ESCOLA
-    private static final String TABLE_ESCOLA = "escola";
+    private static final String TABLE_ESCOLA = "Escola";
     private static final String COLUMN_ID_ESCOLA = "_id";//coluna 0
     private static final String COLUMN_NOME_ESCOLA = "nomelocal";//coluna 1
     private static final String COLUMN_DESCRICAO_ESCOlA = "Descricao";//coluna 2
@@ -30,7 +29,7 @@ public class DBTeste extends SQLiteOpenHelper {
     private static final String COLUMN_IMAGEM_ESCOLA = "imagem";//coluna 8
 
     //TABELA 2 - CAFÉS
-    private static final String TABLE_CAFE = "cafe";
+    private static final String TABLE_CAFE = "Cafe";
     private static final String COLUMN_ID_CAFE = "_id";//coluna 0
     private static final String COLUMN_NOME_CAFE = "nomelocal";//coluna 1
     private static final String COLUMN_DESCRICAO_CAFE = "Descricao";//coluna 2
@@ -53,6 +52,12 @@ public class DBTeste extends SQLiteOpenHelper {
     private static final String COLUMN_MORADA_SM = "morada";//coluna 7
     private static final String COLUMN_IMAGEM_SM = "imagem";//coluna 8
 
+    //TABELA 4 - ENTIDADES
+    private static final String TABLE_ENTIDADE = "Entidades";
+    private static final String COLUMN_ID_ENTIDADE = "_id";//coluna 0
+    private static final String COLUMN_NOME_ENTIDADE = "nomeEntidades";//coluna 1
+    private static final String COLUMN_ID_PROPRIO_ENTIDADE = "idProprio";//coluna 2
+    private static final String COLUMN_TIPO_ENTIDADE = "tipo";//coluna 3
 
     //TABELA 1 - ESCOLA
     private static final String CRIAR_TABLE_ESCOLA = "CREATE TABLE " + TABLE_ESCOLA + "(" +
@@ -93,6 +98,14 @@ public class DBTeste extends SQLiteOpenHelper {
             COLUMN_IMAGEM_SM + " MEDIUMBLOB " +
             ");";
 
+    //TABELA 4 - ENTIDADES
+    private static final String CRIAR_TABLE_ENTIDADE = "CREATE TABLE " + TABLE_ENTIDADE + "(" +
+            COLUMN_ID_ENTIDADE + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COLUMN_NOME_ENTIDADE + " TEXT, " +
+            COLUMN_ID_PROPRIO_ENTIDADE + " INTEGER, " +
+            COLUMN_TIPO_ENTIDADE + " TEXT " +
+            ");";
+
     public DBTeste(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NOME, factory, DATABASE_VERSION);
     }
@@ -103,6 +116,7 @@ public class DBTeste extends SQLiteOpenHelper {
         db.execSQL(CRIAR_TABLE_ESCOLA);
         db.execSQL(CRIAR_TABLE_CAFE);
         db.execSQL(CRIAR_TABLE_SM);
+        db.execSQL(CRIAR_TABLE_ENTIDADE);
 
     }
 
@@ -111,6 +125,7 @@ public class DBTeste extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ESCOLA);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CAFE);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SM);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ENTIDADE);
         onCreate(db);
     }
 
