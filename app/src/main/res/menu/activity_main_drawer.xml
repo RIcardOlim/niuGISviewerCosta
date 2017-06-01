@@ -11,6 +11,10 @@
         <item
             android:id="@+id/action_view"
             android:title="@string/verificar" />
+
+        <item
+            android:id="@+id/action_teste"
+            android:title="@string/teste" />
     </group>
 <!--
     <group xmlns:android="http://schemas.android.com/apk/res/android"
