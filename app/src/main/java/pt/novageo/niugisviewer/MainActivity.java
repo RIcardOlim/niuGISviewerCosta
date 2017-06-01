@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,7 +32,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.gms.maps.model.TileProvider;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 
@@ -47,7 +54,8 @@ public class MainActivity extends AppCompatActivity
     double lat, lng;
     boolean dbEscola = false, dbCafe = false, dbSM = false, GPS = false;
     private static final int PERMS_REQUEST_CODE = 123;
-
+    HttpURLConnection conexao = null;
+    BufferedReader reader = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -394,7 +402,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (id == R.id.action_teste) {
-
+            new JSONTask().execute("http://agualva.niugis.com/websig/webservices/teste.php");
             return true;
         }
 
@@ -553,6 +561,64 @@ public class MainActivity extends AppCompatActivity
         inf.putExtra("TIPO", tipo);
         startActivity(inf);
     }
+
+
+    public class JSONTask extends AsyncTask<String, String, String>{
+
+
+        @Override
+        protected String doInBackground(String... params) {
+            String linha = "";
+
+            try {
+                URL url = new URL(params[0]);
+                conexao = (HttpURLConnection) url.openConnection();
+                conexao.connect();
+
+                InputStream stream = conexao.getInputStream();
+
+                reader = new BufferedReader(new InputStreamReader(stream));
+
+                StringBuffer buffer = new StringBuffer();
+
+                while ((linha = reader.readLine()) != null){
+
+                    buffer.append(linha);
+                }
+
+                return buffer.toString();
+
+            } catch (MalformedURLException e) {
+
+                e.printStackTrace();
+                Toast.makeText(MainActivity.this, "[001]Conexão Falhada", Toast.LENGTH_SHORT).show();
+            } catch (IOException e) {
+
+                e.printStackTrace();
+                Toast.makeText(MainActivity.this, "[002]Conexão Falhada", Toast.LENGTH_SHORT).show();
+            } finally {
+                if(conexao != null) {
+
+                    conexao.disconnect();
+                }
+                try {
+                    if(reader != null) {
+                        reader.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(MainActivity.this, "[001]Erro a fechar o reader", Toast.LENGTH_SHORT).show();
+                }
+            }
+            return null;
+        }
+
+        protected void onPostExecute(String result){
+            super.onPostExecute(result);
+            Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     private boolean hasPermissions() {
 
