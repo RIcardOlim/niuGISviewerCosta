@@ -117,16 +117,37 @@ public class DBTeste extends SQLiteOpenHelper {
         db.execSQL(CRIAR_TABLE_CAFE);
         db.execSQL(CRIAR_TABLE_SM);
         db.execSQL(CRIAR_TABLE_ENTIDADE);
-
+        addEntidade(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ESCOLA);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CAFE);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SM);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ENTIDADE);
         onCreate(db);
+    }
+
+    public boolean addEntidade(SQLiteDatabase db) {
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NOME_ENTIDADE, "Escolas");
+        values.put(COLUMN_ID_PROPRIO_ENTIDADE, 10);
+        values.put(COLUMN_TIPO_ENTIDADE, "Escola");
+        db.insert(TABLE_ENTIDADE, null, values);
+
+        values.put(COLUMN_NOME_ENTIDADE, "Cafés");
+        values.put(COLUMN_ID_PROPRIO_ENTIDADE, 6);
+        values.put(COLUMN_TIPO_ENTIDADE, "Café");
+        db.insert(TABLE_ENTIDADE, null, values);
+
+        values.put(COLUMN_NOME_ENTIDADE, "Supermercados");
+        values.put(COLUMN_ID_PROPRIO_ENTIDADE, 17);
+        values.put(COLUMN_TIPO_ENTIDADE, "Supermercado");
+        db.insert(TABLE_ENTIDADE, null, values);
+        return true;
     }
 
     //adicionar um registo na tabela escola
@@ -257,6 +278,16 @@ public class DBTeste extends SQLiteOpenHelper {
                 "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         Date date = new Date();
         return dateFormat.format(date);
+    }
+
+    public Cursor getDatabyTipo(String tipo){
+
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_CAFE + " WHERE " + COLUMN_TIPO_CAFE + " = '" + tipo +
+                "' UNION SELECT * FROM " + TABLE_ESCOLA + " WHERE " + COLUMN_TIPO_ESCOLA + " = '" + tipo +
+                "' UNION SELECT * FROM " + TABLE_SM + " WHERE " + COLUMN_TIPO_SM + " = '" + tipo + "'";
+        Cursor data = db.rawQuery(query, null);
+        return data;
     }
 
     //recolhe a informação da tabela café com o id

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="none">
         <item
@@ -13,32 +12,8 @@
             android:title="@string/verificar" />
 
         <item
-            android:id="@+id/action_teste"
-            android:title="@string/teste" />
-    </group>
-<!--
-    <group xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:checkableBehavior="none">
-
-        <item
-            android:id="@+id/Alllayers"
-            android:checkable="true"
-            android:title="Layers"
-            app:showAsAction="never" />
-
-        <item
-            android:id="@+id/edificios"
-            android:checkable="true"
-            android:title="Edificios"
-            app:showAsAction="never" />
-
-        <item
-            android:id="@+id/vias"
-            android:checkable="true"
-            android:title="Vias"
-            app:showAsAction="never" />
+            android:id="@+id/action_niuGISdb"
+            android:title="@string/resposta" />
 
     </group>
--->
 </menu>

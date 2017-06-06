@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion '25.0.0'
+    useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
         applicationId "pt.app.niugisviewer"
@@ -17,6 +18,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    dexOptions {
+        javaMaxHeapSize "2g"
     }
 }
 

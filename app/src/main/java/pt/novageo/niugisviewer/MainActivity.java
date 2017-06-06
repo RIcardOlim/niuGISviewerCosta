@@ -39,6 +39,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -56,9 +57,10 @@ public class MainActivity extends AppCompatActivity
     String morada = "";
     double lat, lng;
     boolean dbEscola = false, dbCafe = false, dbSM = false, GPS = false;
-    private static final int PERMS_REQUEST_CODE = 123;
     HttpURLConnection conexao = null;
     BufferedReader reader = null;
+    private static final int PERMS_REQUEST_CODE = 123;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -139,7 +141,6 @@ public class MainActivity extends AppCompatActivity
                 startActivity(sql);
             }
         });
-
     }
 
     protected void onResume() {
@@ -159,7 +160,6 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
             finish();
         }
-
     }
 
     @Override
@@ -394,17 +394,20 @@ public class MainActivity extends AppCompatActivity
         Intent view = new Intent(this, Activity_ListData.class);
 
         if (id == R.id.nav_camera) {
+
             if (mMap.getMapType() == GoogleMap.MAP_TYPE_NORMAL) {
                 mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
             } else mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         }
 
         if (id == R.id.action_view) {
+
             startActivity(view);
             return true;
         }
 
-        if (id == R.id.action_teste) {
+        if (id == R.id.action_niuGISdb) {
+
             new JSONTask().execute("http://agualva.niugis.com/websig/webservices/teste.php");
             return true;
         }
@@ -565,18 +568,28 @@ public class MainActivity extends AppCompatActivity
         startActivity(inf);
     }
 
-
-    public class JSONTask extends AsyncTask<String, String, String>{
-
+    public class JSONTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
-            String linha = "";
-
             try {
+
+                String linha;
+                String json = "msg={\"service\":\"setsync\",\"user\":\"Ricardo\",\"password\":\"123456\",\"pontos\":[{\"operacao\":\"insert\",\"entidade\":\"6\",\"nome\":\"Café A\",\"descricao\":\"Descrção do café\",\"morada\":\"Rua tal\",\"coordx\":\"8.1212\",\"coordy\":\"9.321\"},{\"operacao\":\"update\",\"entidade\":\"10\",\"nome\":\"Escola lá da rua\",\"descricao\":\"Descrição da escola\",\"morada\":\"Rua da escola\",\"coordx\":\"8.7282\",\"coordy\":\"9.59245\"}]}";
                 URL url = new URL(params[0]);
                 conexao = (HttpURLConnection) url.openConnection();
+                conexao.setDoOutput(true);
+                conexao.setRequestProperty("Content-Type", "application/json");
+                conexao.setRequestProperty("Accept", "application/json");
+                conexao.setRequestMethod("POST");
                 conexao.connect();
+
+                OutputStreamWriter os = new OutputStreamWriter(conexao.getOutputStream());
+                os.write(json);
+                os.flush();
+                os.close();
+
+                //receber resposta
 
                 InputStream stream = conexao.getInputStream();
 
@@ -592,9 +605,9 @@ public class MainActivity extends AppCompatActivity
                 String finalJson = buffer.toString();
 
                 JSONObject parentObject = new JSONObject(finalJson);
-                JSONObject respostaObject = parentObject.getJSONObject("resposta");
+                JSONObject respostaObject = parentObject.getJSONObject("response");
 
-                String numero = respostaObject.getString("teste");
+                String numero = respostaObject.getString("status");
 
                 return numero;
 
@@ -636,7 +649,6 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
         }
     }
-
 
     private boolean hasPermissions() {
 

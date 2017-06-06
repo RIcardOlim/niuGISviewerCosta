@@ -63,6 +63,9 @@
     <string name="virgula">,</string>
     <string name="coordenadas">Coordenadas:</string>
     <string name="escolhe">Escolhe: </string>
+    <string name="resposta">Enviar Pontos</string>
+    <string name="enviar">Enviar</string>
+    <string name="enviar_niuGis">Enviar ao niuGIS</string>
     <string-array name="Tipo_de_Ponto">
 
         <item>Escola</item>
