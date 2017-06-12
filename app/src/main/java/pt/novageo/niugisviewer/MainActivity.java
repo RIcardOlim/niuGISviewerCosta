@@ -32,6 +32,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.gms.maps.model.TileProvider;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity
     boolean dbEscola = false, dbCafe = false, dbSM = false, GPS = false;
     HttpURLConnection conexao = null;
     BufferedReader reader = null;
+    private static final String TAG = "niuGis Viewer";
     private static final int PERMS_REQUEST_CODE = 123;
 
     @Override
@@ -144,9 +146,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     protected void onResume() {
+
         super.onResume();
         ResetLayer();
-
     }
 
     @Override
@@ -574,8 +576,9 @@ public class MainActivity extends AppCompatActivity
         protected String doInBackground(String... params) {
             try {
 
+                //conectar ao servidor
+
                 String linha;
-                String json = "msg={\"service\":\"setsync\",\"user\":\"Ricardo\",\"password\":\"123456\",\"pontos\":[{\"operacao\":\"insert\",\"entidade\":\"6\",\"nome\":\"Café A\",\"descricao\":\"Descrção do café\",\"morada\":\"Rua tal\",\"coordx\":\"8.1212\",\"coordy\":\"9.321\"},{\"operacao\":\"update\",\"entidade\":\"10\",\"nome\":\"Escola lá da rua\",\"descricao\":\"Descrição da escola\",\"morada\":\"Rua da escola\",\"coordx\":\"8.7282\",\"coordy\":\"9.59245\"}]}";
                 URL url = new URL(params[0]);
                 conexao = (HttpURLConnection) url.openConnection();
                 conexao.setDoOutput(true);
@@ -583,6 +586,39 @@ public class MainActivity extends AppCompatActivity
                 conexao.setRequestProperty("Accept", "application/json");
                 conexao.setRequestMethod("POST");
                 conexao.connect();
+
+                //enviar pedido
+
+                JSONObject insObj = new JSONObject();
+                insObj.put("operacao", "insert");
+                insObj.put("entidade", "6");
+                insObj.put("nome", "Café A");
+                insObj.put("descricao", "Descrção do café");
+                insObj.put("morada", "Rua tal");
+                insObj.put("coordx", "8.1212");
+                insObj.put("coordy", "9.321");
+
+                JSONObject uptObj = new JSONObject();
+                uptObj.put("operacao", "update");
+                uptObj.put("entidade", "10");
+                uptObj.put("nome", "Escola lá da rua");
+                uptObj.put("descricao", "Descrição da escola");
+                uptObj.put("morada", "Rua da escola");
+                uptObj.put("coordx", "8.7282");
+                uptObj.put("coordy", "9.59245");
+
+                JSONArray pontArray = new JSONArray();
+
+                pontArray.put(insObj);
+                pontArray.put(uptObj);
+
+                JSONObject jsonObj = new JSONObject();
+                jsonObj.put("service", "setsync");
+                jsonObj.put("user", "Ricardo");
+                jsonObj.put("password", "123456");
+                jsonObj.put("pontos", pontArray);
+
+                String json = jsonObj.toString();
 
                 OutputStreamWriter os = new OutputStreamWriter(conexao.getOutputStream());
                 os.write(json);
@@ -607,9 +643,9 @@ public class MainActivity extends AppCompatActivity
                 JSONObject parentObject = new JSONObject(finalJson);
                 JSONObject respostaObject = parentObject.getJSONObject("response");
 
-                String numero = respostaObject.getString("status");
+                String resposta = respostaObject.getString("status");
 
-                return numero;
+                return resposta;
 
             } catch (MalformedURLException e) {
 
@@ -645,6 +681,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         protected void onPostExecute(String result){
+
             super.onPostExecute(result);
             Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
         }

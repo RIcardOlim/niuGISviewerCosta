@@ -385,7 +385,6 @@ public class DBTeste extends SQLiteOpenHelper {
 
             nome2 = c.getString(1);
         } else {
-
             nome2 = nome1;
         }
 
@@ -393,7 +392,6 @@ public class DBTeste extends SQLiteOpenHelper {
 
             descr = c.getString(2);
         } else {
-
             descr = desc;
         }
 
@@ -408,7 +406,6 @@ public class DBTeste extends SQLiteOpenHelper {
         db.insert(TABLE_CAFE, null, values);
 
         db.execSQL("DELETE FROM " + TABLE_CAFE + " WHERE " + COLUMN_ID_CAFE + "=\"" + id + "\";");
-
         db.close();
 
         return true;
