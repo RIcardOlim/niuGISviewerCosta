@@ -5,8 +5,10 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/niuGISviewer.iml" filepath="$PROJECT_DIR$/niuGISviewer.iml" />
       <module fileurl="file://$PROJECT_DIR$/niuGISviewerC.iml" filepath="$PROJECT_DIR$/niuGISviewerC.iml" />
+      <module fileurl="file://$PROJECT_DIR$/niuGISviewerCost.iml" filepath="$PROJECT_DIR$/niuGISviewerCost.iml" />
       <module fileurl="file://$PROJECT_DIR$/niuGISviewerCosta.iml" filepath="$PROJECT_DIR$/niuGISviewerCosta.iml" />
       <module fileurl="file://$PROJECT_DIR$/niuGISviewer_2017.iml" filepath="$PROJECT_DIR$/niuGISviewer_2017.iml" />
     </modules>
