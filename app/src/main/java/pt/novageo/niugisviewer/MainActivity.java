@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-    // BOAS PESSOAL !!!!!!!!!!! " :D"!!!!!!!!1
+    // BOAS PESSOAL !!!!!!!!!!! " :D"!!!!!!!!
 
 
 
