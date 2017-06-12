@@ -63,6 +63,26 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = "niuGis Viewer";
     private static final int PERMS_REQUEST_CODE = 123;
 
+
+
+
+
+
+
+    // BOAS PESSOAL !!!!!!!!!!11
+
+
+
+
+
+
+
+
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
