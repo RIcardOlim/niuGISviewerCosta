@@ -1,5 +1,6 @@
 package pt.novageo.niugisviewer;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -62,26 +63,6 @@ public class MainActivity extends AppCompatActivity
     BufferedReader reader = null;
     private static final String TAG = "niuGis Viewer";
     private static final int PERMS_REQUEST_CODE = 123;
-
-
-
-
-
-
-
-    // BOAS PESSOAL !!!!!!!!!!! " :D"!!!!!!!!
-
-
-
-
-
-
-
-
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -704,61 +685,6 @@ public class MainActivity extends AppCompatActivity
 
             super.onPostExecute(result);
             Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private boolean hasPermissions() {
-
-        int res = 0;
-
-        String[] permissions = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION};
-
-
-        for (String perms : permissions) {
-            res = checkCallingOrSelfPermission(perms);
-            if (!(res == PackageManager.PERMISSION_GRANTED)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private void requestPerms() {
-
-        String[] permissions = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION};
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(permissions, PERMS_REQUEST_CODE);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        boolean allowed = true;
-
-        switch (requestCode) {
-            case PERMS_REQUEST_CODE:
-
-                for (int res : grantResults) {
-                    // Se o utilizador autorizar
-                    allowed = allowed && (res == PackageManager.PERMISSION_GRANTED);
-                }
-                break;
-            default:
-                //se o utilizador nao autorizar
-                allowed = false;
-                break;
-        }
-
-        if (allowed) {
-            Toast.makeText(this, "Autorizado", Toast.LENGTH_SHORT).show();
-        } else {
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (shouldShowRequestPermissionRationale(Manifest.permission.MAPS_RECEIVE)) {
-
-                    Toast.makeText(this, "Não autorizado", Toast.LENGTH_SHORT).show();
-                }
-            }
         }
     }
 

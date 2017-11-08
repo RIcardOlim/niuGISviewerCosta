@@ -16,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -46,7 +47,7 @@ public class Activity_Ponto extends AppCompatActivity {
     ArrayAdapter<CharSequence> adapter;
     double lat, lng;
     Boolean galeria, camera;
-    final int REQUEST_CODE_GALLERY = 969;
+    final int REQUEST_CODE_GALLERY = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,8 +145,8 @@ public class Activity_Ponto extends AppCompatActivity {
                 } else {
 
                     Toast.makeText(Activity_Ponto.this, "câmera", Toast.LENGTH_SHORT).show();
+                    ActivityCompat.requestPermissions(Activity_Ponto.this, new String[] {Manifest.permission.CAMERA}, REQUEST_CODE_GALLERY);
                     camera = true;
-                    abrirCamera();
                 }
 
             }
@@ -153,12 +154,6 @@ public class Activity_Ponto extends AppCompatActivity {
 
         AlertDialog alertDialog = escolhe.create();
         alertDialog.show();
-    }
-
-    public void  abrirCamera(){
-
-        Intent it = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(it, REQUEST_CODE_GALLERY);
     }
 
     private void resetText() {
@@ -175,7 +170,7 @@ public class Activity_Ponto extends AppCompatActivity {
 
             if (requestCode == REQUEST_CODE_GALLERY) {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
+                    Log.e("niuGISViewer", "Tem permissão");
                     Intent img = new Intent(Intent.ACTION_PICK);
                     img.setType("image/*");
                     startActivityForResult(img, REQUEST_CODE_GALLERY);
@@ -190,10 +185,16 @@ public class Activity_Ponto extends AppCompatActivity {
 
             if (requestCode == REQUEST_CODE_GALLERY) {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Intent img = new Intent(Intent.ACTION_PICK);
-                    img.setType("image/*");
-                    startActivityForResult(img, REQUEST_CODE_GALLERY);
+
+                    Log.e("niuGISViewer", "aceitou");
+
+                    Intent it = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(it, REQUEST_CODE_GALLERY);
+               } else {
+
+                    Log.e("niuGISViewer", "recusou");
                 }
+
             }
 
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
