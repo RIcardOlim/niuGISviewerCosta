@@ -49,7 +49,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="pt.novageo.niugisviewer.SplashScreen"
+            android:name="pt.novageo.niugisviewer.Splash.SplashScreen"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -58,7 +58,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="pt.novageo.niugisviewer.MainActivity"
+            android:name="pt.novageo.niugisviewer.Main.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
@@ -75,48 +75,48 @@
             android:value="AIzaSyBkVs8iqeOwufEMFvrlKGiNRLdorpVOZZw" />
 
         <activity
-            android:name="pt.novageo.niugisviewer.Activity_about"
+            android:name="pt.novageo.niugisviewer.About.Activity_about"
             android:label="About"
-            android:parentActivityName="pt.novageo.niugisviewer.MainActivity" />
+            android:parentActivityName="pt.novageo.niugisviewer.Main.MainActivity" />
 
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value="pt.novageo.niugisviewer.MainActivity" />
+            android:value="pt.novageo.niugisviewer.Main.MainActivity" />
 
         <activity
-            android:name="pt.novageo.niugisviewer.Activity_cma"
+            android:name="pt.novageo.niugisviewer.About.Activity_cma"
             android:label="@string/contato_c_mara_municipal_da_amadora"
-            android:parentActivityName="pt.novageo.niugisviewer.MainActivity" />
+            android:parentActivityName="pt.novageo.niugisviewer.Main.MainActivity" />
 
         <activity
-            android:name="pt.novageo.niugisviewer.Activity_ng"
+            android:name="pt.novageo.niugisviewer.About.Activity_ng"
             android:label="@string/contatos_novageo"
-            android:parentActivityName="pt.novageo.niugisviewer.MainActivity" />
+            android:parentActivityName="pt.novageo.niugisviewer.Main.MainActivity" />
 
         <activity
-            android:name="pt.novageo.niugisviewer.Activity_escola"
+            android:name="pt.novageo.niugisviewer.About.Activity_escola"
             android:label="@string/escola_secund_ria_matias_aires"
-            android:parentActivityName="pt.novageo.niugisviewer.MainActivity" />
+            android:parentActivityName="pt.novageo.niugisviewer.Main.MainActivity" />
 
         <activity
-            android:name="pt.novageo.niugisviewer.Activity_Ponto"
+            android:name="pt.novageo.niugisviewer.Pontos.Activity_Ponto"
             android:label="@string/sql_teste"
-            android:parentActivityName="pt.novageo.niugisviewer.MainActivity" />
+            android:parentActivityName="pt.novageo.niugisviewer.Main.MainActivity" />
 
         <activity
-            android:name="pt.novageo.niugisviewer.Activity_ListData"
+            android:name="pt.novageo.niugisviewer.Pontos.Activity_ListData"
             android:label="@string/verificar"
-            android:parentActivityName="pt.novageo.niugisviewer.MainActivity" />
+            android:parentActivityName="pt.novageo.niugisviewer.Main.MainActivity" />
 
         <activity
-            android:name="pt.novageo.niugisviewer.Activity_informacao"
+            android:name="pt.novageo.niugisviewer.Pontos.Activity_informacao"
             android:label="@string/verificar"
-            android:parentActivityName="pt.novageo.niugisviewer.MainActivity" />
+            android:parentActivityName="pt.novageo.niugisviewer.Main.MainActivity" />
 
         <activity
-            android:name="pt.novageo.niugisviewer.Activity_mudar"
+            android:name="pt.novageo.niugisviewer.Pontos.Activity_mudar"
             android:label="@string/mudar"
-            android:parentActivityName="pt.novageo.niugisviewer.MainActivity" />
+            android:parentActivityName="pt.novageo.niugisviewer.Main.MainActivity" />
 
     </application>
 

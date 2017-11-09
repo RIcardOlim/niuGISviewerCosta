@@ -1,4 +1,4 @@
-package pt.novageo.niugisviewer;
+package pt.novageo.niugisviewer.Pontos;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,6 +13,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Objects;
+
+import pt.novageo.niugisviewer.DB_ponto.DBTeste;
+import pt.novageo.niugisviewer.R;
 
 public class Activity_ListData extends AppCompatActivity {
 

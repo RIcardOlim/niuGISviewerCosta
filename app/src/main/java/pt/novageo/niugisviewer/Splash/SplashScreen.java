@@ -1,9 +1,12 @@
-package pt.novageo.niugisviewer;
+package pt.novageo.niugisviewer.Splash;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import pt.novageo.niugisviewer.Main.MainActivity;
+import pt.novageo.niugisviewer.R;
 
 public class SplashScreen extends Activity {
 

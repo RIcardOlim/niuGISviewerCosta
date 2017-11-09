@@ -1,4 +1,4 @@
-package pt.novageo.niugisviewer;
+package pt.novageo.niugisviewer.DB_layer;
 
 /**
  * Created by marco on 6/28/16.

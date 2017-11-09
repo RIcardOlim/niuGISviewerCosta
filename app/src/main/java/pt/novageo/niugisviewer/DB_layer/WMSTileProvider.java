@@ -1,4 +1,4 @@
-package pt.novageo.niugisviewer;
+package pt.novageo.niugisviewer.DB_layer;
 
 import java.net.URLEncoder;
 import com.google.android.gms.maps.model.UrlTileProvider;

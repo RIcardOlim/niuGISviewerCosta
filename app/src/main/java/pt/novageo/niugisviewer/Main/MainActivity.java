@@ -1,16 +1,12 @@
-package pt.novageo.niugisviewer;
+package pt.novageo.niugisviewer.Main;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -48,6 +44,17 @@ import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 
+import pt.novageo.niugisviewer.About.Activity_about;
+import pt.novageo.niugisviewer.About.Activity_cma;
+import pt.novageo.niugisviewer.About.Activity_escola;
+import pt.novageo.niugisviewer.Pontos.Activity_ListData;
+import pt.novageo.niugisviewer.Pontos.Activity_Ponto;
+import pt.novageo.niugisviewer.Pontos.Activity_informacao;
+import pt.novageo.niugisviewer.About.Activity_ng;
+import pt.novageo.niugisviewer.DB_ponto.DBTeste;
+import pt.novageo.niugisviewer.DB_layer.TileProviderFactory;
+import pt.novageo.niugisviewer.R;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
@@ -61,8 +68,6 @@ public class MainActivity extends AppCompatActivity
     boolean dbEscola = false, dbCafe = false, dbSM = false, GPS = false;
     HttpURLConnection conexao = null;
     BufferedReader reader = null;
-    private static final String TAG = "niuGis Viewer";
-    private static final int PERMS_REQUEST_CODE = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,11 +97,7 @@ public class MainActivity extends AppCompatActivity
         mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('610f3e271d9a29235ab5abc45d6e6e38', 'policia', 0);");
         mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('73b4b7160e10fe06f4f2aa2d0c832163', 'restaurante', 0);");
         mydatabase.execSQL("INSERT INTO layers(name, title, active) VALUES('aa0d5ea150c6698d7a9dd3eb20fc7703', 'supermercados', 0);");
-/*
-        if(!hasPermissions()){
-            requestPerms();
-        }
-        */
+
         setUpMapIfNeeded();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -1,4 +1,4 @@
-package pt.novageo.niugisviewer;
+package pt.novageo.niugisviewer.DB_layer;
 
 import java.net.MalformedURLException;
 import java.net.URL;

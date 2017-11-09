@@ -1,4 +1,4 @@
-package pt.novageo.niugisviewer;
+package pt.novageo.niugisviewer.Pontos;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,7 +11,6 @@ import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
@@ -27,9 +26,20 @@ import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
+
+import pt.novageo.niugisviewer.DB_ponto.AppDatabase;
+import pt.novageo.niugisviewer.DB_ponto.DBInitializer;
+import pt.novageo.niugisviewer.DB_ponto.DBTeste;
+import pt.novageo.niugisviewer.Manifest;
+import pt.novageo.niugisviewer.R;
+import pt.novageo.niugisviewer.Tabela.Escola;
+
+import static java.security.AccessController.getContext;
 
 
 /**
@@ -41,12 +51,13 @@ public class Activity_Ponto extends AppCompatActivity {
 
     EditText inserirnome, inserirdesc;
     ImageView FotoView;
-    DBTeste db;
+    //DBTeste db;
     String coordLat, coordLng, morada, nome, desc, tipo;
     Spinner spinner;
     ArrayAdapter<CharSequence> adapter;
     double lat, lng;
     Boolean galeria, camera;
+    private Escola escola;
     final int REQUEST_CODE_GALLERY = 1;
 
     @Override
@@ -63,7 +74,8 @@ public class Activity_Ponto extends AppCompatActivity {
         lng = Double.parseDouble(coordLng);
         galeria = false;
         camera = false;
-        db = new DBTeste(this, null, null, 20);
+        escola = new Escola();
+       // db = new DBTeste(this, null, null, 20);
 
         spinner = (Spinner) findViewById(R.id.IDspinner);
         adapter = ArrayAdapter.createFromResource(this, R.array.Tipo_de_Ponto, android.R.layout.simple_spinner_item);
@@ -88,32 +100,43 @@ public class Activity_Ponto extends AppCompatActivity {
 
     }
 
+    private static Escola addPonto(final AppDatabase db, Escola escola) {
+        db.escolaDao().insert(escola);
+        return escola;
+    }
+
     //adicionar registo da base de dados
     public void addButtonClicked(View view){
 
-        tipo = spinner.getSelectedItem().toString();
-        nome = inserirnome.getText().toString();
-        desc = inserirdesc.getText().toString();
+        escola.setTipoPonto(spinner.getSelectedItem().toString());
+        escola.setNomePonto(inserirnome.getText().toString());
+        escola.setDescricaoPonto(inserirdesc.getText().toString());
+        escola.setLatPonto(lat);
+        escola.setLngPonto(lng);
+        escola.setMoradaPonto(morada);
+        escola.setDataPonto(getDateTime());
+        escola.setImagemPonto(imageViewToByte(FotoView));
 
         try{
-            if(Objects.equals(nome, "")) {
+           if(Objects.equals(nome, "")) {
                 Toast.makeText(this, "Nome do ponto obrigatório", Toast.LENGTH_SHORT).show();
 
-            } else if (Objects.equals(tipo, "Escola")) {
+            } else /*if (Objects.equals(tipo, "Escola"))*/ {
 
-                db.addPontoEscola(nome, desc, lat, lng, morada, imageViewToByte(FotoView));
+                DBInitializer.populateAsync(AppDatabase.getAppDatabase(this), escola);
+                //db.addPontoEscola(nome, desc, lat, lng, morada, imageViewToByte(FotoView));
                 Toast.makeText(this, "Ponto Adicionado", Toast.LENGTH_SHORT).show();
                 resetText();
-            } else if (Objects.equals(tipo, "Café")) {
+//            } else if (Objects.equals(tipo, "Café")) {
 
-                db.addPontoCafe(nome, desc, lat, lng, morada, imageViewToByte(FotoView));
-                Toast.makeText(this, "Ponto Adicionado", Toast.LENGTH_SHORT).show();
-                resetText();
-            } else if (Objects.equals(tipo, "Supermercado")) {
+               // db.addPontoCafe(nome, desc, lat, lng, morada, imageViewToByte(FotoView));
+             //   Toast.makeText(this, "Ponto Adicionado", Toast.LENGTH_SHORT).show();
+//                resetText();
+//            } else if (Objects.equals(tipo, "Supermercado")) {
 
-                db.addPontoSM(nome, desc, lat, lng, morada, imageViewToByte(FotoView));
-                Toast.makeText(this, "Ponto Adicionado", Toast.LENGTH_SHORT).show();
-                resetText();
+            //    db.addPontoSM(nome, desc, lat, lng, morada, imageViewToByte(FotoView));
+            //    Toast.makeText(this, "Ponto Adicionado", Toast.LENGTH_SHORT).show();
+//                resetText();
             }
         } catch (Exception e){
 
@@ -124,7 +147,7 @@ public class Activity_Ponto extends AppCompatActivity {
     public void ViewButtonClcked(View view){
 
         Intent view2 = new Intent(this, Activity_ListData.class);
-        db.close();
+     //   db.close();
         finish();
         startActivity(view2);
     }
@@ -161,6 +184,14 @@ public class Activity_Ponto extends AppCompatActivity {
         inserirnome.setText("");
         inserirdesc.setText("");
         FotoView.setImageResource(R.mipmap.ponto);
+    }
+
+    private String getDateTime(){
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 
     @Override

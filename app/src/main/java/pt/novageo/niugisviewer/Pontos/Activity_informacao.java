@@ -1,4 +1,4 @@
-package pt.novageo.niugisviewer;
+package pt.novageo.niugisviewer.Pontos;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Objects;
+
+import pt.novageo.niugisviewer.DB_ponto.DBTeste;
+import pt.novageo.niugisviewer.R;
 
 /**
  * Created by estagiario on 13/04/2017. (ºbº)

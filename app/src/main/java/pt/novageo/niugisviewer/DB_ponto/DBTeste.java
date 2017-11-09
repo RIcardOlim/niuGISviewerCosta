@@ -1,4 +1,4 @@
-package pt.novageo.niugisviewer;
+package pt.novageo.niugisviewer.DB_ponto;
 
 import android.content.ContentValues;
 import android.content.Context;

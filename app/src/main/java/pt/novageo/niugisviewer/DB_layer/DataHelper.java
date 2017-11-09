@@ -1,4 +1,4 @@
-package pt.novageo.niugisviewer;
+package pt.novageo.niugisviewer.DB_layer;
 
 import android.content.Context;
 import android.database.Cursor;
