@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity
 
     private GoogleMap mMap;
     SQLiteDatabase mydatabase;
- //   DBTeste db;
     Geocoder geocoder;
     List<Address> address;
     String morada = "";
@@ -120,8 +119,6 @@ public class MainActivity extends AppCompatActivity
         navigationView.getMenu().getItem(1).setChecked(false);
 
         mapFragment.getMapAsync(this);
-
-//        db = new DBTeste(this, null, null, 20);
 
         geocoder = new Geocoder(this, Locale.getDefault());
 
