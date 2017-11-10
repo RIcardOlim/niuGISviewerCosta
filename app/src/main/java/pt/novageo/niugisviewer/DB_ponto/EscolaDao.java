@@ -5,6 +5,7 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
+import android.database.Cursor;
 
 import java.util.List;
 
@@ -19,18 +20,17 @@ import pt.novageo.niugisviewer.Tabela.Escola;
 public interface EscolaDao {
 
     @Query("SELECT * FROM Escola")
-    List<Escola> getAll();
-
-    @Query("SELECT * FROM Escola " +
-            "WHERE nome_ponto LIKE :nomePonto AND _id LIKE :id")
-    Escola findTipobyNomeID(String nomePonto, int id);
+    Cursor getAll();
 
     @Query("SELECT * FROM Escola " +
             "WHERE nome_ponto LIKE :nomePonto")
-    Escola findIdbyNome(String nomePonto);
+    Cursor findIdbyNome(String nomePonto);
 
     @Query("SELECT * FROM Escola WHERE _id LIKE :id")
-    Escola findDatabyID(int id);
+    Cursor findDatabyID(int id);
+
+    @Query("SELECT * FROM Escola WHERE _id LIKE :id")
+    Escola findDataToDelbyID(int id);
 
     @Insert
     void insert(Escola... escola);

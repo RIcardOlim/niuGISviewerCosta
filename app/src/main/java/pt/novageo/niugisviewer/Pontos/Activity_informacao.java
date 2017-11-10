@@ -12,8 +12,9 @@ import android.widget.TextView;
 
 import java.util.Objects;
 
-import pt.novageo.niugisviewer.DB_ponto.DBTeste;
+import pt.novageo.niugisviewer.DB_ponto.AppDatabase;
 import pt.novageo.niugisviewer.R;
+import pt.novageo.niugisviewer.Tabela.Escola;
 
 /**
  * Created by estagiario on 13/04/2017. (ºbº)
@@ -22,11 +23,11 @@ import pt.novageo.niugisviewer.R;
 public class Activity_informacao extends AppCompatActivity {
 
     TextView textLat, textLng ,textDesc, textNome, textData, textMorada;
-    DBTeste db;
     ImageView FotoView;
     String dbstring, tipo;
     int id;
     Cursor c;
+    Escola escola;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -41,7 +42,6 @@ public class Activity_informacao extends AppCompatActivity {
         FotoView = (ImageView) findViewById(R.id.imageView7);
         id = getIntent().getIntExtra("ID", 0);
         tipo = getIntent().getStringExtra("TIPO");
-        db = new DBTeste(this, null, null, 20);
         publicar();
 
     }
@@ -82,13 +82,11 @@ public class Activity_informacao extends AppCompatActivity {
 
         if (Objects.equals(tipo, "Café")) {
 
-            c = db.getDataByIdCafe(id);
         } else if (Objects.equals(tipo, "Escola")) {
 
-            c = db.getDataByIdEscola(id);
+            c = AppDatabase.getAppDatabase(this).escolaDao().findDatabyID(id);
         } else if (Objects.equals(tipo, "Supermercado")) {
 
-            c = db.getDataByIdSM(id);
         }
     }
 
@@ -97,13 +95,12 @@ public class Activity_informacao extends AppCompatActivity {
         Intent inf = new Intent(this, Activity_ListData.class);
         if (Objects.equals(tipo, "Café")) {
 
-            db.deletePontoCafe(id);
         } else if (Objects.equals(tipo, "Escola")) {
 
-            db.deletePontoEscola(id);
+        escola = AppDatabase.getAppDatabase(this).escolaDao().findDataToDelbyID(id);
+            AppDatabase.getAppDatabase(this).escolaDao().delete(escola);
         } else if (Objects.equals(tipo, "Supermercado")) {
 
-            db.deletePontoSM(id);
         }
         finish();
         startActivity(inf);

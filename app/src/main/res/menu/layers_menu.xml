@@ -82,7 +82,7 @@
                     android:id="@+id/layer10"
                     android:checkable="true"
                     android:checked="false"
-                    android:title="@string/conservat_ria_do_registo_predial"
+                    android:title="@string/conservatoria"
                     android:visible="true" />
 
                 <item

@@ -13,6 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,9 +24,10 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Objects;
 
-import pt.novageo.niugisviewer.DB_ponto.DBTeste;
+import pt.novageo.niugisviewer.DB_ponto.AppDatabase;
 import pt.novageo.niugisviewer.Manifest;
 import pt.novageo.niugisviewer.R;
+import pt.novageo.niugisviewer.Tabela.Escola;
 
 /**
  * Created by estagiario on 20/04/2017. (ºbº)
@@ -35,12 +37,12 @@ public class Activity_mudar extends AppCompatActivity {
 
     EditText novonome, novodesc;
     ImageView mudarFoto;
-    DBTeste db;
     String tipo;
     int id;
     Cursor c;
     final int REQUEST_CODE_GALLERY = 970;
     Boolean galeria, camera;
+    Escola escola;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -49,13 +51,14 @@ public class Activity_mudar extends AppCompatActivity {
         novonome = (EditText) findViewById(R.id.inserirnome);
         novodesc = (EditText) findViewById(R.id.inserirdesc);
         mudarFoto = (ImageView) findViewById(R.id.FotoMuda);
-        db = new DBTeste(this, null, null, 20);
         id = getIntent().getIntExtra("ID", 0);
         tipo = getIntent().getStringExtra("TIPO");
         galeria = false;
         camera = false;
         checkTipo();
         mudarFoto.setImageBitmap(ByteToImageView());
+        novonome.setText(c.getString(1));
+        novodesc.setText(c.getString(2));
 
     }
 
@@ -63,13 +66,11 @@ public class Activity_mudar extends AppCompatActivity {
 
         if (Objects.equals(tipo, "Café")) {
 
-            c = db.getDataByIdCafe(id);
         } else if (Objects.equals(tipo, "Escola")) {
 
-            c = db.getDataByIdEscola(id);
+            c = AppDatabase.getAppDatabase(this).escolaDao().findDatabyID(id);
         } else if (Objects.equals(tipo, "Supermercado")) {
 
-            c = db.getDataByIdSM(id);
         }
     }
 
@@ -79,15 +80,18 @@ public class Activity_mudar extends AppCompatActivity {
 
         if (Objects.equals(tipo, "Café")) {
 
-            db.UpdatePontoCafe(id, novonome.getText().toString(), novodesc.getText().toString(), imageViewToByte(mudarFoto));
         } else if (Objects.equals(tipo, "Escola")) {
 
-            db.UpdatePontoEscola(id, novonome.getText().toString(), novodesc.getText().toString(), imageViewToByte(mudarFoto));
+            escola = AppDatabase.getAppDatabase(this).escolaDao().findDataToDelbyID(id);
+            escola.setNomePonto(novonome.getText().toString());
+            escola.setDescricaoPonto(novodesc.getText().toString());
+            escola.setImagemPonto(imageViewToByte(mudarFoto));
+            AppDatabase.getAppDatabase(this).escolaDao().update(escola);
         } else if (Objects.equals(tipo, "Supermercado")) {
 
-            db.UpdatePontoSM(id, novonome.getText().toString(), novodesc.getText().toString(), imageViewToByte(mudarFoto));
         }
 
+        finish();
         startActivity(inf);
     }
 
@@ -106,9 +110,10 @@ public class Activity_mudar extends AppCompatActivity {
                     galeria = true;
                 } else {
 
+
                     Toast.makeText(Activity_mudar.this, "câmera", Toast.LENGTH_SHORT).show();
+                    ActivityCompat.requestPermissions(Activity_mudar.this, new String[] {Manifest.permission.CAMERA}, REQUEST_CODE_GALLERY);
                     camera = true;
-                    abrirCamera();
                 }
 
             }
@@ -118,24 +123,41 @@ public class Activity_mudar extends AppCompatActivity {
         alertDialog.show();
     }
 
-    public void  abrirCamera(){
-
-        Intent it = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(it, REQUEST_CODE_GALLERY);
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(galeria) {
 
-        if(requestCode == REQUEST_CODE_GALLERY){
-            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            if (requestCode == REQUEST_CODE_GALLERY) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.e("niuGISViewer", "Tem permissão");
+                    Intent img = new Intent(Intent.ACTION_PICK);
+                    img.setType("image/*");
+                    startActivityForResult(img, REQUEST_CODE_GALLERY);
 
-                Intent img = new Intent(Intent.ACTION_PICK);
-                img.setType("image/*");
-                startActivityForResult(img, REQUEST_CODE_GALLERY);
+                }
             }
+
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if(camera) {
+
+            if (requestCode == REQUEST_CODE_GALLERY) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    Log.e("niuGISViewer", "aceitou");
+
+                    Intent it = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(it, REQUEST_CODE_GALLERY);
+                } else {
+
+                    Log.e("niuGISViewer", "recusou");
+                }
+
+            }
+
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 
     @Override

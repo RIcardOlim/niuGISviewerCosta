@@ -1,13 +1,11 @@
 package pt.novageo.niugisviewer.Pontos;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,13 +31,9 @@ import java.util.Locale;
 import java.util.Objects;
 
 import pt.novageo.niugisviewer.DB_ponto.AppDatabase;
-import pt.novageo.niugisviewer.DB_ponto.DBInitializer;
-import pt.novageo.niugisviewer.DB_ponto.DBTeste;
 import pt.novageo.niugisviewer.Manifest;
 import pt.novageo.niugisviewer.R;
 import pt.novageo.niugisviewer.Tabela.Escola;
-
-import static java.security.AccessController.getContext;
 
 
 /**
@@ -51,7 +45,6 @@ public class Activity_Ponto extends AppCompatActivity {
 
     EditText inserirnome, inserirdesc;
     ImageView FotoView;
-    //DBTeste db;
     String coordLat, coordLng, morada, nome, desc, tipo;
     Spinner spinner;
     ArrayAdapter<CharSequence> adapter;
@@ -75,7 +68,6 @@ public class Activity_Ponto extends AppCompatActivity {
         galeria = false;
         camera = false;
         escola = new Escola();
-       // db = new DBTeste(this, null, null, 20);
 
         spinner = (Spinner) findViewById(R.id.IDspinner);
         adapter = ArrayAdapter.createFromResource(this, R.array.Tipo_de_Ponto, android.R.layout.simple_spinner_item);
@@ -100,45 +92,39 @@ public class Activity_Ponto extends AppCompatActivity {
 
     }
 
-    private static Escola addPonto(final AppDatabase db, Escola escola) {
-        db.escolaDao().insert(escola);
-        return escola;
-    }
-
     //adicionar registo da base de dados
     public void addButtonClicked(View view){
 
-        escola.setTipoPonto(spinner.getSelectedItem().toString());
-        escola.setNomePonto(inserirnome.getText().toString());
-        escola.setDescricaoPonto(inserirdesc.getText().toString());
-        escola.setLatPonto(lat);
-        escola.setLngPonto(lng);
-        escola.setMoradaPonto(morada);
-        escola.setDataPonto(getDateTime());
-        escola.setImagemPonto(imageViewToByte(FotoView));
 
-        try{
-           if(Objects.equals(nome, "")) {
+        try {
+            if (Objects.equals(nome, "")) {
                 Toast.makeText(this, "Nome do ponto obrigatório", Toast.LENGTH_SHORT).show();
 
-            } else /*if (Objects.equals(tipo, "Escola"))*/ {
+            } else if (Objects.equals(tipo, "Escola")) {
 
-                DBInitializer.populateAsync(AppDatabase.getAppDatabase(this), escola);
-                //db.addPontoEscola(nome, desc, lat, lng, morada, imageViewToByte(FotoView));
+                escola.setNomePonto(inserirnome.getText().toString());
+                escola.setDescricaoPonto(inserirdesc.getText().toString());
+                escola.setLatPonto(lat);
+                escola.setLngPonto(lng);
+                escola.setMoradaPonto(morada);
+                escola.setTipoPonto(spinner.getSelectedItem().toString());
+                escola.setDataPonto(getDateTime());
+                escola.setImagemPonto(imageViewToByte(FotoView));
+                AppDatabase.getAppDatabase(this).escolaDao().insert(escola);
                 Toast.makeText(this, "Ponto Adicionado", Toast.LENGTH_SHORT).show();
                 resetText();
 //            } else if (Objects.equals(tipo, "Café")) {
 
-               // db.addPontoCafe(nome, desc, lat, lng, morada, imageViewToByte(FotoView));
-             //   Toast.makeText(this, "Ponto Adicionado", Toast.LENGTH_SHORT).show();
+                // db.addPontoCafe(nome, desc, lat, lng, morada, imageViewToByte(FotoView));
+                //   Toast.makeText(this, "Ponto Adicionado", Toast.LENGTH_SHORT).show();
 //                resetText();
 //            } else if (Objects.equals(tipo, "Supermercado")) {
 
-            //    db.addPontoSM(nome, desc, lat, lng, morada, imageViewToByte(FotoView));
-            //    Toast.makeText(this, "Ponto Adicionado", Toast.LENGTH_SHORT).show();
+                //    db.addPontoSM(nome, desc, lat, lng, morada, imageViewToByte(FotoView));
+                //    Toast.makeText(this, "Ponto Adicionado", Toast.LENGTH_SHORT).show();
 //                resetText();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
 
             e.printStackTrace();
         }
@@ -274,26 +260,6 @@ public class Activity_Ponto extends AppCompatActivity {
 
             camera = false;
         }
-    }
-
-    private static Bitmap resizeImage(Context context, Bitmap bmpOriginal, float newWidth, float newHeight) {
-
-        Bitmap novobmp = null;
-        int w = bmpOriginal.getWidth();
-        int h =bmpOriginal.getHeight();
-        float densityFactor= context.getResources().getDisplayMetrics().density;
-        float novow = newWidth * densityFactor;
-        float novoH= newWidth * densityFactor;
-
-        //Calcula escala
-
-        float scalaw= novow/ w ;
-        float scalaH= novow/ h;
-
-        Matrix matrix = new Matrix();
-        matrix.postScale(scalaw,scalaH);
-        novobmp = Bitmap.createBitmap(bmpOriginal, 0 ,0 , w, h , matrix, true );
-        return novobmp;
     }
 
     private byte[] imageViewToByte(ImageView image){

@@ -14,12 +14,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import pt.novageo.niugisviewer.DB_ponto.DBTeste;
+import pt.novageo.niugisviewer.DB_ponto.AppDatabase;
 import pt.novageo.niugisviewer.R;
 
 public class Activity_ListData extends AppCompatActivity {
 
-    DBTeste db;
     private ListView listView1, listView2;
     String tipo;
     boolean escola, cafe, supermercado;
@@ -30,7 +29,6 @@ public class Activity_ListData extends AppCompatActivity {
         setContentView(R.layout.activity_listdata);
         listView1 = (ListView) findViewById(R.id.listView);
         listView2 = (ListView) findViewById(R.id.listView);
-        db = new DBTeste(this, null, null, 20);
         escola = false;
         cafe = false;
         supermercado = false;
@@ -57,11 +55,9 @@ public class Activity_ListData extends AppCompatActivity {
                 } else if (Objects.equals(tipo, "Café")) {
 
                     cafe = true;
-                    ocuparListViewCafe();
                 } else if (Objects.equals(tipo, "Supermercado")) {
 
                     supermercado = true;
-                    ocuparListViewSM();
                 }
             }
         });
@@ -70,39 +66,41 @@ public class Activity_ListData extends AppCompatActivity {
 
     private void ocuparListViewEscola() {
 
-        Cursor data = db.getDataEscola();
+        Cursor data = AppDatabase.getAppDatabase(this).escolaDao().getAll();
         ArrayList<String> listData = new ArrayList<>();
-        while(data.moveToNext()){
+        while (data.moveToNext()) {
 
             listData.add(data.getString(1));
         }
-        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);
-        listView1.setAdapter(adapter);
+
+            ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);
+            listView1.setAdapter(adapter);
 
         listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String nome = listView1.getItemAtPosition(position).toString();
-                Cursor data = db.getIdbyNomeEscola(nome);
+                Cursor data = AppDatabase.getAppDatabase(Activity_ListData.this).escolaDao().findIdbyNome(nome);
                 int itemID = -1;
-                while(data.moveToNext()){
+                while (data.moveToNext()) {
 
                     itemID = data.getInt(0);
                 }
-                if(itemID > -1){
+                if (itemID > -1) {
                     final Intent inf = new Intent(Activity_ListData.this, Activity_informacao.class);
                     inf.putExtra("ID", itemID);
                     inf.putExtra("TIPO", tipo);
                     data.close();
-                    db.close();
                     finish();
                     startActivity(inf);
 
-                } else Toast.makeText(Activity_ListData.this, "Não existe esse ID", Toast.LENGTH_SHORT).show();
+                } else
+                    Toast.makeText(Activity_ListData.this, "Não existe esse ID", Toast.LENGTH_SHORT).show();
             }
-        });
+            });
 
-    }
+        }
+/*
 
     private void ocuparListViewCafe() {
 
@@ -175,20 +173,21 @@ public class Activity_ListData extends AppCompatActivity {
         });
 
     }
+*/
 
-    @Override
-    public void onBackPressed() {
+        @Override
+        public void onBackPressed () {
 
-        if(escola || cafe || supermercado){
+            if (escola || cafe || supermercado) {
 
-            escola = false;
-            cafe = false;
-            supermercado = false;
-            tabelaListView();
-        } else {
+                escola = false;
+                cafe = false;
+                supermercado = false;
+                tabelaListView();
+            } else {
 
-            super.onBackPressed();
-            finish();
+                super.onBackPressed();
+                finish();
+            }
         }
     }
-}

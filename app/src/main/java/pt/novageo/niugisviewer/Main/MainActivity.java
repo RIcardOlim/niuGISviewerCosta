@@ -47,11 +47,11 @@ import java.util.Locale;
 import pt.novageo.niugisviewer.About.Activity_about;
 import pt.novageo.niugisviewer.About.Activity_cma;
 import pt.novageo.niugisviewer.About.Activity_escola;
+import pt.novageo.niugisviewer.DB_ponto.AppDatabase;
 import pt.novageo.niugisviewer.Pontos.Activity_ListData;
 import pt.novageo.niugisviewer.Pontos.Activity_Ponto;
 import pt.novageo.niugisviewer.Pontos.Activity_informacao;
 import pt.novageo.niugisviewer.About.Activity_ng;
-import pt.novageo.niugisviewer.DB_ponto.DBTeste;
 import pt.novageo.niugisviewer.DB_layer.TileProviderFactory;
 import pt.novageo.niugisviewer.R;
 
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity
 
     private GoogleMap mMap;
     SQLiteDatabase mydatabase;
-    DBTeste db;
+ //   DBTeste db;
     Geocoder geocoder;
     List<Address> address;
     String morada = "";
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity
 
         mapFragment.getMapAsync(this);
 
-        db = new DBTeste(this, null, null, 20);
+//        db = new DBTeste(this, null, null, 20);
 
         geocoder = new Geocoder(this, Locale.getDefault());
 
@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (id == R.id.layer1) {
-            Toast.makeText(MainActivity.this, "Freguesia", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, R.string.freguesia, Toast.LENGTH_SHORT).show();
             if (item.isChecked()) {
                 item.setChecked(false);
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='freguesias';");
@@ -201,19 +201,20 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (id == R.id.layer2) {
+            Toast.makeText(MainActivity.this, R.string.edif_cios, Toast.LENGTH_SHORT).show();
             if (item.isChecked()) {
+
                 item.setChecked(false);
-                Toast.makeText(MainActivity.this, "Edificios", Toast.LENGTH_SHORT).show();
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='edificios';");
             } else {
+
                 item.setChecked(true);
-                Toast.makeText(MainActivity.this, "Edificios", Toast.LENGTH_SHORT).show();
                 this.mydatabase.execSQL("UPDATE layers SET active=1 WHERE title='edificios';");
             }
         }
 
         if (id == R.id.layer3) {
-            Toast.makeText(MainActivity.this, "Vias", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, R.string.vias, Toast.LENGTH_SHORT).show();
             if (item.isChecked()) {
                 item.setChecked(false);
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='vias';");
@@ -224,7 +225,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (id == R.id.layer4) {
-            Toast.makeText(MainActivity.this, "Ferrovias", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, R.string.ferrovias, Toast.LENGTH_SHORT).show();
             if (item.isChecked()) {
                 item.setChecked(false);
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='ferrovias';");
@@ -235,7 +236,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (id == R.id.layer5) {
-            Toast.makeText(MainActivity.this, "Bancos", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, R.string.bancos, Toast.LENGTH_SHORT).show();
             if (item.isChecked()) {
                 item.setChecked(false);
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='bancos';");
@@ -246,7 +247,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (id == R.id.layer6) {
-            Toast.makeText(MainActivity.this, "Bombas de Gasolina", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, R.string.bombas_de_gasolina, Toast.LENGTH_SHORT).show();
             if (item.isChecked()) {
                 item.setChecked(false);
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='bombas_gasolina';");
@@ -257,7 +258,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (id == R.id.layer7) {
-            Toast.makeText(MainActivity.this, "Bombeiros", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, R.string.bombeiros, Toast.LENGTH_SHORT).show();
             if (item.isChecked()) {
                 item.setChecked(false);
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='bombeiros';");
@@ -268,7 +269,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (id == R.id.layer8) {
-            Toast.makeText(MainActivity.this, "Cafés", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, R.string.caf_s, Toast.LENGTH_SHORT).show();
             if (item.isChecked()) {
                 item.setChecked(false);
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='cafes';");
@@ -281,7 +282,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (id == R.id.layer9) {
-            Toast.makeText(MainActivity.this, "Estação de Comboios", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, R.string.esta_o_de_comboios, Toast.LENGTH_SHORT).show();
             if (item.isChecked()) {
                 item.setChecked(false);
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='estaçao_comboio';");
@@ -292,7 +293,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (id == R.id.layer10) {
-            Toast.makeText(MainActivity.this, "Conservatório do Registo Predial", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, R.string.conservatoria, Toast.LENGTH_SHORT).show();
             if (item.isChecked()) {
                 item.setChecked(false);
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='conservatoria_registo_predial';");
@@ -303,7 +304,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (id == R.id.layer11) {
-            Toast.makeText(MainActivity.this, "Correios", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, R.string.correios, Toast.LENGTH_SHORT).show();
             if (item.isChecked()) {
                 item.setChecked(false);
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='correio';");
@@ -314,7 +315,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (id == R.id.layer12) {
-            Toast.makeText(MainActivity.this, "Escolas", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, R.string.escolas, Toast.LENGTH_SHORT).show();
             if (item.isChecked()) {
                 item.setChecked(false);
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='escola';");
@@ -327,7 +328,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (id == R.id.layer13) {
-            Toast.makeText(MainActivity.this, "Farmácias", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, R.string.farmacias, Toast.LENGTH_SHORT).show();
             if (item.isChecked()) {
                 item.setChecked(false);
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='farmacias';");
@@ -338,7 +339,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (id == R.id.layer14) {
-            Toast.makeText(MainActivity.this, "Polícia", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, R.string.pol_cia, Toast.LENGTH_SHORT).show();
             if (item.isChecked()) {
                 item.setChecked(false);
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='policia';");
@@ -349,7 +350,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (id == R.id.layer15) {
-            Toast.makeText(MainActivity.this, "Restaurantes", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, R.string.restaurantes, Toast.LENGTH_SHORT).show();
             if (item.isChecked()) {
                 item.setChecked(false);
                 this.mydatabase.execSQL("UPDATE layers SET active=0 WHERE title='restaurante';");
@@ -360,7 +361,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (id == R.id.layer16) {
-            Toast.makeText(MainActivity.this, "Supermercados", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, R.string.supermercados, Toast.LENGTH_SHORT).show();
             if (item.isChecked()) {
                 item.setChecked(false);
                 dbSM = false;
@@ -487,7 +488,7 @@ public class MainActivity extends AppCompatActivity
     private void AddMarkerDB() {
 
         if(dbEscola) {
-            Cursor c = db.getDataEscola();
+            Cursor c = AppDatabase.getAppDatabase(this).escolaDao().getAll();
             c.moveToFirst();
             do {
                 mMap.addMarker(new MarkerOptions()
@@ -501,7 +502,7 @@ public class MainActivity extends AppCompatActivity
 
         if(dbCafe) {
 
-            Cursor c = db.getDataCafe();
+ /*           Cursor c = db.getDataCafe();
             c.moveToFirst();
             do {
                 mMap.addMarker(new MarkerOptions()
@@ -511,11 +512,11 @@ public class MainActivity extends AppCompatActivity
                         .title(c.getString(1)));
                 c.moveToNext();
             } while (!c.isAfterLast());
-        }
+ */       }
 
         if(dbSM) {
 
-            Cursor c = db.getDataSM();
+ /*           Cursor c = db.getDataSM();
             c.moveToFirst();
             do {
                 mMap.addMarker(new MarkerOptions()
@@ -525,7 +526,7 @@ public class MainActivity extends AppCompatActivity
                         .title(c.getString(1)));
                 c.moveToNext();
             } while (!c.isAfterLast());
-        }
+      */  }
 
     }
 
@@ -533,7 +534,7 @@ public class MainActivity extends AppCompatActivity
 
         if(dbEscola) {
 
-            Cursor check = db.getDataEscola();
+            Cursor check = AppDatabase.getAppDatabase(this).escolaDao().getAll();
             if(check.moveToFirst()) {
                 AddMarkerDB();
             } else Toast.makeText(this, "Nenhum ponto encontrado", Toast.LENGTH_SHORT).show();
@@ -541,18 +542,18 @@ public class MainActivity extends AppCompatActivity
 
         if(dbCafe) {
 
-            Cursor check = db.getDataCafe();
-            if(check.moveToFirst()) {
-                AddMarkerDB();
-            } else Toast.makeText(this, "Nenhum ponto encontrado", Toast.LENGTH_SHORT).show();
+//            Cursor check = db.getDataCafe();
+//            if(check.moveToFirst()) {
+//                AddMarkerDB();
+//            } else Toast.makeText(this, "Nenhum ponto encontrado", Toast.LENGTH_SHORT).show();
         }
 
         if(dbSM) {
 
-            Cursor check = db.getDataSM();
-            if(check.moveToFirst()) {
-                AddMarkerDB();
-            } else Toast.makeText(this, "Nenhum ponto encontrado", Toast.LENGTH_SHORT).show();
+//            Cursor check = db.getDataSM();
+//            if(check.moveToFirst()) {
+//                AddMarkerDB();
+//            } else Toast.makeText(this, "Nenhum ponto encontrado", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -560,12 +561,10 @@ public class MainActivity extends AppCompatActivity
     public void onInfoWindowClick(Marker marker) {
 
         String nome = marker.getTitle();
-        Cursor c = db.getIdbyNome(nome);
+        Cursor c = AppDatabase.getAppDatabase(this).escolaDao().findIdbyNome(nome);
         c.moveToFirst();
         int id = c.getInt(0);
-        c = db.getTipobyNomeId(id, nome);
-        c.moveToFirst();
-        String tipo = c.getString(0);
+        String tipo = c.getString(3);
         Intent inf = new Intent(this, Activity_informacao.class);
         inf.putExtra("ID", id);
         inf.putExtra("TIPO", tipo);

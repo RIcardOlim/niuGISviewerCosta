@@ -6,9 +6,6 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 
-import java.sql.Blob;
-import java.util.Date;
-
 import pt.novageo.niugisviewer.DB_ponto.Converters;
 
 /**
@@ -19,7 +16,6 @@ import pt.novageo.niugisviewer.DB_ponto.Converters;
 @Entity(tableName = "Escola")
 @TypeConverters({Converters.class})
 public class Escola {
-
 
     @PrimaryKey(autoGenerate = true)
     private int _id;
