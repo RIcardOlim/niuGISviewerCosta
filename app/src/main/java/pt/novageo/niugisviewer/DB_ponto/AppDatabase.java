@@ -6,13 +6,15 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import pt.novageo.niugisviewer.Tabela.Escola;
+import pt.novageo.niugisviewer.Tabela.Supermercado;
 
-@Database(entities = {Escola.class}, version = 1)
+@Database(entities = {Escola.class, Supermercado.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
 
     public abstract EscolaDao escolaDao();
+    public abstract SupermercadoDao supermercadoDao();
 
     public static AppDatabase getAppDatabase(Context context) {
         if (INSTANCE == null) {

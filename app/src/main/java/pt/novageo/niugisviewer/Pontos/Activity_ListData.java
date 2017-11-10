@@ -1,7 +1,6 @@
 package pt.novageo.niugisviewer.Pontos;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,16 +11,21 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import pt.novageo.niugisviewer.DB_ponto.AppDatabase;
 import pt.novageo.niugisviewer.R;
+import pt.novageo.niugisviewer.Tabela.Escola;
+import pt.novageo.niugisviewer.Tabela.Supermercado;
 
 public class Activity_ListData extends AppCompatActivity {
 
     private ListView listView1, listView2;
     String tipo;
     boolean escola, cafe, supermercado;
+    private List<Escola> Escola;
+    private List<Supermercado> superm;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -58,6 +62,7 @@ public class Activity_ListData extends AppCompatActivity {
                 } else if (Objects.equals(tipo, "Supermercado")) {
 
                     supermercado = true;
+                    ocuparListViewSM();
                 }
             }
         });
@@ -66,69 +71,66 @@ public class Activity_ListData extends AppCompatActivity {
 
     private void ocuparListViewEscola() {
 
-        Cursor data = AppDatabase.getAppDatabase(this).escolaDao().getAll();
+        Escola = AppDatabase.getAppDatabase(this).escolaDao().getAll();
+        String nome;
         ArrayList<String> listData = new ArrayList<>();
-        while (data.moveToNext()) {
+        for (Escola esc : Escola) {
 
-            listData.add(data.getString(1));
+            nome = esc.getNomePonto();
+            listData.add(nome);
         }
 
-            ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);
-            listView1.setAdapter(adapter);
-
-        listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String nome = listView1.getItemAtPosition(position).toString();
-                Cursor data = AppDatabase.getAppDatabase(Activity_ListData.this).escolaDao().findIdbyNome(nome);
-                int itemID = -1;
-                while (data.moveToNext()) {
-
-                    itemID = data.getInt(0);
-                }
-                if (itemID > -1) {
-                    final Intent inf = new Intent(Activity_ListData.this, Activity_informacao.class);
-                    inf.putExtra("ID", itemID);
-                    inf.putExtra("TIPO", tipo);
-                    data.close();
-                    finish();
-                    startActivity(inf);
-
-                } else
-                    Toast.makeText(Activity_ListData.this, "Não existe esse ID", Toast.LENGTH_SHORT).show();
-            }
-            });
-
-        }
-/*
-
-    private void ocuparListViewCafe() {
-
-        Cursor data = db.getDataCafe();
-        ArrayList<String> listData = new ArrayList<>();
-        while(data.moveToNext()){
-
-            listData.add(data.getString(1));
-        }
         ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);
         listView1.setAdapter(adapter);
 
         listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Escola escola;
                 String nome = listView1.getItemAtPosition(position).toString();
-                Cursor data = db.getIdbyNomeCafe(nome);
+                escola = AppDatabase.getAppDatabase(Activity_ListData.this).escolaDao().findDatabyNome(nome);
                 int itemID = -1;
-                while(data.moveToNext()){
+                itemID = escola.get_id();
+                if (itemID > -1) {
+                    final Intent inf = new Intent(Activity_ListData.this, Activity_informacao.class);
+                    inf.putExtra("ID", itemID);
+                    inf.putExtra("TIPO", tipo);
+                    finish();
+                    startActivity(inf);
 
-                    itemID = data.getInt(0);
-                }
+                } else
+                    Toast.makeText(Activity_ListData.this, "Não existe esse ID", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void ocuparListViewSM() {
+
+        superm = AppDatabase.getAppDatabase(this).supermercadoDao().getAll();
+        String nome;
+        ArrayList<String> listData = new ArrayList<>();
+        for(Supermercado superm : superm){
+
+           nome = superm.getNomePonto();
+           listData.add(nome);
+        }
+
+        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);
+        listView1.setAdapter(adapter);
+
+        listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Supermercado SM;
+                String nome = listView1.getItemAtPosition(position).toString();
+                SM = AppDatabase.getAppDatabase(Activity_ListData.this).supermercadoDao().findDatabyNome(nome);
+                int itemID = -1;
+                itemID = SM.get_id();
                 if(itemID > -1){
                     final Intent inf = new Intent(Activity_ListData.this, Activity_informacao.class);
                     inf.putExtra("ID", itemID);
                     inf.putExtra("TIPO", tipo);
-                    data.close();
-                    db.close();
                     finish();
                     startActivity(inf);
 
@@ -138,7 +140,8 @@ public class Activity_ListData extends AppCompatActivity {
 
     }
 
-    private void ocuparListViewSM() {
+    /*
+    private void ocuparListViewCafe() {
 
         Cursor data = db.getDataSM();
         ArrayList<String> listData = new ArrayList<>();

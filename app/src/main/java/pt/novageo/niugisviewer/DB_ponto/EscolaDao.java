@@ -20,17 +20,14 @@ import pt.novageo.niugisviewer.Tabela.Escola;
 public interface EscolaDao {
 
     @Query("SELECT * FROM Escola")
-    Cursor getAll();
+    List<Escola> getAll();
 
     @Query("SELECT * FROM Escola " +
             "WHERE nome_ponto LIKE :nomePonto")
-    Cursor findIdbyNome(String nomePonto);
+    Escola findDatabyNome(String nomePonto);
 
     @Query("SELECT * FROM Escola WHERE _id LIKE :id")
-    Cursor findDatabyID(int id);
-
-    @Query("SELECT * FROM Escola WHERE _id LIKE :id")
-    Escola findDataToDelbyID(int id);
+    Escola findDatabyID(int id);
 
     @Insert
     void insert(Escola... escola);

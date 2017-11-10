@@ -54,6 +54,8 @@ import pt.novageo.niugisviewer.Pontos.Activity_informacao;
 import pt.novageo.niugisviewer.About.Activity_ng;
 import pt.novageo.niugisviewer.DB_layer.TileProviderFactory;
 import pt.novageo.niugisviewer.R;
+import pt.novageo.niugisviewer.Tabela.Escola;
+import pt.novageo.niugisviewer.Tabela.Supermercado;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity
     List<Address> address;
     String morada = "";
     double lat, lng;
-    boolean dbEscola = false, dbCafe = false, dbSM = false, GPS = false;
+    boolean dbEscola = false, dbCafe = false, dbSM = false;
     HttpURLConnection conexao = null;
     BufferedReader reader = null;
 
@@ -488,54 +490,40 @@ public class MainActivity extends AppCompatActivity
     private void AddMarkerDB() {
 
         if(dbEscola) {
-            Cursor c = AppDatabase.getAppDatabase(this).escolaDao().getAll();
-            c.moveToFirst();
-            do {
+
+            List<Escola> escola = AppDatabase.getAppDatabase(this).escolaDao().getAll();
+            for(Escola esc : escola) {
                 mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(c.getDouble(4), c.getDouble(5)))
-                        .snippet(c.getString(3))
+                        .position(new LatLng(esc.getLatPonto(), esc.getLngPonto()))
+                        .snippet(esc.getTipoPonto())
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))
-                        .title(c.getString(1)));
-                c.moveToNext();
-            } while (!c.isAfterLast());
+                        .title(esc.getNomePonto()));
+            }
         }
 
         if(dbCafe) {
 
- /*           Cursor c = db.getDataCafe();
-            c.moveToFirst();
-            do {
-                mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(c.getDouble(4), c.getDouble(5)))
-                        .snippet(c.getString(3))
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))
-                        .title(c.getString(1)));
-                c.moveToNext();
-            } while (!c.isAfterLast());
- */       }
+            }
 
         if(dbSM) {
 
- /*           Cursor c = db.getDataSM();
-            c.moveToFirst();
-            do {
-                mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(c.getDouble(4), c.getDouble(5)))
-                        .snippet(c.getString(3))
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
-                        .title(c.getString(1)));
-                c.moveToNext();
-            } while (!c.isAfterLast());
-      */  }
-
+        List<Supermercado> superm = AppDatabase.getAppDatabase(this).supermercadoDao().getAll();
+        for(Supermercado SM : superm) {
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(SM.getLatPonto(), SM.getLngPonto()))
+                    .snippet(SM.getTipoPonto())
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
+                    .title(SM.getNomePonto()));
+            }
+        }
     }
 
     private void checkDB() {
 
         if(dbEscola) {
 
-            Cursor check = AppDatabase.getAppDatabase(this).escolaDao().getAll();
-            if(check.moveToFirst()) {
+            List<Escola> escola = AppDatabase.getAppDatabase(this).escolaDao().getAll();
+            if(!escola.isEmpty()) {
                 AddMarkerDB();
             } else Toast.makeText(this, "Nenhum ponto encontrado", Toast.LENGTH_SHORT).show();
         }
@@ -550,21 +538,44 @@ public class MainActivity extends AppCompatActivity
 
         if(dbSM) {
 
-//            Cursor check = db.getDataSM();
-//            if(check.moveToFirst()) {
-//                AddMarkerDB();
-//            } else Toast.makeText(this, "Nenhum ponto encontrado", Toast.LENGTH_SHORT).show();
+            List<Supermercado> SM = AppDatabase.getAppDatabase(this).supermercadoDao().getAll();
+            if(!SM.isEmpty()) {
+                AddMarkerDB();
+            } else Toast.makeText(this, "Nenhum ponto encontrado", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void onInfoWindowClick(Marker marker) {
 
-        String nome = marker.getTitle();
-        Cursor c = AppDatabase.getAppDatabase(this).escolaDao().findIdbyNome(nome);
-        c.moveToFirst();
-        int id = c.getInt(0);
-        String tipo = c.getString(3);
+        int id = -1;
+        String tipo = "woah";
+
+        if(dbEscola) {
+
+            String nome = marker.getTitle();
+            Escola escola = AppDatabase.getAppDatabase(this).escolaDao().findDatabyNome(nome);
+            id = escola.get_id();
+            tipo = escola.getTipoPonto();
+            }
+
+
+        if(dbCafe) {
+
+//            Cursor check = db.getDataCafe();
+//            if(check.moveToFirst()) {
+//                AddMarkerDB();
+//            } else Toast.makeText(this, "Nenhum ponto encontrado", Toast.LENGTH_SHORT).show();
+        }
+
+        if(dbSM) {
+
+            String nome = marker.getTitle();
+            Supermercado superm = AppDatabase.getAppDatabase(this).supermercadoDao().findDatabyNome(nome);
+            id = superm.get_id();
+            tipo = superm.getTipoPonto();
+        }
+
         Intent inf = new Intent(this, Activity_informacao.class);
         inf.putExtra("ID", id);
         inf.putExtra("TIPO", tipo);

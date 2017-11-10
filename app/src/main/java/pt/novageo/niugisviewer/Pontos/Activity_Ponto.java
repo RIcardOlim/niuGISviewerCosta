@@ -34,6 +34,7 @@ import pt.novageo.niugisviewer.DB_ponto.AppDatabase;
 import pt.novageo.niugisviewer.Manifest;
 import pt.novageo.niugisviewer.R;
 import pt.novageo.niugisviewer.Tabela.Escola;
+import pt.novageo.niugisviewer.Tabela.Supermercado;
 
 
 /**
@@ -51,6 +52,7 @@ public class Activity_Ponto extends AppCompatActivity {
     double lat, lng;
     Boolean galeria, camera;
     private Escola escola;
+    private Supermercado superm;
     final int REQUEST_CODE_GALLERY = 1;
 
     @Override
@@ -68,7 +70,7 @@ public class Activity_Ponto extends AppCompatActivity {
         galeria = false;
         camera = false;
         escola = new Escola();
-
+        superm = new Supermercado();
         spinner = (Spinner) findViewById(R.id.IDspinner);
         adapter = ArrayAdapter.createFromResource(this, R.array.Tipo_de_Ponto, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -113,16 +115,22 @@ public class Activity_Ponto extends AppCompatActivity {
                 AppDatabase.getAppDatabase(this).escolaDao().insert(escola);
                 Toast.makeText(this, "Ponto Adicionado", Toast.LENGTH_SHORT).show();
                 resetText();
-//            } else if (Objects.equals(tipo, "Café")) {
+            } else if (Objects.equals(tipo, "Café")) {
 
-                // db.addPontoCafe(nome, desc, lat, lng, morada, imageViewToByte(FotoView));
-                //   Toast.makeText(this, "Ponto Adicionado", Toast.LENGTH_SHORT).show();
-//                resetText();
-//            } else if (Objects.equals(tipo, "Supermercado")) {
 
-                //    db.addPontoSM(nome, desc, lat, lng, morada, imageViewToByte(FotoView));
-                //    Toast.makeText(this, "Ponto Adicionado", Toast.LENGTH_SHORT).show();
-//                resetText();
+            } else if (Objects.equals(tipo, "Supermercado")) {
+
+                superm.setNomePonto(inserirnome.getText().toString());
+                superm.setDescPonto(inserirdesc.getText().toString());
+                superm.setLatPonto(lat);
+                superm.setLngPonto(lng);
+                superm.setMoradaPonto(morada);
+                superm.setTipoPonto(spinner.getSelectedItem().toString());
+                superm.setDataPonto(getDateTime());
+                superm.setImagemPonto(imageViewToByte(FotoView));
+                AppDatabase.getAppDatabase(this).supermercadoDao().insert(superm);
+                Toast.makeText(this, "Ponto Adicionado", Toast.LENGTH_SHORT).show();
+                resetText();
             }
         } catch (Exception e) {
 
