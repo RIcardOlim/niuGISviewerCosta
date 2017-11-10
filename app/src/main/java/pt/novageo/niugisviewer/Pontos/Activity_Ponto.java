@@ -33,6 +33,7 @@ import java.util.Objects;
 import pt.novageo.niugisviewer.DB_ponto.AppDatabase;
 import pt.novageo.niugisviewer.Manifest;
 import pt.novageo.niugisviewer.R;
+import pt.novageo.niugisviewer.Tabela.Cafe;
 import pt.novageo.niugisviewer.Tabela.Escola;
 import pt.novageo.niugisviewer.Tabela.Supermercado;
 
@@ -53,6 +54,7 @@ public class Activity_Ponto extends AppCompatActivity {
     Boolean galeria, camera;
     private Escola escola;
     private Supermercado superm;
+    private Cafe cafe;
     final int REQUEST_CODE_GALLERY = 1;
 
     @Override
@@ -71,6 +73,7 @@ public class Activity_Ponto extends AppCompatActivity {
         camera = false;
         escola = new Escola();
         superm = new Supermercado();
+        cafe = new Cafe();
         spinner = (Spinner) findViewById(R.id.IDspinner);
         adapter = ArrayAdapter.createFromResource(this, R.array.Tipo_de_Ponto, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -105,7 +108,7 @@ public class Activity_Ponto extends AppCompatActivity {
             } else if (Objects.equals(tipo, "Escola")) {
 
                 escola.setNomePonto(inserirnome.getText().toString());
-                escola.setDescricaoPonto(inserirdesc.getText().toString());
+                escola.setDescPonto(inserirdesc.getText().toString());
                 escola.setLatPonto(lat);
                 escola.setLngPonto(lng);
                 escola.setMoradaPonto(morada);
@@ -117,7 +120,17 @@ public class Activity_Ponto extends AppCompatActivity {
                 resetText();
             } else if (Objects.equals(tipo, "Café")) {
 
-
+                cafe.setNomePonto(inserirnome.getText().toString());
+                cafe.setDescPonto(inserirdesc.getText().toString());
+                cafe.setLatPonto(lat);
+                cafe.setLngPonto(lng);
+                cafe.setMoradaPonto(morada);
+                cafe.setTipoPonto(spinner.getSelectedItem().toString());
+                cafe.setDataPonto(getDateTime());
+                cafe.setImagemPonto(imageViewToByte(FotoView));
+                AppDatabase.getAppDatabase(this).cafeDao().insert(cafe);
+                Toast.makeText(this, "Ponto Adicionado", Toast.LENGTH_SHORT).show();
+                resetText();
             } else if (Objects.equals(tipo, "Supermercado")) {
 
                 superm.setNomePonto(inserirnome.getText().toString());

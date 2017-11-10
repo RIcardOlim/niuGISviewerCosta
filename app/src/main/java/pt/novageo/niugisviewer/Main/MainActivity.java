@@ -54,6 +54,7 @@ import pt.novageo.niugisviewer.Pontos.Activity_informacao;
 import pt.novageo.niugisviewer.About.Activity_ng;
 import pt.novageo.niugisviewer.DB_layer.TileProviderFactory;
 import pt.novageo.niugisviewer.R;
+import pt.novageo.niugisviewer.Tabela.Cafe;
 import pt.novageo.niugisviewer.Tabela.Escola;
 import pt.novageo.niugisviewer.Tabela.Supermercado;
 
@@ -503,8 +504,15 @@ public class MainActivity extends AppCompatActivity
 
         if(dbCafe) {
 
+            List<Cafe> cafe = AppDatabase.getAppDatabase(this).cafeDao().getAll();
+            for (Cafe caf : cafe) {
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(caf.getLatPonto(), caf.getLngPonto()))
+                        .snippet(caf.getTipoPonto())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))
+                        .title(caf.getNomePonto()));
             }
-
+        }
         if(dbSM) {
 
         List<Supermercado> superm = AppDatabase.getAppDatabase(this).supermercadoDao().getAll();
@@ -530,10 +538,10 @@ public class MainActivity extends AppCompatActivity
 
         if(dbCafe) {
 
-//            Cursor check = db.getDataCafe();
-//            if(check.moveToFirst()) {
-//                AddMarkerDB();
-//            } else Toast.makeText(this, "Nenhum ponto encontrado", Toast.LENGTH_SHORT).show();
+            List<Cafe> cafe = AppDatabase.getAppDatabase(this).cafeDao().getAll();
+            if(!cafe.isEmpty()) {
+                AddMarkerDB();
+            } else Toast.makeText(this, "Nenhum ponto encontrado", Toast.LENGTH_SHORT).show();
         }
 
         if(dbSM) {
@@ -557,15 +565,17 @@ public class MainActivity extends AppCompatActivity
             Escola escola = AppDatabase.getAppDatabase(this).escolaDao().findDatabyNome(nome);
             id = escola.get_id();
             tipo = escola.getTipoPonto();
-            }
+            dbEscola = false;
+        }
 
 
         if(dbCafe) {
 
-//            Cursor check = db.getDataCafe();
-//            if(check.moveToFirst()) {
-//                AddMarkerDB();
-//            } else Toast.makeText(this, "Nenhum ponto encontrado", Toast.LENGTH_SHORT).show();
+            String nome = marker.getTitle();
+            Cafe cafe = AppDatabase.getAppDatabase(this).cafeDao().findDatabyNome(nome);
+            id = cafe.get_id();
+            tipo = cafe.getTipoPonto();
+            dbCafe = false;
         }
 
         if(dbSM) {
@@ -574,6 +584,7 @@ public class MainActivity extends AppCompatActivity
             Supermercado superm = AppDatabase.getAppDatabase(this).supermercadoDao().findDatabyNome(nome);
             id = superm.get_id();
             tipo = superm.getTipoPonto();
+            dbSM = false;
         }
 
         Intent inf = new Intent(this, Activity_informacao.class);

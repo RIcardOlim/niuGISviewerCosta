@@ -8,13 +8,13 @@ import android.arch.persistence.room.TypeConverters;
 import pt.novageo.niugisviewer.DB_ponto.Converters;
 
 /**
- * Created by ricardo on 09-11-2017.
- * ENTIDADE
+ * Created by ricar
+ * do on 10-11-2017.
  */
 
-@Entity(tableName = "Escola")
+@Entity(tableName = "Cafe")
 @TypeConverters({Converters.class})
-public class Escola {
+public class Cafe {
 
     @PrimaryKey(autoGenerate = true)
     private int _id;
@@ -22,7 +22,7 @@ public class Escola {
     @ColumnInfo(name = "nome_ponto")
     private String nomePonto;
 
-    @ColumnInfo(name = "descricao_ponto")
+    @ColumnInfo(name = "desc_ponto")
     private String descPonto;
 
     @ColumnInfo(name = "tipo_ponto")
@@ -44,92 +44,74 @@ public class Escola {
     private byte[] imagemPonto;
 
     public int get_id() {
-
         return _id;
     }
 
-    public void set_id(int id){
-
-        this._id = id;
-    }
-
-    public String getNomePonto(){
-
+    public String getNomePonto() {
         return nomePonto;
     }
 
-    public void setNomePonto(String nomePonto) {
-
-        this.nomePonto = nomePonto;
-    }
-
-    public String getDescPonto(){
-
+    public String getDescPonto() {
         return descPonto;
     }
 
-    public void setDescPonto(String descPonto) {
-
-        this.descPonto = descPonto;
-    }
-
-    public String getTipoPonto(){
-
+    public String getTipoPonto() {
         return tipoPonto;
     }
 
-    public void setTipoPonto(String tipoPonto) {
-
-        this.tipoPonto = tipoPonto;
-    }
-
-    public double getLatPonto(){
-
+    public double getLatPonto() {
         return latPonto;
     }
 
-    public void setLatPonto(double latPonto) {
-
-        this.latPonto = latPonto;
-    }
-
-    public double getLngPonto(){
-
+    public double getLngPonto() {
         return lngPonto;
     }
 
-    public void setLngPonto(double lngPonto) {
-
-        this.lngPonto = lngPonto;
-    }
-
-    public String getDataPonto(){
-
+    public String getDataPonto() {
         return dataPonto;
     }
 
-    public void setDataPonto(String dataPonto) {
-
-        this.dataPonto = dataPonto;
-    }
-
-    public String getMoradaPonto(){
-
+    public String getMoradaPonto() {
         return moradaPonto;
     }
 
-    public void setMoradaPonto(String moradaPonto) {
-
-        this.moradaPonto = moradaPonto;
-    }
-
-    public byte[] getImagemPonto(){
-
+    public byte[] getImagemPonto() {
         return imagemPonto;
     }
 
-    public void setImagemPonto(byte[] imagemPonto) {
+    public void set_id(int _id) {
+        this._id = _id;
+    }
 
+    public void setNomePonto(String nomePonto) {
+        this.nomePonto = nomePonto;
+    }
+
+    public void setDescPonto(String descPonto) {
+        this.descPonto = descPonto;
+    }
+
+    public void setTipoPonto(String tipoPonto) {
+        this.tipoPonto = tipoPonto;
+    }
+
+    public void setLatPonto(double latPonto) {
+        this.latPonto = latPonto;
+    }
+
+    public void setLngPonto(double lngPonto) {
+        this.lngPonto = lngPonto;
+    }
+
+    public void setDataPonto(String dataPonto) {
+        this.dataPonto = dataPonto;
+    }
+
+    public void setMoradaPonto(String moradaPonto) {
+        this.moradaPonto = moradaPonto;
+    }
+
+    public void setImagemPonto(byte[] imagemPonto) {
         this.imagemPonto = imagemPonto;
     }
 }

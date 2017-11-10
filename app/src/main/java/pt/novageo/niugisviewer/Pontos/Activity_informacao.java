@@ -1,7 +1,6 @@
 package pt.novageo.niugisviewer.Pontos;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -14,6 +13,7 @@ import java.util.Objects;
 
 import pt.novageo.niugisviewer.DB_ponto.AppDatabase;
 import pt.novageo.niugisviewer.R;
+import pt.novageo.niugisviewer.Tabela.Cafe;
 import pt.novageo.niugisviewer.Tabela.Escola;
 import pt.novageo.niugisviewer.Tabela.Supermercado;
 
@@ -29,6 +29,7 @@ public class Activity_informacao extends AppCompatActivity {
     int id;
     Escola escola;
     Supermercado superm;
+    Cafe cafe;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -52,10 +53,18 @@ public class Activity_informacao extends AppCompatActivity {
 
         if (Objects.equals(tipo, "Café")) {
 
+            textNome.setText(cafe.getNomePonto());
+            textDesc.setText(cafe.getDescPonto());
+            coorString = Double.toString(cafe.getLatPonto());
+            textLat.setText(coorString);
+            coorString = Double.toString(cafe.getLngPonto());
+            textLng.setText(coorString);
+            textData.setText(cafe.getDataPonto());
+            textMorada.setText(cafe.getMoradaPonto());
         } else if (Objects.equals(tipo, "Escola")) {
 
             textNome.setText(escola.getNomePonto());
-            textDesc.setText(escola.getDescricaoPonto());
+            textDesc.setText(escola.getDescPonto());
             coorString = Double.toString(escola.getLatPonto());
             textLat.setText(coorString);
             coorString = Double.toString(escola.getLngPonto());
@@ -74,8 +83,6 @@ public class Activity_informacao extends AppCompatActivity {
             textMorada.setText(superm.getMoradaPonto());
         }
 
-
-
         FotoView.setImageBitmap(ByteToImageView());
     }
 
@@ -83,6 +90,7 @@ public class Activity_informacao extends AppCompatActivity {
 
         if (Objects.equals(tipo, "Café")) {
 
+            cafe = AppDatabase.getAppDatabase(this).cafeDao().findDatabyId(id);
         } else if (Objects.equals(tipo, "Escola")) {
 
             escola = AppDatabase.getAppDatabase(this).escolaDao().findDatabyID(id);
@@ -97,6 +105,7 @@ public class Activity_informacao extends AppCompatActivity {
         Intent inf = new Intent(this, Activity_ListData.class);
         if (Objects.equals(tipo, "Café")) {
 
+            AppDatabase.getAppDatabase(this).cafeDao().delete(cafe);
         } else if (Objects.equals(tipo, "Escola")) {
 
             AppDatabase.getAppDatabase(this).escolaDao().delete(escola);
@@ -125,6 +134,7 @@ public class Activity_informacao extends AppCompatActivity {
 
         if (Objects.equals(tipo, "Café")) {
 
+            fotoimage = cafe.getImagemPonto();
         } else if (Objects.equals(tipo, "Escola")) {
 
             fotoimage = escola.getImagemPonto();

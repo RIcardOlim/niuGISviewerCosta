@@ -27,6 +27,7 @@ import java.util.Objects;
 import pt.novageo.niugisviewer.DB_ponto.AppDatabase;
 import pt.novageo.niugisviewer.Manifest;
 import pt.novageo.niugisviewer.R;
+import pt.novageo.niugisviewer.Tabela.Cafe;
 import pt.novageo.niugisviewer.Tabela.Escola;
 import pt.novageo.niugisviewer.Tabela.Supermercado;
 
@@ -40,11 +41,11 @@ public class Activity_mudar extends AppCompatActivity {
     ImageView mudarFoto;
     String tipo;
     int id;
-    Cursor c;
     final int REQUEST_CODE_GALLERY = 970;
     Boolean galeria, camera;
     Escola escola;
     Supermercado superm;
+    Cafe cafe;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -65,6 +66,7 @@ public class Activity_mudar extends AppCompatActivity {
 
         if (Objects.equals(tipo, "Café")) {
 
+            cafe = AppDatabase.getAppDatabase(this).cafeDao().findDatabyId(id);
         } else if (Objects.equals(tipo, "Escola")) {
 
             escola = AppDatabase.getAppDatabase(this).escolaDao().findDatabyID(id);
@@ -80,6 +82,21 @@ public class Activity_mudar extends AppCompatActivity {
 
         if (Objects.equals(tipo, "Café")) {
 
+            cafe = AppDatabase.getAppDatabase(this).cafeDao().findDatabyId(id);
+
+            if(!Objects.equals(novonome.getText().toString(), "")) {
+
+                cafe.setNomePonto(novonome.getText().toString());
+            }
+
+            if(!Objects.equals(novodesc.getText().toString(), "")) {
+
+                cafe.setDescPonto(novodesc.getText().toString());
+            }
+
+            cafe.setImagemPonto(imageViewToByte(mudarFoto));
+            AppDatabase.getAppDatabase(this).cafeDao().update(cafe);
+
         } else if (Objects.equals(tipo, "Escola")) {
 
             escola = AppDatabase.getAppDatabase(this).escolaDao().findDatabyID(id);
@@ -91,15 +108,26 @@ public class Activity_mudar extends AppCompatActivity {
 
             if(!Objects.equals(novodesc.getText().toString(), "")) {
 
-                escola.setDescricaoPonto(novodesc.getText().toString());
+                escola.setDescPonto(novodesc.getText().toString());
             }
 
             escola.setImagemPonto(imageViewToByte(mudarFoto));
             AppDatabase.getAppDatabase(this).escolaDao().update(escola);
+
         } else if (Objects.equals(tipo, "Supermercado")) {
 
-            superm.setNomePonto(novonome.getText().toString());
-            superm.setDescPonto(novodesc.getText().toString());
+            superm = AppDatabase.getAppDatabase(this).supermercadoDao().findDatabyID(id);
+
+            if(!Objects.equals(novonome.getText().toString(), "")) {
+
+                superm.setNomePonto(novonome.getText().toString());
+            }
+
+            if(!Objects.equals(novodesc.getText().toString(), "")) {
+
+                superm.setDescPonto(novodesc.getText().toString());
+            }
+
             superm.setImagemPonto(imageViewToByte(mudarFoto));
             AppDatabase.getAppDatabase(this).supermercadoDao().update(superm);
         }
@@ -220,6 +248,7 @@ public class Activity_mudar extends AppCompatActivity {
 
         if (Objects.equals(tipo, "Café")) {
 
+            fotoimage = cafe.getImagemPonto();
         } else if (Objects.equals(tipo, "Escola")) {
 
             fotoimage = escola.getImagemPonto();
