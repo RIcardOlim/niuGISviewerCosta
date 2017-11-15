@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.iid.InstanceID;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -28,6 +30,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.gms.maps.model.TileProvider;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,12 +44,17 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import io.reactivex.disposables.Disposable;
 import pt.novageo.niugisviewer.About.Activity_about;
 import pt.novageo.niugisviewer.About.Activity_cma;
 import pt.novageo.niugisviewer.About.Activity_escola;
+import pt.novageo.niugisviewer.Api.ApiListener;
+import pt.novageo.niugisviewer.Api.ApiManager;
+import pt.novageo.niugisviewer.BuildConfig;
 import pt.novageo.niugisviewer.DB_ponto.AppDatabase;
 import pt.novageo.niugisviewer.Pontos.Activity_ListData;
 import pt.novageo.niugisviewer.Pontos.Activity_Ponto;
@@ -413,8 +421,9 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.action_niuGISdb) {
 
-            new JSONTask().execute("http://agualva.niugis.com/websig/webservices/teste.php");
-            return true;
+            enviarDados();
+            /*new JSONTask().execute("http://agualva.niugis.com/websig/webservices/teste.php");
+            return true;*/
         }
 
         ResetLayer();
@@ -590,6 +599,70 @@ public class MainActivity extends AppCompatActivity
         startActivity(inf);
     }
 
+    private void enviarDados(){
+
+        List<Escola> listescola = AppDatabase.getAppDatabase(this).escolaDao().getAll();
+        List<Cafe> listcafe = AppDatabase.getAppDatabase(this).cafeDao().getAll();
+        List<Supermercado> listsm = AppDatabase.getAppDatabase(this).supermercadoDao().getAll();
+        String json2file = "";
+        String json = "";
+        //device
+       /* String instanceId = InstanceID.getInstance(this).getId();
+        String serialNumber = Build.SERIAL;
+        String device_code = serialNumber + "_" + instanceId;*/
+
+        for(Escola escola : listescola){
+
+            json = new GsonBuilder().create().toJson(escola, Escola.class);
+            json2file += json;
+        }
+
+        for (Cafe cafe : listcafe){
+
+            json = new GsonBuilder().create().toJson(cafe);
+        }
+
+        for (Supermercado sm : listsm){
+
+            json = new GsonBuilder().create().toJson(sm);
+        }
+
+        try {
+
+            Log.d(BuildConfig.NAME, "Pedido enviado");
+            ApiManager.getInstance().postAddPonto("setsync",
+                    "Ricardo",
+                    "123456",
+                    json2file,
+                    new AddPontoRequestListener());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class AddPontoRequestListener implements ApiListener<Void> {
+
+
+        @Override
+        public void subscribe(Disposable disposable) {
+            Log.d(BuildConfig.NAME, "Subscrito");
+        }
+
+        @Override
+        public void onSuccess(String url) {
+
+            Log.d(BuildConfig.NAME, "Sucesso!");
+            Toast.makeText(MainActivity.this, "Enviado com Sucesso!", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onFailure(String error) {
+            Log.d(BuildConfig.NAME, "Falhou: " + error);
+        }
+    }
+
+/*
+
     public class JSONTask extends AsyncTask<String, Void, String> {
 
         @Override
@@ -659,6 +732,7 @@ public class MainActivity extends AppCompatActivity
                 }
 
                 String finalJson = buffer.toString();
+                Log.e("niuGISviewer", finalJson);
 
                 JSONObject parentObject = new JSONObject(finalJson);
                 JSONObject respostaObject = parentObject.getJSONObject("response");
@@ -706,5 +780,6 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
         }
     }
+*/
 
 }
